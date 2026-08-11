@@ -1,0 +1,209 @@
+{
+ "course": "6.824",
+ "title": "Distributed Computer Systems Engineering",
+ "slug": "6-824-distributed-computer-systems-engineering-spring-2006",
+ "files": 33,
+ "downloaded_ok": 33,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "lab1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 39497
+  },
+  {
+   "file": "webserver.c",
+   "category": "software",
+   "status": "ok",
+   "size": 2067
+  },
+  {
+   "file": "lab3.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 1663
+  },
+  {
+   "file": "webclient_libasync.c",
+   "category": "software",
+   "status": "ok",
+   "size": 1797
+  },
+  {
+   "file": "quiz1_05_ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 77671
+  },
+  {
+   "file": "lab2.tgz",
+   "category": "other",
+   "status": "ok",
+   "size": 9347
+  },
+  {
+   "file": "prev_projects.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 29996
+  },
+  {
+   "file": "arpc.c",
+   "category": "software",
+   "status": "ok",
+   "size": 5110
+  },
+  {
+   "file": "lab3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 34051
+  },
+  {
+   "file": "frangipani.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 64771
+  },
+  {
+   "file": "argus.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 59990
+  },
+  {
+   "file": "lec2_events.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 19210
+  },
+  {
+   "file": "nfsloop.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 70437
+  },
+  {
+   "file": "lec1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 28346
+  },
+  {
+   "file": "syscall.c",
+   "category": "software",
+   "status": "ok",
+   "size": 712
+  },
+  {
+   "file": "lab1.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 8327
+  },
+  {
+   "file": "webclient.c",
+   "category": "software",
+   "status": "ok",
+   "size": 1337
+  },
+  {
+   "file": "hagmann.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 67391
+  },
+  {
+   "file": "lab2.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 12620
+  },
+  {
+   "file": "echo.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 63113
+  },
+  {
+   "file": "get_started.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 51210
+  },
+  {
+   "file": "flash.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 73604
+  },
+  {
+   "file": "porcupine.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 56809
+  },
+  {
+   "file": "lab2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 42971
+  },
+  {
+   "file": "quiz2_05_ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 74226
+  },
+  {
+   "file": "hypervisor.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 70499
+  },
+  {
+   "file": "fab.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 78556
+  },
+  {
+   "file": "lab3.tgz",
+   "category": "other",
+   "status": "ok",
+   "size": 1455
+  },
+  {
+   "file": "events.c",
+   "category": "software",
+   "status": "ok",
+   "size": 1113
+  },
+  {
+   "file": "lec3_events.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 18927
+  },
+  {
+   "file": "lec2_concurrency.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 23496
+  },
+  {
+   "file": "harp.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 72710
+  },
+  {
+   "file": "lab1.tgz",
+   "category": "other",
+   "status": "ok",
+   "size": 5113
+  }
+ ]
+}

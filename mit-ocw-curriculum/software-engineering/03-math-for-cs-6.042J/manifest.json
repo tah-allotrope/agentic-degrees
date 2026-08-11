@@ -1,0 +1,257 @@
+{
+ "course": "6.042J",
+ "title": "Mathematics for Computer Science",
+ "slug": "6-042j-mathematics-for-computer-science-fall-2010",
+ "files": 41,
+ "downloaded_ok": 41,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_042JF10_rec05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 128909
+  },
+  {
+   "file": "MIT6_042JF10_rec01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 92331
+  },
+  {
+   "file": "MIT6_042JF10_final.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 205263
+  },
+  {
+   "file": "MIT6_042JF10_assn09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 154027
+  },
+  {
+   "file": "MIT6_042JF10_fnl_2004_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 266808
+  },
+  {
+   "file": "MIT6_042JF10_assn05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 192617
+  },
+  {
+   "file": "MIT6_042JF10_assn03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 188090
+  },
+  {
+   "file": "MIT6_042JF10_chap04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 365535
+  },
+  {
+   "file": "MIT6_042JF10_chap02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 282457
+  },
+  {
+   "file": "MIT6_042JF10_rec04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 158487
+  },
+  {
+   "file": "MIT6_042JF10_rec02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 55860
+  },
+  {
+   "file": "MIT6_042JF10_assn08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 156743
+  },
+  {
+   "file": "MIT6_042JF10_rec03_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 209674
+  },
+  {
+   "file": "MIT6_042JF10_assn07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 197662
+  },
+  {
+   "file": "MIT6_042JF10_chap10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 375782
+  },
+  {
+   "file": "MIT6_042JF10_chap05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 971785
+  },
+  {
+   "file": "MIT6_042JF10_final_2004.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 212288
+  },
+  {
+   "file": "MIT6_042JF10_assn01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 141773
+  },
+  {
+   "file": "MIT6_042JF10_assn06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 172318
+  },
+  {
+   "file": "MIT6_042JF10_notes.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 3355995
+  },
+  {
+   "file": "MIT6_042JF10_rec03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 130047
+  },
+  {
+   "file": "MIT6_042JF10_assn10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 195505
+  },
+  {
+   "file": "MIT6_042JF10_rec05_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 189955
+  },
+  {
+   "file": "MIT6_042JF10_assn02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 113230
+  },
+  {
+   "file": "MIT6_042JF10_chap01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 255245
+  },
+  {
+   "file": "MIT6_042JF10_rec02_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 78539
+  },
+  {
+   "file": "MIT6_042JF10_final_2006.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 205526
+  },
+  {
+   "file": "MIT6_042JF10_final_2008.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 250144
+  },
+  {
+   "file": "MIT6_042JF10_chap09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 531656
+  },
+  {
+   "file": "MIT6_042JF10_rec01_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 213430
+  },
+  {
+   "file": "MIT6_042JF10_mid_practice.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 225537
+  },
+  {
+   "file": "MIT6_042JF10_fnl_2006_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 326185
+  },
+  {
+   "file": "MIT6_042JF10_midterm.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 185357
+  },
+  {
+   "file": "MIT6_042JF10_assn04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 214373
+  },
+  {
+   "file": "MIT6_042JF10_mid_pctce_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 262570
+  },
+  {
+   "file": "MIT6_042JF10_midterm_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 257758
+  },
+  {
+   "file": "MIT6_042JF10_rec04_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 230054
+  },
+  {
+   "file": "MIT6_042JF10_chap06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 488314
+  },
+  {
+   "file": "MIT6_042JF10_chap03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 465854
+  },
+  {
+   "file": "MIT6_042JF10_fnl_2008_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 329201
+  },
+  {
+   "file": "MIT6_042JF10_chap07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 372321
+  }
+ ]
+}

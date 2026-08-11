@@ -1,0 +1,119 @@
+{
+ "course": "6.0001",
+ "title": "Introduction to Computer Science and Programming in Python",
+ "slug": "6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016",
+ "files": 18,
+ "downloaded_ok": 18,
+ "failed": [],
+ "videos": 22,
+ "manifest": [
+  {
+   "file": "lec1.py",
+   "category": "software",
+   "status": "ok",
+   "size": 1277
+  },
+  {
+   "file": "lec2_branch_loops.py",
+   "category": "software",
+   "status": "ok",
+   "size": 2880
+  },
+  {
+   "file": "MIT6_0001F16_StyleGuide.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 660278
+  },
+  {
+   "file": "MIT6_0001F16_ps1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 689569
+  },
+  {
+   "file": "ps4.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 842375
+  },
+  {
+   "file": "ps5.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 710035
+  },
+  {
+   "file": "MIT6_0001F16_Lec1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 823569
+  },
+  {
+   "file": "MIT6_0001F16_Lec3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 596822
+  },
+  {
+   "file": "MIT6_0001F16_Lec2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 715048
+  },
+  {
+   "file": "lec5_tuples_lists.py",
+   "category": "software",
+   "status": "ok",
+   "size": 4568
+  },
+  {
+   "file": "ps2.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 458195
+  },
+  {
+   "file": "MIT6_0001F16_Lec4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1116080
+  },
+  {
+   "file": "lec3_strings_algos.py",
+   "category": "software",
+   "status": "ok",
+   "size": 2970
+  },
+  {
+   "file": "MIT6_0001F16_additional.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 228626
+  },
+  {
+   "file": "lec4_functions.py",
+   "category": "software",
+   "status": "ok",
+   "size": 6717
+  },
+  {
+   "file": "PS3.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 868600
+  },
+  {
+   "file": "MIT6_0001F16_Lec5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 942084
+  },
+  {
+   "file": "ps0.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 2091784
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "course": "6.005",
+ "title": "Software Construction",
+ "slug": "6-005-software-construction-spring-2016",
+ "files": 4,
+ "downloaded_ok": 4,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_005S16_Quiz2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 215021
+  },
+  {
+   "file": "MIT6_005S16_Quiz2_soln.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 245176
+  },
+  {
+   "file": "MIT6_005S16_Quiz1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 308780
+  },
+  {
+   "file": "MIT6_005S16_Quiz1_soln.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 295898
+  }
+ ]
+}

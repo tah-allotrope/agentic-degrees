@@ -1,0 +1,13 @@
+# 6.042J | 6.042J - lecture videos
+# Primary: YouTube (official MIT OCW). Batch-download: yt-dlp --batch-file videos.txt
+# (playlist links: yt-dlp will expand the whole playlist)
+
+## YouTube
+Playlist: MIT 6.042J Mathematics for Computer Science (official MIT OCW)
+https://www.youtube.com/playlist?list=PLUl4u3cNGP60UlabZBeeqOuoLuj_KNphQ
+
+## Archive.org backup (same lectures, direct mp4 - also on OCW download page)
+https://www.youtube.com/mitocw
+
+## Find all lectures on the MIT OpenCourseWare channel
+https://www.youtube.com/@mitocw

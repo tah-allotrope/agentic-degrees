@@ -1,0 +1,27 @@
+# 6.046J | Design and Analysis of Algorithms — lecture videos on YouTube
+# Stream online or download with: yt-dlp --batch-file videos.txt
+
+Lecture 1: Overview, Interval Scheduling — https://www.youtube.com/watch?v=2P-yW7LQr08
+Lecture 2: Divide & Conquer: Convex Hull, Median Finding — https://www.youtube.com/watch?v=EzeYI7p9MjU
+Lecture 3: Divide & Conquer: FFT — https://www.youtube.com/watch?v=iTMn0Kt18tg
+Lecture 4: Divide & Conquer: van Emde Boas Trees — https://www.youtube.com/watch?v=hmReJCupbNU
+Lecture 5: Amortization: Amortized Analysis — https://www.youtube.com/watch?v=3MpzavN3Mco
+Lecture 6: Randomization: Matrix Multiply, Quicksort — https://www.youtube.com/watch?v=cNB2lADK3_s
+Lecture 7: Randomization: Skip Lists — https://www.youtube.com/watch?v=2g9OSRKJuzM
+Lecture 8: Randomization: Universal & Perfect Hashing — https://www.youtube.com/watch?v=z0lJ2k0sl1g
+Lecture 9: Augmentation: Range Trees — https://www.youtube.com/watch?v=xVka6z1hu-I
+Lecture 10: Dynamic Programming: Advanced DP — https://www.youtube.com/watch?v=Tw1k46ywN6E
+Lecture 11: Dynamic Programming: All-Pairs Shortest Paths — https://www.youtube.com/watch?v=NzgFUwOaoIw
+Lecture 12: Greedy Algorithms: Minimum Spanning Tree — https://www.youtube.com/watch?v=tKwnms5iRBU
+Lecture 13: Incremental Improvement: Max Flow, Min Cut — https://www.youtube.com/watch?v=VYZGlgzr_As
+Lecture 14: Incremental Improvement: Matching — https://www.youtube.com/watch?v=8C_T4iTzPCU
+Lecture 15: Linear Programming: LP, reductions, Simplex — https://www.youtube.com/watch?v=WwMz2fJwUCg
+Lecture 16: Complexity: P, NP, NP-completeness, Reductions — https://www.youtube.com/watch?v=eHZifpgyH_4
+Lecture 17: Complexity: Approximation Algorithms — https://www.youtube.com/watch?v=MEz1J9wY2iM
+Lecture 18: Complexity: Fixed-Parameter Algorithms — https://www.youtube.com/watch?v=4q-jmGrmxKs
+Lecture 19: Synchronous Distributed Algorithms: Symmetry-Breaking. Shortest-Paths Spanning Trees — https://www.youtube.com/watch?v=mUBmcbbJNf4
+Lecture 20: Asynchronous Distributed Algorithms: Shortest-Paths Spanning Trees — https://www.youtube.com/watch?v=EQjwWn-WrdI
+Lecture 21: Cryptography: Hash Functions — https://www.youtube.com/watch?v=KqqOXndnvic
+Lecture 22: Cryptography: Encryption — https://www.youtube.com/watch?v=9TNI2wHmaeI
+Lecture 23: Cache-Oblivious Algorithms: Medians & Matrices — https://www.youtube.com/watch?v=CSqbjfCCLrU
+Lecture 24: Cache-Oblivious Algorithms: Searching & Sorting — https://www.youtube.com/watch?v=C6EWVBNCxsc

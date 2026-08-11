@@ -1,0 +1,215 @@
+{
+ "course": "6.061",
+ "title": "Introduction to Electric Power Systems",
+ "slug": "6-061-introduction-to-electric-power-systems-spring-2011",
+ "files": 34,
+ "downloaded_ok": 34,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_061S11_ch3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 427117
+  },
+  {
+   "file": "MIT6_061S11_ch8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 894913
+  },
+  {
+   "file": "MIT6_061S11_quiz02_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 81871
+  },
+  {
+   "file": "MIT6_061S11_ch5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 184793
+  },
+  {
+   "file": "MIT6_061S11_assn02_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 191692
+  },
+  {
+   "file": "MIT6_061S11_ch12.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 728836
+  },
+  {
+   "file": "MIT6_061S11_assn06_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 132692
+  },
+  {
+   "file": "MIT6_061S11_ch6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 167662
+  },
+  {
+   "file": "MIT6_061S11_ch1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 344426
+  },
+  {
+   "file": "MIT6_061S11_assn07_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 87344
+  },
+  {
+   "file": "MIT6_061S11_assn03_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 348146
+  },
+  {
+   "file": "MIT6_061S11_assn07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 93500
+  },
+  {
+   "file": "MIT6_061S11_assn01_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 107255
+  },
+  {
+   "file": "MIT6_061S11_assn10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 98278
+  },
+  {
+   "file": "MIT6_061S11_assn09_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 165507
+  },
+  {
+   "file": "MIT6_061S11_quiz01_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 76591
+  },
+  {
+   "file": "MIT6_061S11_assn05_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 142625
+  },
+  {
+   "file": "MIT6_061S11_ch10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 777801
+  },
+  {
+   "file": "MIT6_061S11_assn08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 38861
+  },
+  {
+   "file": "MIT6_061S11_assn08_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 213962
+  },
+  {
+   "file": "MIT6_061S11_assn09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 41377
+  },
+  {
+   "file": "MIT6_061S11_assn02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 68380
+  },
+  {
+   "file": "MIT6_061S11_assn10_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 261304
+  },
+  {
+   "file": "MIT6_061S11_quiz02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 83890
+  },
+  {
+   "file": "MIT6_061S11_assn01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 70054
+  },
+  {
+   "file": "MIT6_061S11_assn05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 58178
+  },
+  {
+   "file": "MIT6_061S11_assn06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 59158
+  },
+  {
+   "file": "MIT6_061S11_ch11.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 453197
+  },
+  {
+   "file": "MIT6_061S11_ch2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 390308
+  },
+  {
+   "file": "MIT6_061S11_ch4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 250854
+  },
+  {
+   "file": "MIT6_061S11_quiz01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 85072
+  },
+  {
+   "file": "MIT6_061S11_assn04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 82674
+  },
+  {
+   "file": "MIT6_061S11_assn03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 83962
+  },
+  {
+   "file": "MIT6_061S11_assn04_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 195009
+  }
+ ]
+}

@@ -1,0 +1,323 @@
+{
+ "course": "6.003",
+ "title": "Signals and Systems",
+ "slug": "6-003-signals-and-systems-fall-2011",
+ "files": 52,
+ "downloaded_ok": 52,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_003F11_S10q2_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 348728
+  },
+  {
+   "file": "MIT6_003F11_sol08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 438665
+  },
+  {
+   "file": "MIT6_003F11_F09q1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 217558
+  },
+  {
+   "file": "MIT6_003F11_q2_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 764001
+  },
+  {
+   "file": "MIT6_003F11_sol09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 411999
+  },
+  {
+   "file": "MIT6_003F11_F09q3_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 362495
+  },
+  {
+   "file": "MIT6_003F11_chap4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 155848
+  },
+  {
+   "file": "MIT6_003F11_hw04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 240037
+  },
+  {
+   "file": "MIT6_003F11_lec01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 783976
+  },
+  {
+   "file": "MIT6_003F11_sol03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 446604
+  },
+  {
+   "file": "MIT6_003F11_chap3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 177417
+  },
+  {
+   "file": "MIT6_003F11_sol07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 404394
+  },
+  {
+   "file": "MIT6_003F11_front.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 111128
+  },
+  {
+   "file": "MIT6_003F11_lec03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1065985
+  },
+  {
+   "file": "MIT6_003F11_F09q2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 246861
+  },
+  {
+   "file": "MIT6_003F11_chap7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 163091
+  },
+  {
+   "file": "MIT6_003F11_sol05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 579790
+  },
+  {
+   "file": "MIT6_003F11_F09final_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 378030
+  },
+  {
+   "file": "MIT6_003F11_lec05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 815799
+  },
+  {
+   "file": "MIT6_003F11_hw06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 231712
+  },
+  {
+   "file": "MIT6_003F11_chap1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 529041
+  },
+  {
+   "file": "MIT6_003F11_chap5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 138386
+  },
+  {
+   "file": "MIT6_003F11_S10q1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 232252
+  },
+  {
+   "file": "MIT6_003F11_sol10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 380075
+  },
+  {
+   "file": "MIT6_003F11_sol06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 418108
+  },
+  {
+   "file": "MIT6_003F11_S10q1_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 329702
+  },
+  {
+   "file": "MIT6_003F11_lec02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 844471
+  },
+  {
+   "file": "MIT6_003F11_lec09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1708454
+  },
+  {
+   "file": "MIT6_003F11_lec06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 791534
+  },
+  {
+   "file": "MIT6_003F11_lec08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 2090244
+  },
+  {
+   "file": "MIT6_003F11_sol02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 507602
+  },
+  {
+   "file": "MIT6_003F11_sol04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 434429
+  },
+  {
+   "file": "MIT6_003F11_q1_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 752011
+  },
+  {
+   "file": "buildings.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 473552
+  },
+  {
+   "file": "MIT6_003F11_back.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 171752
+  },
+  {
+   "file": "MIT6_003F11_hw07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 344242
+  },
+  {
+   "file": "MIT6_003F11_lec07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 946459
+  },
+  {
+   "file": "MIT6_003F11_F09q2_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 333732
+  },
+  {
+   "file": "MIT6_003F11_chap6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 153784
+  },
+  {
+   "file": "MIT6_003F11_chap2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 163685
+  },
+  {
+   "file": "MIT6_003F11_sol01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 446095
+  },
+  {
+   "file": "MIT6_003F11_hw01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 296200
+  },
+  {
+   "file": "MIT6_003F11_S10final_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 918923
+  },
+  {
+   "file": "MIT6_003F11_hw02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 259709
+  },
+  {
+   "file": "MIT6_003F11_q1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 692450
+  },
+  {
+   "file": "MIT6_003F11_F09q1_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 318408
+  },
+  {
+   "file": "MIT6_003F11_q3_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 796051
+  },
+  {
+   "file": "MIT6_003F11_hw05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 334965
+  },
+  {
+   "file": "MIT6_003F11_hw03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 290657
+  },
+  {
+   "file": "MIT6_003F11_lec04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 868963
+  },
+  {
+   "file": "MIT6_003F11_notes.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 971590
+  },
+  {
+   "file": "MIT6_003F11_lec10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1416085
+  }
+ ]
+}

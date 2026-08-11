@@ -1,0 +1,15 @@
+# 6.0001 | Introduction to Computer Science and Programming in Python — lecture videos on YouTube
+# Stream online or download with: yt-dlp --batch-file videos.txt
+
+Lecture 1: What is Computation? — https://www.youtube.com/watch?v=nykOeWgQcHM
+Lecture 2: Branching and Iteration — https://www.youtube.com/watch?v=0jljZRnHwOI
+Lecture 3: String Manipulation, Guess and Check, Approximations, Bisection — https://www.youtube.com/watch?v=SE4P7IVCunE
+Lecture 4: Decomposition, Abstraction, and Functions — https://www.youtube.com/watch?v=MjbuarJ7SE0
+Lecture 5: Tuples, Lists, Aliasing, Mutability, and Cloning — https://www.youtube.com/watch?v=RvRKT-jXvko
+Lecture 6: Recursion and Dictionaries — https://www.youtube.com/watch?v=WPSeyjX1-4s
+Lecture 7: Testing, Debugging, Exceptions, and Assertions — https://www.youtube.com/watch?v=9H6muyZjms0
+Lecture 8: Object Oriented Programming — https://www.youtube.com/watch?v=-DP1i2ZU9gk
+Lecture 9: Python Classes and Inheritance — https://www.youtube.com/watch?v=FlGjISF3l78
+Lecture 10: Understanding Program Efficiency, Part 1 — https://www.youtube.com/watch?v=o9nW0uBqvEo
+Lecture 11: Understanding Program Efficiency, Part 2 — https://www.youtube.com/watch?v=7lQXYl_L28w
+Lecture 12: Searching and Sorting — https://www.youtube.com/watch?v=6LOwPhPDwVc

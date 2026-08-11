@@ -1,0 +1,293 @@
+{
+ "course": "6.006",
+ "title": "Introduction to Algorithms",
+ "slug": "6-006-introduction-to-algorithms-spring-2020",
+ "files": 47,
+ "downloaded_ok": 47,
+ "failed": [],
+ "videos": 16,
+ "manifest": [
+  {
+   "file": "MIT6_006S20_r02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 257188
+  },
+  {
+   "file": "MIT6_006S20_final.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 265634
+  },
+  {
+   "file": "MIT6_006s20_prob2sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 362344
+  },
+  {
+   "file": "MIT6_006S20_r03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 276655
+  },
+  {
+   "file": "MIT6_006S20_prob2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 187671
+  },
+  {
+   "file": "MIT6_006S20_review3_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 219862
+  },
+  {
+   "file": "MIT6_006S20_review1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 203970
+  },
+  {
+   "file": "MIT6_006S20_ps0-solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 216604
+  },
+  {
+   "file": "MIT6_006S20_r01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 308577
+  },
+  {
+   "file": "MIT6_006S20_q2_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 245286
+  },
+  {
+   "file": "MIT6_006S20_ps3-solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 304080
+  },
+  {
+   "file": "MIT6_006S20_lec7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 213915
+  },
+  {
+   "file": "MIT6_006S20_ps7_solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 594592
+  },
+  {
+   "file": "MIT6_006S20_final_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 351596
+  },
+  {
+   "file": "MIT6_006S20_ps1-questions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 222827
+  },
+  {
+   "file": "MIT6_006S20_ps6_solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 258678
+  },
+  {
+   "file": "MIT6_006S20_prob3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 197347
+  },
+  {
+   "file": "MIT6_006S20_lec6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 226027
+  },
+  {
+   "file": "MIT6_006S20_ps1-template.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 11601
+  },
+  {
+   "file": "MIT6_006S20_lec2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 221904
+  },
+  {
+   "file": "MIT6_006S20_lec10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 242252
+  },
+  {
+   "file": "MIT6_006S20_review1_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 221375
+  },
+  {
+   "file": "MIT6_006S20_ps0-questions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 189293
+  },
+  {
+   "file": "MIT6_006S20_prob1sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 213785
+  },
+  {
+   "file": "MIT6_006S20_prob1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 199728
+  },
+  {
+   "file": "MIT6_006S20_ps2-template.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 21477
+  },
+  {
+   "file": "MIT6_006S20_lec8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 236091
+  },
+  {
+   "file": "MIT6_006S20_ps1-solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 294223
+  },
+  {
+   "file": "MIT6_006S20_q1_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 315124
+  },
+  {
+   "file": "MIT6_006S20_lec3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 229595
+  },
+  {
+   "file": "MIT6_006S20_review2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 166301
+  },
+  {
+   "file": "MIT6_006S20_lec5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 212265
+  },
+  {
+   "file": "MIT6_006s20_prob3sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 251675
+  },
+  {
+   "file": "MIT6_006S20_lec9.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 260901
+  },
+  {
+   "file": "MIT6_006S20_ps2-questions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 539896
+  },
+  {
+   "file": "MIT6_006S20_ps0-template.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 10723
+  },
+  {
+   "file": "MIT6_006S20_review2_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 196313
+  },
+  {
+   "file": "MIT6_006S20_prob4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 177152
+  },
+  {
+   "file": "MIT6_006S20_lec1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 237706
+  },
+  {
+   "file": "MIT6_006S20_ps2-solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 690170
+  },
+  {
+   "file": "MIT6_006S20_q1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 248519
+  },
+  {
+   "file": "MIT6_006S20_ps5_solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 278842
+  },
+  {
+   "file": "MIT6_006S20_lec4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 224668
+  },
+  {
+   "file": "MIT6_006S20_ps4-solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 355741
+  },
+  {
+   "file": "MIT6_006S20_ps8_solutions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 246217
+  },
+  {
+   "file": "MIT6_006S20_ps3-questions.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 251218
+  },
+  {
+   "file": "MIT6_006S20_q2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 186922
+  }
+ ]
+}

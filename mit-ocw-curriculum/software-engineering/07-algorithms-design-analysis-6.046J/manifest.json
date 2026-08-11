@@ -1,0 +1,263 @@
+{
+ "course": "6.046J",
+ "title": "Design and Analysis of Algorithms",
+ "slug": "6-046j-design-and-analysis-of-algorithms-spring-2015",
+ "files": 42,
+ "downloaded_ok": 42,
+ "failed": [],
+ "videos": 26,
+ "manifest": [
+  {
+   "file": "MIT6_046JS15_pset3sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 189872
+  },
+  {
+   "file": "MIT6_046JS15_pset4sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 235541
+  },
+  {
+   "file": "MIT6_046JS15_quiz2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 243916
+  },
+  {
+   "file": "MIT6_046JS15_quiz2sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 275991
+  },
+  {
+   "file": "MIT6_046JS15_pset1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 226751
+  },
+  {
+   "file": "MIT6_046JS15_Recitation4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 209870
+  },
+  {
+   "file": "MIT6_046JS15_pset8sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 270183
+  },
+  {
+   "file": "MIT6_046JS15_lec01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 209858
+  },
+  {
+   "file": "MIT6_046JS15_pset5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 233582
+  },
+  {
+   "file": "MIT6_046JS15_quiz1sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 235072
+  },
+  {
+   "file": "MIT6_046JS15_writtenlec3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 4992603
+  },
+  {
+   "file": "MIT6_046JS15_pset5sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 281488
+  },
+  {
+   "file": "MIT6_046JS15_pset6sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 260285
+  },
+  {
+   "file": "MIT6_046JS15_lec05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 123870
+  },
+  {
+   "file": "MIT6_046JS15_writtenlec2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 622935
+  },
+  {
+   "file": "MIT6_046JS15_writtenlec4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 4484947
+  },
+  {
+   "file": "MIT6_046JS15_Recitation5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 216604
+  },
+  {
+   "file": "MIT6_046JS15_Recitation6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 191681
+  },
+  {
+   "file": "MIT6_046JS15_Recitation10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 219464
+  },
+  {
+   "file": "MIT6_046JS15_writtenlec1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 686875
+  },
+  {
+   "file": "MIT6_046JS15_Recitation9.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 188582
+  },
+  {
+   "file": "MIT6_046JS15_final.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 347811
+  },
+  {
+   "file": "MIT6_046JS15_pset2sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 257737
+  },
+  {
+   "file": "MIT6_046JS15_pset7sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 295081
+  },
+  {
+   "file": "MIT6_046JS15_Recitation3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 344821
+  },
+  {
+   "file": "MIT6_046JS15_lec03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 166171
+  },
+  {
+   "file": "MIT6_046JS15_pset9sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 288571
+  },
+  {
+   "file": "MIT6_046JS15_finalsols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 489349
+  },
+  {
+   "file": "MIT6_046JS15_pset10sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 224566
+  },
+  {
+   "file": "MIT6_046JS15_Recitation7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 218460
+  },
+  {
+   "file": "MIT6_046JS15_Recitation1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 245173
+  },
+  {
+   "file": "MIT6_046JS15_Recitation2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 361645
+  },
+  {
+   "file": "MIT6_046JS15_pset1sols.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 255742
+  },
+  {
+   "file": "template.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 51412
+  },
+  {
+   "file": "MIT6_046JS15_pset2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 185644
+  },
+  {
+   "file": "MIT6_046JS15_pset3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 151289
+  },
+  {
+   "file": "MIT6_046JS15_lec02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 133563
+  },
+  {
+   "file": "MIT6_046JS15_quiz1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 219342
+  },
+  {
+   "file": "MIT6_046JS15_pset4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 206014
+  },
+  {
+   "file": "MIT6_046JS15_Recitation8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 259355
+  },
+  {
+   "file": "MIT6_046JS15_lec04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 142703
+  },
+  {
+   "file": "MIT6_046JS15_writtenlec5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 6474241
+  }
+ ]
+}

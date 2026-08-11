@@ -1,0 +1,28 @@
+# 6.003 | Signals and Systems — lecture videos on YouTube
+# Stream online or download with: yt-dlp --batch-file videos.txt
+
+Lecture 1: Signals and Systems — https://www.youtube.com/watch?v=-FHm2pQmiSM
+Lecture 2: Discrete-Time (DT) Systems — https://www.youtube.com/watch?v=Ih4s5IFphCw
+Lecture 3: Feedback, Poles, and Fundamental Modes — https://www.youtube.com/watch?v=K3OFb7RlbVE
+Lecture 4: Continuous-Time (CT) Systems — https://www.youtube.com/watch?v=4PlHFcfB8DA
+Lecture 5: Z Transform — https://www.youtube.com/watch?v=iI-ejO9hczw
+Lecture 6: Laplace Transform — https://www.youtube.com/watch?v=MRy8xxvsZA4
+Lecture 7: Discrete Approximation of Continuous-Time Systems — https://www.youtube.com/watch?v=pqkYqU11ETA
+Lecture 8: Convolution — https://www.youtube.com/watch?v=w1Z2FX8rQc0
+Lecture 9: Frequency Response — https://www.youtube.com/watch?v=fKaZeD70p8I
+Lecture 10: Feedback and Control — https://www.youtube.com/watch?v=TeVSxZgIHAA
+Lecture 11: Continuous-Time (CT) Frequency Response and Bode Plot — https://www.youtube.com/watch?v=2X7o37pfdp8
+Lecture 12: Continuous-Time (CT) Feedback and Control, Part 1 — https://www.youtube.com/watch?v=5w2BvCPuYY0
+Lecture 13: Continuous-Time (CT) Feedback and Control, Part 2 — https://www.youtube.com/watch?v=gxgV_oOG7Zc
+Lecture 14: Fourier Representations — https://www.youtube.com/watch?v=ufU6b7OHb8M
+Lecture 15: Fourier Series — https://www.youtube.com/watch?v=N0CVIoVQkmc
+Lecture 16: Fourier Transform — https://www.youtube.com/watch?v=iWZNTM139xQ
+Lecture 17: Discrete-Time (DT) Frequency Representations — https://www.youtube.com/watch?v=gwa-Rh0u6bs
+Lecture 18: Discrete-Time (DT) Fourier Representations — https://www.youtube.com/watch?v=3D51nqZ-97Q
+Lecture 19: Relations Among Fourier Representations — https://www.youtube.com/watch?v=HDYAbIA-DNY
+Lecture 20: Applications of Fourier Transforms — https://www.youtube.com/watch?v=tp_MdKz3fC8
+Lecture 21: Sampling — https://www.youtube.com/watch?v=1El4znkRH0g
+Lecture 22: Sampling and Quantization — https://www.youtube.com/watch?v=bJvv5SckGeA
+Lecture 23: Modulation, Part 1 — https://www.youtube.com/watch?v=OT04cEdpK-M
+Lecture 24: Modulation, Part 2 — https://www.youtube.com/watch?v=OfMhtibbVXU
+Lecture 25: Audio CD — https://www.youtube.com/watch?v=t2hNMFoIv8w

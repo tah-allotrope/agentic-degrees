@@ -1,0 +1,251 @@
+{
+ "course": "6.012",
+ "title": "Microelectronic Devices and Circuits",
+ "slug": "6-012-microelectronic-devices-and-circuits-fall-2009",
+ "files": 40,
+ "downloaded_ok": 40,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_012F09_diagnostic.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 115797
+  },
+  {
+   "file": "MIT6_012F09_lec11_drain.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 104737
+  },
+  {
+   "file": "MIT6_012F09_exam2_s06_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 122907
+  },
+  {
+   "file": "MIT6_012F09_exam2_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 238516
+  },
+  {
+   "file": "MIT6_012F09_exam2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 276559
+  },
+  {
+   "file": "MIT6_012F09_final.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 397848
+  },
+  {
+   "file": "MIT6_012F09_assn05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 113628
+  },
+  {
+   "file": "MIT6_012F09_exam2_s06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 144667
+  },
+  {
+   "file": "MIT6_012F09_lec03_photo.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 67103
+  },
+  {
+   "file": "MIT6_012F09_final_s06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 208235
+  },
+  {
+   "file": "design_sheet.xls",
+   "category": "other",
+   "status": "ok",
+   "size": 11776
+  },
+  {
+   "file": "MIT6_012F09_lec14_inverter.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 178458
+  },
+  {
+   "file": "MIT6_012F09_assn06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 133404
+  },
+  {
+   "file": "MIT6_012F09_assn03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 113466
+  },
+  {
+   "file": "MIT6_012F09_lec14_delays.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 121505
+  },
+  {
+   "file": "MIT6_012F09_design.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 314591
+  },
+  {
+   "file": "MIT6_012F09_exam1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 359137
+  },
+  {
+   "file": "MIT6_012F09_assn04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 178751
+  },
+  {
+   "file": "MIT6_012F09_lec10_ccd.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 266233
+  },
+  {
+   "file": "MIT6_012F09_lec11_gradual.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 113979
+  },
+  {
+   "file": "MIT6_012F09_final_s08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 222428
+  },
+  {
+   "file": "MIT6_012F09_assn07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 139541
+  },
+  {
+   "file": "MIT6_012F09_lec21_cascode.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 107781
+  },
+  {
+   "file": "MIT6_012F09_lec15_cmos.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 75138
+  },
+  {
+   "file": "MIT6_012F09_topics.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 89295
+  },
+  {
+   "file": "MIT6_012F09_final_formula.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1013669
+  },
+  {
+   "file": "MIT6_012F09_exam2_s08_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 212701
+  },
+  {
+   "file": "MIT6_012F09_lec12_sub.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1153610
+  },
+  {
+   "file": "MIT6_012F09_lec16_scaling.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 96476
+  },
+  {
+   "file": "MIT6_012F09_exam1_s06_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 114073
+  },
+  {
+   "file": "MIT6_012F09_exam1_s06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 152576
+  },
+  {
+   "file": "MIT6_012F09_assn02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 107673
+  },
+  {
+   "file": "MIT6_012F09_exam2_s08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 195328
+  },
+  {
+   "file": "MIT6_012F09_assn01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 98384
+  },
+  {
+   "file": "MIT6_012F09_exam1_formula.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 390993
+  },
+  {
+   "file": "MIT6_012F09_diagnostic_soln.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 257668
+  },
+  {
+   "file": "MIT6_012F09_exam1_s08_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 211826
+  },
+  {
+   "file": "MIT6_012F09_exam1_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 255311
+  },
+  {
+   "file": "MIT6_012F09_exam1_s08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 301925
+  },
+  {
+   "file": "MIT6_012F09_exam2_formula.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 835886
+  }
+ ]
+}

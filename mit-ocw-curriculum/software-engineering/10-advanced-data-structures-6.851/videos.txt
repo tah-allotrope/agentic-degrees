@@ -1,0 +1,25 @@
+# 6.851 | Advanced Data Structures — lecture videos on YouTube
+# Stream online or download with: yt-dlp --batch-file videos.txt
+
+Session 1: Persistent Data Structures — https://www.youtube.com/watch?v=T0yzrZL1py0
+Session 2: Retroactive Data Structures — https://www.youtube.com/watch?v=WqCWghETNDc
+Session 3: Geometric Structures I — https://www.youtube.com/watch?v=NMxLL3D5qd8
+Session 4: Geometric Structures II — https://www.youtube.com/watch?v=FzS0n_Z8lrk
+Session 5: Dynamic Optimality I — https://www.youtube.com/watch?v=DZ7jt1F8KKw
+Session 6: Dynamic Optimality II — https://www.youtube.com/watch?v=NoOYvZvH_FU
+Session 7: Memory Hierarchy Models — https://www.youtube.com/watch?v=V3omVLzI0WE
+Session 8: Cache-Oblivious Structures I — https://www.youtube.com/watch?v=bY8f4DSkQ6M
+Session 9: Cache-Oblivious Structures II — https://www.youtube.com/watch?v=Fs4-E4Nj1Ks
+Session 10: Dictionaries — https://www.youtube.com/watch?v=Mf9Nn9PbGsE
+Session 11: Integer Models — https://www.youtube.com/watch?v=u-HHY1ylhHY
+Session 12: Fusion Trees — https://www.youtube.com/watch?v=xSGorVW8j6Q
+Session 13: Integer Lower Bounds — https://www.youtube.com/watch?v=RecEYrnvGPM
+Session 14: Sorting in Linear Time — https://www.youtube.com/watch?v=pOKy3RZbSws
+Session 15: Static Trees — https://www.youtube.com/watch?v=0rCFkuQS968
+Session 16: Strings — https://www.youtube.com/watch?v=NinWEPPrkDQ
+Session 17: Succinct Structures I — https://www.youtube.com/watch?v=3Y2weLDiUWw
+Session 18: Succinct Structures II — https://www.youtube.com/watch?v=ABX-Hvn8ymE
+Session 19: Dynamic Graphs I — https://www.youtube.com/watch?v=XZLN6NxEQWo
+Session 20: Dynamic Graphs II — https://www.youtube.com/watch?v=L7ywsci9ujo
+Session 21: Dynamic Connectivity Lower Bound — https://www.youtube.com/watch?v=Yarwp7TNTL4
+Session 22: History of Memory Models — https://www.youtube.com/watch?v=3e1ZF1L1VhY

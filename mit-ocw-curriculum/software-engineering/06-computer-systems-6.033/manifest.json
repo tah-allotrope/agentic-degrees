@@ -1,0 +1,173 @@
+{
+ "course": "6.033",
+ "title": "Computer System Engineering",
+ "slug": "6-033-computer-system-engineering-spring-2018",
+ "files": 27,
+ "downloaded_ok": 27,
+ "failed": [],
+ "videos": 2,
+ "manifest": [
+  {
+   "file": "MIT6_033S18_Crit1Worksheet.docx",
+   "category": "other",
+   "status": "ok",
+   "size": 21518
+  },
+  {
+   "file": "MIT6_033S18dpr_rubric.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 83071
+  },
+  {
+   "file": "MIT6_033S18dpr.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 97616
+  },
+  {
+   "file": "guide.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 171806
+  },
+  {
+   "file": "MIT6_033S18lec3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 331917
+  },
+  {
+   "file": "MIT6_033S18networking_guide.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 90008
+  },
+  {
+   "file": "MIT6_033S18tut11.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 83033
+  },
+  {
+   "file": "MIT6_033S18dp_eval.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 85184
+  },
+  {
+   "file": "MIT6_033S18dp_faq.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 116040
+  },
+  {
+   "file": "MIT6_033S18_DP_PeerReview.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 126538
+  },
+  {
+   "file": "MIT6_033s18_bgp.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 649543
+  },
+  {
+   "file": "MIT6_033S18lec4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 306850
+  },
+  {
+   "file": "MIT6_033S18lec5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 330526
+  },
+  {
+   "file": "MIT6_033S18_Crit2Worksheet.docx",
+   "category": "other",
+   "status": "ok",
+   "size": 19731
+  },
+  {
+   "file": "MIT6_033S18lec1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 310028
+  },
+  {
+   "file": "MIT6_033S18dppr_writing.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 74271
+  },
+  {
+   "file": "MIT6_033S18_Crit2Worksheet.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 556868
+  },
+  {
+   "file": "MIT6_033S18lec6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 359606
+  },
+  {
+   "file": "MIT6_033S18_Crit1Worksheet.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 70003
+  },
+  {
+   "file": "MIT6_033S18massrttc_dppr.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 148804
+  },
+  {
+   "file": "MIT6_033S18dp_pres.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 85570
+  },
+  {
+   "file": "MIT6_033S18lec7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 216340
+  },
+  {
+   "file": "MIT6_033S18_Crit2Rubric.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 131839
+  },
+  {
+   "file": "MIT6_033S18dp.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 225203
+  },
+  {
+   "file": "MIT6_033S18dppr.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 90590
+  },
+  {
+   "file": "MIT6_033S18dp_errata.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 91617
+  },
+  {
+   "file": "MIT6_033S18lec2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 276415
+  }
+ ]
+}

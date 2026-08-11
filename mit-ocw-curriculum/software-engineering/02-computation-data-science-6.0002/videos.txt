@@ -1,0 +1,18 @@
+# 6.0002 | Introduction to Computational Thinking and Data Science — lecture videos on YouTube
+# Stream online or download with: yt-dlp --batch-file videos.txt
+
+Lecture 1: Introduction and Optimization Problems — https://www.youtube.com/watch?v=C1lhuz6pZC0
+Lecture 2: Optimization Problems — https://www.youtube.com/watch?v=uK5yvoXnkSk
+Lecture 3: Graph-theoretic Models — https://www.youtube.com/watch?v=V_TulH374hw
+Lecture 4: Stochastic Thinking — https://www.youtube.com/watch?v=-1BnXEwHUok
+Lecture 5: Random Walks — https://www.youtube.com/watch?v=6wUD_gp5WeE
+Lecture 6: Monte Carlo Simulation — https://www.youtube.com/watch?v=OgO1gpXSUzU
+Lecture 7: Confidence Intervals — https://www.youtube.com/watch?v=rUxP7TM8-wo
+Lecture 8: Sampling and Standard Error — https://www.youtube.com/watch?v=soZv_KKax3E
+Lecture 9: Understanding Experimental Data — https://www.youtube.com/watch?v=vIFKGFl1Cn8
+Lecture 10: Understanding Experimental Data (cont.) — https://www.youtube.com/watch?v=fQvg-hh9dUw
+Lecture 11: Introduction to Machine Learning — https://www.youtube.com/watch?v=h0e2HAPTGF4
+Lecture 12: Clustering — https://www.youtube.com/watch?v=esmzYhuFnds
+Lecture 13: Classification — https://www.youtube.com/watch?v=eg8DJYwdMyg
+Lecture 14: Classification and Statistical Sins — https://www.youtube.com/watch?v=K2SC-WPdT6k
+Lecture 15: Statistical Sins and Wrap Up — https://www.youtube.com/watch?v=iOZVbILaIZc

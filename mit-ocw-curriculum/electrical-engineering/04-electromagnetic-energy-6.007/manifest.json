@@ -1,0 +1,233 @@
+{
+ "course": "6.007",
+ "title": "Electromagnetic Energy: From Motors to Lasers",
+ "slug": "6-007-electromagnetic-energy-from-motors-to-lasers-spring-2011",
+ "files": 37,
+ "downloaded_ok": 37,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "marsvoltage.csv",
+   "category": "other",
+   "status": "ok",
+   "size": 50983
+  },
+  {
+   "file": "MIT6_007S11_PS1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 677028
+  },
+  {
+   "file": "MIT6_007S11_forces.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 163481
+  },
+  {
+   "file": "MIT6_007S11_lec17.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1830510
+  },
+  {
+   "file": "MIT6_007S11_lab1_pre.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1137978
+  },
+  {
+   "file": "lab4_images.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 3109688
+  },
+  {
+   "file": "MIT6_007S11_PS4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1144166
+  },
+  {
+   "file": "MIT6_007S11_lec10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 3750952
+  },
+  {
+   "file": "MIT6_007S11_PS7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1144900
+  },
+  {
+   "file": "MIT6_007S11_quantum.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 652202
+  },
+  {
+   "file": "MIT6_007S11_PS5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1164528
+  },
+  {
+   "file": "MIT6_007S11_circuits.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 129650
+  },
+  {
+   "file": "MIT6_007S11_lec01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 3135443
+  },
+  {
+   "file": "MIT6_007S11_lorentz.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1735342
+  },
+  {
+   "file": "MIT6_007S11_PS9.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 658887
+  },
+  {
+   "file": "MIT6_007S11_actuators.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 888081
+  },
+  {
+   "file": "MIT6_007S11_PS2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 762948
+  },
+  {
+   "file": "MIT6_007S11_lec02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 2344407
+  },
+  {
+   "file": "MIT6_007S11_PS3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 2330647
+  },
+  {
+   "file": "MIT6_007S11_PS6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1319253
+  },
+  {
+   "file": "MIT6_007S11_PS10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 864687
+  },
+  {
+   "file": "MIT6_007S11_sign.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1029737
+  },
+  {
+   "file": "MIT6_007S11_lab2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1127766
+  },
+  {
+   "file": "MIT6_007S11_lec14.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 553761
+  },
+  {
+   "file": "MIT6_007S11_lab6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 233402
+  },
+  {
+   "file": "MIT6_007S11_lab5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 3100706
+  },
+  {
+   "file": "MIT6_007S11_lec13.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1247556
+  },
+  {
+   "file": "MIT6_007S11_lab3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1097275
+  },
+  {
+   "file": "MIT6_007S11_statics.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 927579
+  },
+  {
+   "file": "MIT6_007S11_lec16.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 784484
+  },
+  {
+   "file": "MIT6_007S11_lab4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1000713
+  },
+  {
+   "file": "MIT6_007S11_lab1_scope.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1439484
+  },
+  {
+   "file": "MIT6_007S11_lec11.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1136622
+  },
+  {
+   "file": "MIT6_007S11_PS8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1375052
+  },
+  {
+   "file": "MIT6_007S11_lec12.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1144392
+  },
+  {
+   "file": "MIT6_007S11_lec15.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1627570
+  },
+  {
+   "file": "MIT6_007S11_lab1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 2439590
+  }
+ ]
+}

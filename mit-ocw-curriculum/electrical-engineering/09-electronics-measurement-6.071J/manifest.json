@@ -1,0 +1,227 @@
+{
+ "course": "6.071J",
+ "title": "Introduction to Electronics, Signals, and Measurement",
+ "slug": "6-071j-introduction-to-electronics-signals-and-measurement-spring-2006",
+ "files": 36,
+ "downloaded_ok": 36,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "resistr_alf_lb.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 161724
+  },
+  {
+   "file": "diode_1n914.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 147265
+  },
+  {
+   "file": "quiz3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 180772
+  },
+  {
+   "file": "quiz1review.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 603129
+  },
+  {
+   "file": "ZenerRegulator.vi",
+   "category": "other",
+   "status": "ok",
+   "size": 291662
+  },
+  {
+   "file": "circuit_guide.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 11930
+  },
+  {
+   "file": "dgitl_1bit_adder.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 28887
+  },
+  {
+   "file": "nodal_mesh_methd.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 153136
+  },
+  {
+   "file": "hw6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 103899
+  },
+  {
+   "file": "intro_to_elctro.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 354281
+  },
+  {
+   "file": "hw8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 84359
+  },
+  {
+   "file": "trns1_rc_lc_rlc1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 240140
+  },
+  {
+   "file": "capactr_inductr.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 244535
+  },
+  {
+   "file": "heart_rate_lab.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 46576
+  },
+  {
+   "file": "transient1_rl_rc.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 171863
+  },
+  {
+   "file": "resonance_qfactr.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 167460
+  },
+  {
+   "file": "quiz1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 123256
+  },
+  {
+   "file": "sequential_logic.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 136012
+  },
+  {
+   "file": "hw4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 79401
+  },
+  {
+   "file": "hw3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 81579
+  },
+  {
+   "file": "hw9.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 87121
+  },
+  {
+   "file": "hw5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 31716
+  },
+  {
+   "file": "quiz2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 129053
+  },
+  {
+   "file": "heartratesol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 218851
+  },
+  {
+   "file": "linear_crct_ana.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 253558
+  },
+  {
+   "file": "sss_phsor_impdce.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 274940
+  },
+  {
+   "file": "prtyping_gdlins.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 11202
+  },
+  {
+   "file": "quiz3review.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 667123
+  },
+  {
+   "file": "hw1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 134647
+  },
+  {
+   "file": "hw2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 47152
+  },
+  {
+   "file": "power_trnsfr_exp.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 95720
+  },
+  {
+   "file": "hw7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 66017
+  },
+  {
+   "file": "electric_safety.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 26433
+  },
+  {
+   "file": "hw10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 83400
+  },
+  {
+   "file": "impednce_rlc_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 246468
+  },
+  {
+   "file": "final06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 287289
+  }
+ ]
+}

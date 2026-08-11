@@ -1,0 +1,154 @@
+[
+ {
+  "course": "6.0001",
+  "title": "Introduction to Computer Science and Programming in Python",
+  "files": 18,
+  "ok": 18,
+  "fail": 0,
+  "videos": 22
+ },
+ {
+  "course": "6.0002",
+  "title": "Introduction to Computational Thinking and Data Science",
+  "files": 18,
+  "ok": 18,
+  "fail": 0,
+  "videos": 12
+ },
+ {
+  "course": "6.042J",
+  "title": "Mathematics for Computer Science",
+  "files": 41,
+  "ok": 41,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.006",
+  "title": "Introduction to Algorithms",
+  "files": 47,
+  "ok": 47,
+  "fail": 0,
+  "videos": 16
+ },
+ {
+  "course": "6.005",
+  "title": "Software Construction",
+  "files": 4,
+  "ok": 4,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.033",
+  "title": "Computer System Engineering",
+  "files": 27,
+  "ok": 27,
+  "fail": 0,
+  "videos": 2
+ },
+ {
+  "course": "6.046J",
+  "title": "Design and Analysis of Algorithms",
+  "files": 42,
+  "ok": 42,
+  "fail": 0,
+  "videos": 26
+ },
+ {
+  "course": "6.824",
+  "title": "Distributed Computer Systems Engineering",
+  "files": 33,
+  "ok": 33,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.045J",
+  "title": "Automata, Computability, and Complexity",
+  "files": 16,
+  "ok": 16,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.851",
+  "title": "Advanced Data Structures",
+  "files": 30,
+  "ok": 30,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.01SC",
+  "title": "Introduction to Electrical Engineering and Computer Science I",
+  "files": 43,
+  "ok": 43,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.002",
+  "title": "Circuits and Electronics",
+  "files": 39,
+  "ok": 39,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.003",
+  "title": "Signals and Systems",
+  "files": 52,
+  "ok": 52,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.007",
+  "title": "Electromagnetic Energy: From Motors to Lasers",
+  "files": 37,
+  "ok": 37,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.012",
+  "title": "Microelectronic Devices and Circuits",
+  "files": 40,
+  "ok": 40,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.061",
+  "title": "Introduction to Electric Power Systems",
+  "files": 34,
+  "ok": 34,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.685",
+  "title": "Electric Machines",
+  "files": 34,
+  "ok": 34,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.622",
+  "title": "Power Electronics",
+  "files": 0,
+  "ok": 0,
+  "fail": 0,
+  "videos": 1
+ },
+ {
+  "course": "6.071J",
+  "title": "Introduction to Electronics, Signals, and Measurement",
+  "files": 36,
+  "ok": 36,
+  "fail": 0,
+  "videos": 1
+ }
+]

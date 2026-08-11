@@ -1,0 +1,245 @@
+{
+ "course": "6.002",
+ "title": "Circuits and Electronics",
+ "slug": "6-002-circuits-and-electronics-spring-2007",
+ "files": 39,
+ "downloaded_ok": 39,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "demo_18.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 34660
+  },
+  {
+   "file": "hw1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 40134
+  },
+  {
+   "file": "demo_05a.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 42121
+  },
+  {
+   "file": "quiz2_s07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 997880
+  },
+  {
+   "file": "eesafety.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 33722
+  },
+  {
+   "file": "quiz2_f04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 141680
+  },
+  {
+   "file": "lab2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 194477
+  },
+  {
+   "file": "hw5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 182605
+  },
+  {
+   "file": "demo_23.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 26662
+  },
+  {
+   "file": "hw6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 68326
+  },
+  {
+   "file": "quiz1_f06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 91934
+  },
+  {
+   "file": "demo_18rp.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 29005
+  },
+  {
+   "file": "lab0.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 33426
+  },
+  {
+   "file": "quiz1_s07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 279739
+  },
+  {
+   "file": "final_f00.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 146166
+  },
+  {
+   "file": "demo_20.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 40311
+  },
+  {
+   "file": "hw10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 81191
+  },
+  {
+   "file": "prelab_3_5.m",
+   "category": "software",
+   "status": "ok",
+   "size": 919
+  },
+  {
+   "file": "demo_15.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 20331
+  },
+  {
+   "file": "hw9.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 122885
+  },
+  {
+   "file": "demo_26.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 25316
+  },
+  {
+   "file": "quiz1_f03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 85447
+  },
+  {
+   "file": "hw8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 41862
+  },
+  {
+   "file": "hw2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 83964
+  },
+  {
+   "file": "demo_25.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 24888
+  },
+  {
+   "file": "prelab_3_2.m",
+   "category": "software",
+   "status": "ok",
+   "size": 877
+  },
+  {
+   "file": "quiz1_s04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 85902
+  },
+  {
+   "file": "hw7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 76845
+  },
+  {
+   "file": "labpractices.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 190897
+  },
+  {
+   "file": "demo_19.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 30939
+  },
+  {
+   "file": "hw3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 86420
+  },
+  {
+   "file": "lab_handout.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 643613
+  },
+  {
+   "file": "demo_28.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 35014
+  },
+  {
+   "file": "quiz2_s04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 73015
+  },
+  {
+   "file": "lab1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1358166
+  },
+  {
+   "file": "lab3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 182591
+  },
+  {
+   "file": "hw4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 75150
+  },
+  {
+   "file": "lab4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 93424
+  },
+  {
+   "file": "final_s07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1547025
+  }
+ ]
+}

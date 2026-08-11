@@ -1,0 +1,215 @@
+{
+ "course": "6.685",
+ "title": "Electric Machines",
+ "slug": "6-685-electric-machines-fall-2013",
+ "files": 34,
+ "downloaded_ok": 34,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_685F13_quiz01ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 577181
+  },
+  {
+   "file": "MIT6_685F13_ps07ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 217912
+  },
+  {
+   "file": "MIT6_685F13_ps08ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 209920
+  },
+  {
+   "file": "MIT6_685F13_quiz02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 99548
+  },
+  {
+   "file": "MIT6_685F13_ps03ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 155873
+  },
+  {
+   "file": "MIT6_685F13_ps06ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 140082
+  },
+  {
+   "file": "MIT6_685F13_ps08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 96447
+  },
+  {
+   "file": "MIT6_685F13_ps01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 86970
+  },
+  {
+   "file": "MIT6_685F13_ps05ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 181751
+  },
+  {
+   "file": "MIT6_685F13_chapter12.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 121085
+  },
+  {
+   "file": "MIT6_685F13_ps11ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 293627
+  },
+  {
+   "file": "MIT6_685F13_ps03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 94570
+  },
+  {
+   "file": "MIT6_685F13_chapter2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 115944
+  },
+  {
+   "file": "MIT6_685F13_ps10ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 348775
+  },
+  {
+   "file": "MIT6_685F13_quiz01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 94473
+  },
+  {
+   "file": "MIT6_685F13_ps01ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 154528
+  },
+  {
+   "file": "MIT6_685F13_chapter3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 159437
+  },
+  {
+   "file": "MIT6_685F13_chapter10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 171638
+  },
+  {
+   "file": "MIT6_685F13_chapter11.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 110134
+  },
+  {
+   "file": "MIT6_685F13_ps04ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 137622
+  },
+  {
+   "file": "MIT6_685F13_ps06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 104817
+  },
+  {
+   "file": "MIT6_685F13_chapter6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 178507
+  },
+  {
+   "file": "MIT6_685F13_ps10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 100725
+  },
+  {
+   "file": "MIT6_685F13_chapter4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 164786
+  },
+  {
+   "file": "MIT6_685F13_chapter5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 122506
+  },
+  {
+   "file": "MIT6_685F13_chapter1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 169387
+  },
+  {
+   "file": "MIT6_685F13_ps02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 115840
+  },
+  {
+   "file": "MIT6_685F13_ps02ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 161877
+  },
+  {
+   "file": "MIT6_685F13_ps05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 75075
+  },
+  {
+   "file": "MIT6_685F13_chapter7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 240624
+  },
+  {
+   "file": "MIT6_685F13_ps07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 90313
+  },
+  {
+   "file": "MIT6_685F13_ps11.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 95766
+  },
+  {
+   "file": "MIT6_685F13_ps04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 80940
+  },
+  {
+   "file": "MIT6_685F13_quiz02ans.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 350223
+  }
+ ]
+}

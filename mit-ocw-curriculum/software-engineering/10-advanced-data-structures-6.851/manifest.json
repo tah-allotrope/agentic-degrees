@@ -1,0 +1,191 @@
+{
+ "course": "6.851",
+ "title": "Advanced Data Structures",
+ "slug": "6-851-advanced-data-structures-spring-2012",
+ "files": 30,
+ "downloaded_ok": 30,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "MIT6_851S12_ps3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 170265
+  },
+  {
+   "file": "MIT6_851S12_ps5sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 148076
+  },
+  {
+   "file": "MIT6_851S12_ps5.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 137295
+  },
+  {
+   "file": "MIT6_851S12_Lecture2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 804428
+  },
+  {
+   "file": "MIT6_851S12_ps10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 156454
+  },
+  {
+   "file": "MIT6_851S12_ps9sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 135359
+  },
+  {
+   "file": "MIT6_851S12_ps9.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 137216
+  },
+  {
+   "file": "MIT6_851S12_ps2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 144573
+  },
+  {
+   "file": "MIT6_851S12_Lecture1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 801603
+  },
+  {
+   "file": "MIT6_851S12_L2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 294765
+  },
+  {
+   "file": "MIT6_851S12_ps6sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 143380
+  },
+  {
+   "file": "MIT6_851S12_Lecture3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 252396
+  },
+  {
+   "file": "MIT6_851S12_ps8sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 159878
+  },
+  {
+   "file": "MIT6_851S12_Lec1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 6442346
+  },
+  {
+   "file": "MIT6_851S12_Lecture4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 251129
+  },
+  {
+   "file": "MIT6_851S12_ps1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 157130
+  },
+  {
+   "file": "MIT6_851S12_L3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 331657
+  },
+  {
+   "file": "MIT6_851S12_ps6.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 147641
+  },
+  {
+   "file": "MIT6_851S12_ps7sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 131976
+  },
+  {
+   "file": "MIT6_851S12_ps8.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 173280
+  },
+  {
+   "file": "MIT6_851S12_ps3sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 186459
+  },
+  {
+   "file": "MIT6_851S12_ps7.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 164223
+  },
+  {
+   "file": "MIT6_851S12_L1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 436872
+  },
+  {
+   "file": "MIT6_851S12_ps4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 143157
+  },
+  {
+   "file": "MIT6_851S12_ps10sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 149132
+  },
+  {
+   "file": "MIT6_851S12_ps1sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 161847
+  },
+  {
+   "file": "MIT6_851S12_ps4sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 142778
+  },
+  {
+   "file": "MIT6_851S12_ps2sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 152254
+  },
+  {
+   "file": "MIT6_851S12_Lec2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 6174363
+  },
+  {
+   "file": "MIT6_851S12_Lec3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 6555893
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+# 6.006 | Introduction to Algorithms — lecture videos on YouTube
+# Stream online or download with: yt-dlp --batch-file videos.txt
+
+Lecture 1: Algorithms and Computation — https://www.youtube.com/watch?v=ZA-tUyM_y7s
+Lecture 2: Data Structures and Dynamic Arrays — https://www.youtube.com/watch?v=CHhwJjR0mZA
+Problem Session 1 — https://www.youtube.com/watch?v=IPSaG9RRc-k
+Lecture 3: Sets and Sorting — https://www.youtube.com/watch?v=oS9aPzUNG-s
+Lecture 4: Hashing — https://www.youtube.com/watch?v=Nu8YGneFCWE
+Problem Session 2 — https://www.youtube.com/watch?v=KlQiwkhLBg0
+Lecture 5: Linear Sorting — https://www.youtube.com/watch?v=yndgIDO0zQQ
+Problem Session 3 — https://www.youtube.com/watch?v=g0bXSXuLVb0
+Lecture 6: Binary Trees, Part 1 — https://www.youtube.com/watch?v=76dhtgZt38A
+Lecture 7: Binary Trees, Part 2: AVL — https://www.youtube.com/watch?v=U1JYwHcFfso
+Problem Session 4 — https://www.youtube.com/watch?v=MAyraVVYB64
+Lecture 8: Binary Heaps — https://www.youtube.com/watch?v=Xnpo1atN-Iw
+Lecture 9: Breadth-First Search — https://www.youtube.com/watch?v=oFVYVzlvk9c
+Quiz 1 Review — https://www.youtube.com/watch?v=e98MPnMHLxE
+Lecture 10: Depth-First Search — https://www.youtube.com/watch?v=IBfWDYSffUU
+Lecture 11: Weighted Shortest Paths — https://www.youtube.com/watch?v=5cF5Bgv59Sc
+Problem Session 5 — https://www.youtube.com/watch?v=ZLdooNwP7Pw
+Lecture 12: Bellman-Ford — https://www.youtube.com/watch?v=f9cVS_URPc0
+Lecture 13: Dijkstra — https://www.youtube.com/watch?v=NSHizBK9JD8
+Problem Session 7 — https://www.youtube.com/watch?v=Md9QOXomxFs
+Lecture 14: APSP and Johnson — https://www.youtube.com/watch?v=EmSmaW-ud6A
+Quiz 2 Review — https://www.youtube.com/watch?v=vCIa2h1C9UQ
+Lecture 15: Dynamic Programming, Part 1: SRTBOT, Fib, DAGs, Bowling — https://www.youtube.com/watch?v=r4-cftqTcdI
+Lecture 16: Dynamic Programming, Part 2: LCS, LIS, Coins — https://www.youtube.com/watch?v=KLBCUx1is2c
+Problem Session 8 — https://www.youtube.com/watch?v=UuxR0NCkg0k
+Lecture 17: Dynamic Programming, Part 3: APSP, Parens, Piano — https://www.youtube.com/watch?v=TDo3r5M1LNo
+Lecture 18: Dynamic Programming, Part 4: Rods, Subset Sum, Pseudopolynomial — https://www.youtube.com/watch?v=i9OAOk0CUQE
+Lecture 19: Complexity — https://www.youtube.com/watch?v=JbafQJx1CIA
+Problem Session 9 — https://www.youtube.com/watch?v=KPkOkiwAlbY
+Quiz 3 Review — https://www.youtube.com/watch?v=wEKFGdo4Sck
+Lecture 20: Course Review — https://www.youtube.com/watch?v=2NMtS1ecb3o
+Lecture 21: Algorithms—Next Steps — https://www.youtube.com/watch?v=4nXw-f6NJ9s

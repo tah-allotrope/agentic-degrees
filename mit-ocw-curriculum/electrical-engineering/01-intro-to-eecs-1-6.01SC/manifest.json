@@ -1,0 +1,269 @@
+{
+ "course": "6.01SC",
+ "title": "Introduction to Electrical Engineering and Computer Science I",
+ "slug": "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011",
+ "files": 43,
+ "downloaded_ok": 43,
+ "failed": [],
+ "videos": 1,
+ "manifest": [
+  {
+   "file": "idle-n.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 222
+  },
+  {
+   "file": "designLab02.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 736
+  },
+  {
+   "file": "swLab03.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 3065
+  },
+  {
+   "file": "hw1.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 1707
+  },
+  {
+   "file": "hw3.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 51012
+  },
+  {
+   "file": "MIT6_01SCS11_mid01_F09_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 184177
+  },
+  {
+   "file": "MIT6_01SCS11_final_F09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 418914
+  },
+  {
+   "file": "MIT6_01SCS11_final_F10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 313148
+  },
+  {
+   "file": "MIT6_01SCS11_chap06.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 989954
+  },
+  {
+   "file": "MIT6_01SCS11_final_S09_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 433212
+  },
+  {
+   "file": "designLab03.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 2916
+  },
+  {
+   "file": "MIT6_01SCS11_chap04.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 884881
+  },
+  {
+   "file": "swLab02.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 1082
+  },
+  {
+   "file": "MIT6_01SCS11_final_S11_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 471218
+  },
+  {
+   "file": "MIT6_01SCS11_chap08.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 586048
+  },
+  {
+   "file": "MIT6_01SCS11_chap07.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 968093
+  },
+  {
+   "file": "MIT6_01SCS11_hw2.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 425170
+  },
+  {
+   "file": "idle-n.bat",
+   "category": "other",
+   "status": "ok",
+   "size": 127
+  },
+  {
+   "file": "hw4.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 1345
+  },
+  {
+   "file": "MIT6_01SCS11_chap03.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1706643
+  },
+  {
+   "file": "MIT6_01SCS11_chap05.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 1801845
+  },
+  {
+   "file": "tutorial.py",
+   "category": "software",
+   "status": "ok",
+   "size": 110
+  },
+  {
+   "file": "MIT6_01SCS11_final_F09_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 423749
+  },
+  {
+   "file": "MIT6_01SCS11_cmax.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 264232
+  },
+  {
+   "file": "MIT6_01SCS11_chap02.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 334482
+  },
+  {
+   "file": "MIT6_01SCS11_chap01.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 535431
+  },
+  {
+   "file": "MIT6_01SCS11_hw4.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 218892
+  },
+  {
+   "file": "idleNForWindows.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 248
+  },
+  {
+   "file": "MIT6_01SCS11_mid01_S11_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 428850
+  },
+  {
+   "file": "MIT6_01SCS11_final_S10.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 377543
+  },
+  {
+   "file": "MIT6_01SCS11_final_S09.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 408929
+  },
+  {
+   "file": "MIT6_01SCS11_hw3.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 239845
+  },
+  {
+   "file": "hw2.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 508
+  },
+  {
+   "file": "MIT6_01SCS11_mid01_S10_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 340867
+  },
+  {
+   "file": "swLab01.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 261
+  },
+  {
+   "file": "MIT6_01SCS11_final_S10_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 398132
+  },
+  {
+   "file": "MIT6_01SCS11_final_S11.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 446802
+  },
+  {
+   "file": "MIT6_01SCS11_final_F10_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 310263
+  },
+  {
+   "file": "MIT6_01SCS11_mid01_F10_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 255786
+  },
+  {
+   "file": "designLab01.zip",
+   "category": "other",
+   "status": "ok",
+   "size": 393
+  },
+  {
+   "file": "MIT6_01SCS11_textbook.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 5495103
+  },
+  {
+   "file": "MIT6_01SCS11_hw1.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 294123
+  },
+  {
+   "file": "MIT6_01SCS11_mid02_F10_sol.pdf",
+   "category": "other",
+   "status": "ok",
+   "size": 437049
+  }
+ ]
+}

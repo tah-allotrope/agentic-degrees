@@ -1,0 +1,21 @@
+[
+  ["6.0001", "software-engineering", 1, "intro-to-cs-python", "6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016", ""],
+  ["6.0002", "software-engineering", 2, "computation-data-science", "6-0002-introduction-to-computational-thinking-and-data-science-fall-2016", ""],
+  ["6.042J", "software-engineering", 3, "math-for-cs", "6-042j-mathematics-for-computer-science-fall-2010", ""],
+  ["6.006", "software-engineering", 4, "algorithms", "6-006-introduction-to-algorithms-spring-2020", ""],
+  ["6.005", "software-engineering", 5, "software-construction", "6-005-software-construction-spring-2016", ""],
+  ["6.033", "software-engineering", 6, "computer-systems", "6-033-computer-system-engineering-spring-2018", ""],
+  ["6.046J", "software-engineering", 7, "algorithms-design-analysis", "6-046j-design-and-analysis-of-algorithms-spring-2015", ""],
+  ["6.824", "software-engineering", 8, "distributed-systems", "6-824-distributed-computer-systems-engineering-spring-2006", ""],
+  ["6.045J", "software-engineering", 9, "automata-computability", "6-045j-automata-computability-and-complexity-spring-2011", ""],
+  ["6.851", "software-engineering", 10, "advanced-data-structures", "6-851-advanced-data-structures-spring-2012", ""],
+  ["6.01SC", "electrical-engineering", 1, "intro-to-eecs-1", "6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011", ""],
+  ["6.002", "electrical-engineering", 2, "circuits-and-electronics", "6-002-circuits-and-electronics-spring-2007", ""],
+  ["6.003", "electrical-engineering", 3, "signals-and-systems", "6-003-signals-and-systems-fall-2011", ""],
+  ["6.007", "electrical-engineering", 4, "electromagnetic-energy", "6-007-electromagnetic-energy-from-motors-to-lasers-spring-2011", ""],
+  ["6.012", "electrical-engineering", 5, "microelectronic-devices", "6-012-microelectronic-devices-and-circuits-fall-2009", ""],
+  ["6.061", "electrical-engineering", 6, "electric-power-systems", "6-061-introduction-to-electric-power-systems-spring-2011", ""],
+  ["6.685", "electrical-engineering", 7, "electric-machines", "6-685-electric-machines-fall-2013", ""],
+  ["6.622", "electrical-engineering", 8, "power-electronics", "6-622-power-electronics-spring-2023", ""],
+  ["6.071J", "electrical-engineering", 9, "electronics-measurement", "6-071j-introduction-to-electronics-signals-and-measurement-spring-2006", ""]
+]
