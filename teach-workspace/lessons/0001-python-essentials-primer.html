@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>0001 — Python Essentials Primer</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<h1>Python Essentials Primer</h1>
+
+<div class="callout">
+<p><strong>Mission link:</strong> this primer rebuilds the Python foundation that the 6.0002
+computational-modelling track runs on — the models that <a href="../MISSION.md">size and sanity-check
+battery-energy-storage and grid decisions</a> are written in exactly this language.</p>
+</div>
+
+<h2>Primary source</h2>
+<ul>
+<li><a href="../../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_Lec1.pdf">6.0001 Lecture 1: What is computation?</a> — expressions, objects, types, variables.</li>
+<li><a href="../../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_Lec2.pdf">6.0001 Lecture 2: Branching and iteration</a> — conditionals, <code>while</code> and <code>for</code> loops.</li>
+<li><a href="../../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_Lec3.pdf">6.0001 Lecture 3: Strings, guess-and-check, bisection</a> — strings, indexing, slicing.</li>
+<li><a href="../../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_Lec4.pdf">6.0001 Lecture 4: Decomposition, abstraction, functions</a> — functions, scope, <code>return</code> vs <code>print</code>.</li>
+<li><a href="../../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_Lec5.pdf">6.0001 Lecture 5: Tuples, lists, aliasing, mutability</a> — compound data, cloning, side effects.</li>
+<li><a href="../../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_StyleGuide.pdf">6.0001 Style Guide</a> — the coding rules to write against.</li>
+</ul>
+<p>Stream the matching lectures from the <a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA">6.0001 playlist</a>.
+Dictionaries and comprehensions are covered in <a href="https://www.youtube.com/watch?v=WPSeyjX1-4s">Lecture 6 (Recursion and Dictionaries)</a>.</p>
+
+<h2>1. Functions and scope</h2>
+<p>A function is a named, reusable block. Parameters bind to the caller's arguments when the function
+is called; calling it creates a new local scope. Inside a function you can <em>read</em> a global but
+cannot <em>rebind</em> it — the <code>x</code> inside the function is a different object from the
+<code>x</code> outside.</p>
+<pre><code>def f(x):
+    x = x + 1          # x here is f's local copy
+    return x
+
+x = 3
+print(f(x), x)         # 4 3  — the global x is untouched
+</code></pre>
+<p>A function without a <code>return</code> returns <code>None</code>. <code>return</code> only has
+meaning inside a function, passes a value back to the caller, and ends the function; <code>print</code>
+writes to the console and does not end the function.</p>
+
+<h2>2. Lists, dicts, and mutation</h2>
+<p>Lists are mutable, ordered sequences. Indexing starts at 0; negative indexes count from the end.
+Common operations mutate in place (<code>append</code>, <code>extend</code>, <code>remove</code>,
+<code>pop</code>, <code>sort</code>, <code>reverse</code>) — use them only when you want the side effect.</p>
+<pre><code>L = [2, 1, 3]
+L.append(5)          # [2, 1, 3, 5]
+L.remove(1)          # [2, 3, 5]
+L[:]                 # clone: a new list, not an alias
+</code></pre>
+<div class="callout">
+<p><strong>Aliasing:</strong> <code>b = a</code> makes <code>b</code> a second name for the <em>same</em>
+list object — mutating through one name is visible through the other. Copy with <code>a[:]</code> (or
+<code>list(a)</code>) to get an independent clone.</p>
+</div>
+<p>Dictionaries map keys to values. Lookup by key is <code>d[k]</code>; <code>d.get(k, default)</code>
+returns <code>default</code> instead of raising <code>KeyError</code> when the key is absent.
+Adding a new key is just an assignment: <code>d['c'] = 3</code>.</p>
+<pre><code>d = {'a': 1, 'b': 2}
+d['c'] = 3
+len(d)               # 3
+d.get('a')           # 1
+</code></pre>
+
+<h2>3. Comprehensions</h2>
+<p>A list comprehension builds a new list from an iterable in one expression:</p>
+<pre><code>xs = [x * 2 for x in range(3)]   # [0, 2, 4]
+evens = [x for x in range(10) if x % 2 == 0]
+squares = {k: k * k for k in range(4)}   # dict comprehension
+</code></pre>
+
+<h2>4. Iteration patterns</h2>
+<p>Use a <code>for</code> loop when you know the number of iterations; use a <code>while</code> loop
+for an "until" condition. <code>range(start, stop, step)</code> counts from <code>start</code> up to
+<code>stop - 1</code>. To accumulate, initialize before the loop and update inside it.</p>
+<pre><code>total = 0
+for i in range(4):
+    total += i       # 0 + 1 + 2 + 3 = 6
+</code></pre>
+<p>Iterating over a collection's <em>elements</em> directly is more Pythonic than indexing when you do
+not need the index. Never mutate a list while iterating over it — iterate over a copy instead.</p>
+
+<h2>5. Tuple unpacking</h2>
+<p>Tuples are immutable ordered sequences, written in parentheses. A function can return several
+values as one tuple, and the caller unpacks it in one assignment:</p>
+<pre><code>def qr(x, y):
+    return (x // y, x % y)
+
+(q, r) = qr(5, 2)    # (2, 1)
+</code></pre>
+<p>Unpacking also swaps variables cleanly: <code>(x, y) = (y, x)</code>.</p>
+
+<h2>6. One light recursion example</h2>
+<p>A recursive function calls itself on a smaller instance of the same problem and needs a base case
+that stops the recursion:</p>
+<pre><code>def fact(n):
+    if n &lt;= 1:
+        return 1
+    return n * fact(n - 1)
+
+fact(3)              # 3 * fact(2) = 3 * 2 * 1 = 6
+</code></pre>
+
+<h2>7. 6.0001 style rules that matter for problem sets</h2>
+<ul>
+<li>Prefer <code>for</code> loops when the iteration count is known; <code>while</code> only for
+"until" conditions — fewer infinite loops.</li>
+<li>Never compare a float for exact equality in a loop condition; <code>0.1 + 0.1 + 0.1</code> is not
+<code>0.3</code>. Count with integers; cast to float only when needed.</li>
+<li>Do not write <code>if f() == True</code>; write <code>if f()</code>. Return the boolean directly:
+<code>return not f()</code> instead of an if/else.</li>
+<li>Write a docstring for every function and class: purpose, inputs, and returns.</li>
+<li>Never modify a collection while iterating over it; loop over a copy <code>L[:]</code> or build a
+new collection.</li>
+</ul>
+
+<h2>Diagnostic</h2>
+<p>Answer before looking anything up. The score and the topics you miss decide how much Python
+re-teaching gets embedded in the early 6.0002 lessons.</p>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does this program print?</p>
+<pre><code>def f(x):
+    x = x + 1
+    return x
+x = 3
+print(f(x), x)
+</code></pre>
+<ul class="options">
+<li data-answer="true">4 3</li>
+<li data-answer="false">3 4</li>
+<li data-answer="false">4 4</li>
+<li data-answer="false">3 3</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">A function whose body is only <code>i % 2 == 0</code> with no <code>return</code>
+returns which value?</p>
+<ul class="options">
+<li data-answer="true">None</li>
+<li data-answer="false">True</li>
+<li data-answer="false">False</li>
+<li data-answer="false">Error</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">After running these two statements, what is the list <code>L</code>?</p>
+<pre><code>L = [2, 1, 3]
+L.append(5)
+L.remove(1)
+</code></pre>
+<ul class="options">
+<li data-answer="true">[2, 3, 5]</li>
+<li data-answer="false">[2, 1, 5]</li>
+<li data-answer="false">[2, 3, 1]</li>
+<li data-answer="false">[5, 2, 3]</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">After running this code, what is the list <code>a</code>?</p>
+<pre><code>a = [1, 2]
+b = a
+b.append(3)
+</code></pre>
+<ul class="options">
+<li data-answer="true">[1, 2, 3]</li>
+<li data-answer="false">[1, 2, 2]</li>
+<li data-answer="false">[3, 1, 2]</li>
+<li data-answer="false">[1, 3, 2]</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">After <code>d = {'a': 1, 'b': 2}</code> then <code>d['c'] = 3</code>, what is
+<code>len(d)</code>?</p>
+<ul class="options">
+<li data-answer="true">3</li>
+<li data-answer="false">2</li>
+<li data-answer="false">1</li>
+<li data-answer="false">4</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">What does the expression <code>[x * 2 for x in range(3)]</code> evaluate to?</p>
+<ul class="options">
+<li data-answer="true">[0, 2, 4]</li>
+<li data-answer="false">[2, 4, 6]</li>
+<li data-answer="false">[0, 1, 2]</li>
+<li data-answer="false">[2, 4, 8]</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">What does this loop print?</p>
+<pre><code>total = 0
+for i in range(4):
+    total += i
+print(total)
+</code></pre>
+<ul class="options">
+<li data-answer="true">6</li>
+<li data-answer="false">4</li>
+<li data-answer="false">10</li>
+<li data-answer="false">3</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">With <code>def qr(x, y): return (x // y, x % y)</code>, what is
+<code>(q, r) = qr(5, 2)</code>?</p>
+<ul class="options">
+<li data-answer="true">(2, 1)</li>
+<li data-answer="false">(1, 2)</li>
+<li data-answer="false">(2, 2)</li>
+<li data-answer="false">(1, 1)</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">With <code>def fact(n): return 1 if n &lt;= 1 else n * fact(n - 1)</code>, what does
+<code>fact(3)</code> return?</p>
+<ul class="options">
+<li data-answer="true">6</li>
+<li data-answer="false">3</li>
+<li data-answer="false">2</li>
+<li data-answer="false">9</li>
+</ul>
+</li>
+
+<li class="q">
+<p class="qtext">When you know the exact number of iterations, which construct should you prefer?</p>
+<ul class="options">
+<li data-answer="true">for loop</li>
+<li data-answer="false">while loop</li>
+<li data-answer="false">if block</li>
+<li data-answer="false">do loop</li>
+</ul>
+</li>
+</ol>
+</section>
+
+<hr>
+
+<p><strong>Follow-up:</strong> if any question stumped you, ask the teaching agent to re-teach that
+topic before the next lesson — the rule recorded in learning record 0001 decides what gets reinforced
+inside the 6.0002 lessons.</p>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
