@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Quick Reference — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<h1>Python Quick Reference</h1>
+<p class="meta">Companion to <a href="../lessons/0002-python-primer.html">0002 Python Primer</a> ·
+Sources: 6.01SC Ch.2-3, Guttag Ch.1-4 · print-friendly</p>
+
+<h2>Names and binding</h2>
+<pre><code>x = 5        # binds name x to integer object 5
+x = "hi"     # rebinding: x now points at a string — no type declarations
+y = x        # y binds to whatever x points at (aliasing)</code></pre>
+
+<h2>Functions and scope</h2>
+<pre><code>def square(n):       # parameter n is local
+    return n * n     # return exits and hands back a value
+
+square(4)            # → 16
+# A variable bound inside a function is NOT visible outside it.</code></pre>
+
+<h2>Collections</h2>
+<pre><code>lst = [1, 2, 3]        # list  — MUTABLE: lst.append(4), lst[0] = 9
+tup = (1, 2, 3)        # tuple — IMMUTABLE: cannot be changed
+d = {"a": 1, "b": 2}   # dict  — key → value; d["a"] → 1; d["c"] = 3
+len(lst); "a" in d; 2 in lst   # membership/length checks</code></pre>
+
+<h2>Loops and comprehensions</h2>
+<pre><code>for i in range(2, 5):   # iterates 2, 3, 4  (stop is exclusive)
+    print(i)
+
+while x &lt; 10:            # loop while condition true
+    x += 1
+
+[x * 2 for x in range(3)]        # → [0, 2, 4]   (list comprehension)
+{k: len(k) for k in ["a", "bb"]} # → {"a": 1, "bb": 2}</code></pre>
+
+<h2>Conditionals</h2>
+<pre><code>if x &gt; 0:
+    print("positive")
+elif x == 0:
+    print("zero")
+else:
+    print("negative")</code></pre>
+
+<h2>State-machine template (6.01SC Ch.4)</h2>
+<pre><code>class SM:
+    startState = None
+    def getNextValues(self, state, inp):
+        nextState = state
+        return (nextState, inp)   # default: output = input
+    def start(self):
+        self.state = self.startState
+    def step(self, inp):
+        (s, o) = self.getNextValues(self.state, inp)
+        self.state = s
+        return o</code></pre>
+
+<h2>Common traps</h2>
+<ul>
+<li><code>range(2, 5)</code> stops <em>before</em> 5 — the stop is exclusive.</li>
+<li>Mutable default args / shared lists bite: <code>def f(a=[])</code> reuses the same list.</li>
+<li><code>=</code> assigns; <code>==</code> compares.</li>
+<li>Tuples are immutable — <code>t[0] = 1</code> raises <code>TypeError</code>.</li>
+<li>Dict keys must be hashable (numbers, strings, tuples — not lists).</li>
+</ul>
+
+<div class="lesson-nav">
+<span><a href="../lessons/0001-python-diagnostic.html">← diagnostic</a></span>
+<span><a href="../lessons/0002-python-primer.html">0002 primer →</a></span>
+</div>
+</body>
+</html>

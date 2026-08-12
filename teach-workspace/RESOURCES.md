@@ -1,28 +1,41 @@
-# Dual-Track EE + SE Resources
+# RESOURCES — trusted sources for teaching
 
-## Knowledge
+> Knowledge should come from high-quality, high-trust resources — never the teacher's
+> parametric memory. All Phase 1 material is already local; nothing new needs downloading.
+> Paths are relative to the repo root `agentic-degrees/`.
 
-- [6.01SC course notes (textbook PDF)](../mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_textbook.pdf) — the primary source for all 8 chapters; reach for it before any other 6.01SC material.
-- [6.01SC OCW course page](https://ocw.mit.edu/courses/6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011/) — course structure, calendar, and links; use to check week-by-week placement.
-- [6.01SC lecture playlist (official MIT OCW)](https://www.youtube.com/playlist?list=PL9B24A6A9D5754E70) — stream the matching lecture for each chapter before authoring a lesson.
-- [6.002 OCW course page](https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/) — the spring-2007 course home; the per-lecture YouTube URLs are resolved from here in week 3 (ASM-007).
-- [Agarwal & Lang, *Foundations of Analog and Digital Electronic Circuits* (ISBN 9781558607354)](https://mitpress.mit.edu/9781558607354/foundations-of-analog-and-digital-electronic-circuits/) — the canonical 6.002 textbook; reference only, not required to buy.
-- [6.0002 slide decks (Lec1–Lec8)](../mit-ocw-curriculum/software-engineering/02-computation-data-science-6.0002/other/) — define the required software-track scope for this window (ASM-008).
-- [Guttag, *Introduction to Computation and Programming Using Python*](https://mitpress.mit.edu/9780262542364/introduction-to-computation-and-programming-using-python/) — the 6.0001/6.0002 textbook; the companion to the slide decks.
-- [Oppenheim, *Signals and Systems*](https://mitpress.mit.edu/9780138147570/signals-and-systems/) — the reference for Phase 2 (6.003); not needed in this window.
-- [6.0001 lecture videos (official MIT OCW playlist)](https://www.youtube.com/playlist?list=PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA) — source for the Python primer (lessons 1–5).
-- [6.0001/6.0002 Style Guide](../mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/other/MIT6_0001F16_StyleGuide.pdf) — the coding rules the software track grades itself against.
+## 6.01SC — Introduction to EECS I (Spring 2011) [EE track]
+- **Course notes (local, primary):** `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/`
+  - `MIT6_01SCS11_chap01.pdf` Course Overview
+  - `MIT6_01SCS11_chap02.pdf` Learning to Program in Python
+  - `MIT6_01SCS11_chap03.pdf` Programs and Data
+  - `MIT6_01SCS11_chap04.pdf` State Machines
+  - `MIT6_01SCS11_chap05.pdf` Signals and Systems
+  - `MIT6_01SCS11_chap06.pdf` Circuits
+  - `MIT6_01SCS11_chap07.pdf` Probabilistic State Estimation
+  - `MIT6_01SCS11_chap08.pdf` Long-term Decision-making and Search
+  - `MIT6_01SCS11_textbook.pdf` full course text (open textbook)
+- **Problem sets:** `hw1-4.pdf` + `hw1-4.zip` (code skeletons); `swLab01.zip`, `designLab01-03.zip`
+- **Exams (authentic gates):** `final_F09..F11.pdf` (+sols), `mid01_*_sol.pdf`, `mid02_F10_sol.pdf`
+- **Videos (stream only):** playlist `PL9B24A6A9D5754E70` (MIT OCW official), in `videos.txt`
 
-## Wisdom (Communities)
+## 6.0001 / 6.0002 — Intro CS in Python / Computational Thinking (SE track)
+- **Local:** `mit-ocw-curriculum/software-engineering/01-intro-to-cs-python-6.0001/` and
+  `02-computation-data-science-6.0002/` (lecture notes, psets in `other/`; `videos.txt` has
+  per-lecture YouTube links, e.g. Lecture 1 `nykOeWgQcHM`, Lecture 4 `MjbuarJ7SE0`).
+- **Canonical text:** John Guttag, *Introduction to Computation and Programming Using Python* —
+  chapters 1-4 cover the primer topics (types, branching, iteration, functions).
 
-- [OSSU Discord](https://discord.gg/ossu) — active self-learners following the open-source-society CS curriculum; good for accountability and question-asking.
-- [r/learnpython](https://www.reddit.com/r/learnpython/) — well-moderated for Python-specific questions at exactly this level; post a minimal reproduction before asking.
-- [r/EngineeringStudents](https://www.reddit.com/r/EngineeringStudents/) — broader EE/engineering study community for pacing and support.
+## 6.002 — Circuits and Electronics (Spring 2007) [EE track, starts wk 3]
+- **Local:** `mit-ocw-curriculum/electrical-engineering/02-circuits-and-electronics-6.002/other/`
+  (37 PDFs: hw1-10, quizzes, labs, finals with solutions).
+- **Canonical text:** Agarwal & Lang, *Foundations of Analog and Digital Electronic Circuits*.
 
-## Gaps
+## 6.003 — Signals and Systems (Fall 2011) [Phase 2]
+- **Local:** `mit-ocw-curriculum/electrical-engineering/03-signals-and-systems-6.003/` (full
+  problem set + solution set).
+- **Canonical text:** Oppenheim, *Signals and Systems*.
 
-- **No solutions are published for 6.002** — not for hw1–hw10, not for the quizzes, not for the
-  finals. Every 6.002 answer is self-graded with the dual-method protocol (solve, then re-derive by a
-  second method), and recorded with a confidence rating in the assessment file.
-- 6.002 has no lecture notes either; conceptual content comes from the streamed lectures plus Agarwal
-  & Lang only.
+## Research context
+- `research/2026-08-11_opencourseware-degrees.md` — the course-ranking brief that selected this
+  curriculum; `research/2026-08-12_mit-ocw-two-month-completion-brainstorm.md` — the plan.

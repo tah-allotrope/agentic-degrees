@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0003 — State Machines — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0003 · 6.01SC Unit 1 — State Machines</h1>
+<p class="meta">EE track · 6.01SC Ch.4 · ~25 minutes</p>
+
+<p class="lede">A state machine is the cleanest way to model anything that <em>remembers</em>:
+a battery controller, a grid relay, a vending machine, a search algorithm. You are about to
+meet the single most reused abstraction in this whole curriculum — and in the power-electronics
+work it leads to.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> A BESS inverter controller is a state
+machine: <em>idle → charging → discharging → idle</em>, with transitions fired by signals like
+SoC thresholds, grid frequency, or dispatch commands. When you later read 6.622 power-electronics
+control schemes, "the controller is in state X" is exactly the language they speak.</p>
+</div>
+
+<h2>1 · What a state machine is</h2>
+<p>Formally, a state machine has:</p>
+<ul>
+<li><strong>States S</strong> — everything the system remembers about its past.</li>
+<li><strong>Inputs I</strong> — what the world offers at each step.</li>
+<li><strong>Outputs O</strong> — what the machine emits.</li>
+<li><strong>Transition function</strong> <code>f: (state, input) → next state</code>.</li>
+<li><strong>Output function</strong> <code>g: (state, input) → output</code>.</li>
+<li><strong>startState</strong> — where it begins.</li>
+</ul>
+<p>The one-sentence version: <em>a machine whose next action depends on its history,
+summarized by a state.</em></p>
+
+<h2>2 · The Python pattern (memorize the skeleton)</h2>
+<pre><code>class SM:
+    startState = None
+
+    def getNextValues(self, state, inp):
+        nextState = state            # override in subclasses
+        return (nextState, inp)      # default output: the input itself
+
+    def start(self):
+        self.state = self.startState
+
+    def step(self, inp):
+        (s, o) = self.getNextValues(self.state, inp)
+        self.state = s
+        return o</code></pre>
+<p>You write <code>startState</code> and <code>getNextValues</code>; the base class handles
+stepping. The whole 6.01SC course is built on extending this class.</p>
+
+<h2>3 · Worked example: a battery controller</h2>
+<pre><code>class BatteryController(SM):
+    startState = "idle"
+
+    def getNextValues(self, state, inp):
+        # inp is a dict: {"soC": 0-100, "dispatch": "charge"|"discharge"|None}
+        if state == "idle" and inp["dispatch"] == "charge":
+            return ("charging", "absorb")
+        if state == "charging" and inp["soC"] &gt;= 90:
+            return ("idle", "standby")
+        if state == "idle" and inp["dispatch"] == "discharge":
+            return ("discharging", "inject")
+        if state == "discharging" and inp["soC"] &lt;= 15:
+            return ("idle", "standby")
+        return (state, "noop")       # hold state, output nothing</code></pre>
+<p>Trace it: start <em>idle</em>; dispatch=charge → <em>charging</em> (output absorb);
+SoC hits 90 → back to <em>idle</em> (standby). The state variable is the machine's memory —
+without it, the controller cannot know whether it is mid-charge or idle.</p>
+
+<h2>4 · Why this abstraction carries the whole course</h2>
+<ul>
+<li>Unit 2 (signals &amp; systems): LTI systems are state machines with infinite states.</li>
+<li>Unit 3 (circuits): digital circuits are state machines whose states are flip-flop values.</li>
+<li>Unit 4 (planning): search explores the state space of the world model.</li>
+</ul>
+
+<h2>Quiz</h2>
+<div class="quiz" id="quiz-sm">
+  <div class="q" data-answer="1">
+    <div class="prompt">What does the state of a machine summarize?</div>
+    <div class="options">
+      <button class="opt">Its entire future behavior</button>
+      <button class="opt">Its relevant past history</button>
+      <button class="opt">Its current input value</button>
+      <button class="opt">Its output function</button>
+    </div>
+    <div class="explain">State is the compressed memory: enough about the past that, given the
+    next input, the future is fully determined.</div>
+  </div>
+
+  <div class="q" data-answer="0">
+    <div class="prompt">Which method computes the next state and output?</div>
+    <div class="options">
+      <button class="opt">getNextValues</button>
+      <button class="opt">startState</button>
+      <button class="opt">step</button>
+      <button class="opt">start</button>
+    </div>
+    <div class="explain">getNextValues(state, inp) returns the (nextState, output) pair — the
+    heart of the machine. step() drives it and updates the state.</div>
+  </div>
+
+  <div class="q" data-answer="3">
+    <div class="prompt">In the battery example, why does the controller need state?</div>
+    <div class="options">
+      <button class="opt">To compute its output values</button>
+      <button class="opt">To receive input signals</button>
+      <button class="opt">To print status messages</button>
+      <button class="opt">To know what it is doing</button>
+    </div>
+    <div class="explain">The same input (e.g. SoC = 50%) demands different action depending on
+    whether the controller is idle or charging — only remembered state distinguishes them.</div>
+  </div>
+
+  <div class="q" data-answer="2">
+    <div class="prompt">What does step() do after each input arrives?</div>
+    <div class="options">
+      <button class="opt">Resets the start state</button>
+      <button class="opt">Prints the output value</button>
+      <button class="opt">Updates the machine state</button>
+      <button class="opt">Saves the input value</button>
+    </div>
+    <div class="explain">step() calls getNextValues, stores the returned next state, and returns
+    the output — the machine's state advances one step.</div>
+  </div>
+
+  <div class="quiz-score"></div>
+  <button class="quiz-reset">Reset quiz</button>
+</div>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.4 "State Machines" —
+<code>.../01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap04.pdf</code> (§4.1-4.4 — the
+definition, the Python class, and the turnstile/light examples). Videos: the 6.01SC playlist
+<a href="https://www.youtube.com/playlist?list=PL9B24A6A9D5754E70" target="_blank" rel="noopener">MIT 6.01SC Introduction to EECS I</a>
+(Unit 1 lectures on state machines). Then attempt <code>hw1.pdf</code> problem 1 — it is a
+state-machine design task with code skeleton in <code>hw1.zip</code>.
+</div>
+
+<div class="callout ask">
+<p>Trace the battery controller by hand once — then bring any confusion to the agent. It is
+your teacher and can run more examples, draw state diagrams, or check your hw1 solution.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0002-python-primer.html">← 0002 Python primer</a></span>
+<span><a href="../reference/python-quickref.html">quick reference</a></span>
+</div>
+</body>
+</html>
