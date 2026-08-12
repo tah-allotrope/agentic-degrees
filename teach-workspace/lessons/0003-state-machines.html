@@ -9,7 +9,8 @@
 </head>
 <body>
 <h1>0003 · 6.01SC Unit 1 — State Machines</h1>
-<p class="meta">EE track · 6.01SC Ch.4 · ~25 minutes</p>
+<p class="meta">EE track · 6.01SC Ch.4 · ~25 minutes ·
+<a href="../MISSION.md">mission</a></p>
 
 <p class="lede">A state machine is the cleanest way to model anything that <em>remembers</em>:
 a battery controller, a grid relay, a vending machine, a search algorithm. You are about to
@@ -81,58 +82,57 @@ without it, the controller cannot know whether it is mid-charge or idle.</p>
 </ul>
 
 <h2>Quiz</h2>
-<div class="quiz" id="quiz-sm">
-  <div class="q" data-answer="1">
-    <div class="prompt">What does the state of a machine summarize?</div>
-    <div class="options">
-      <button class="opt">Its entire future behavior</button>
-      <button class="opt">Its relevant past history</button>
-      <button class="opt">Its current input value</button>
-      <button class="opt">Its output function</button>
-    </div>
-    <div class="explain">State is the compressed memory: enough about the past that, given the
-    next input, the future is fully determined.</div>
-  </div>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does the state of a machine summarize?</p>
+<ul class="options">
+<li data-answer="false">Its entire future behavior</li>
+<li data-answer="true">Its relevant past history</li>
+<li data-answer="false">Its current input value</li>
+<li data-answer="false">Its output function value</li>
+</ul>
+<p class="explain">State is the compressed memory: enough about the past that, given the next
+input, the future is fully determined.</p>
+</li>
 
-  <div class="q" data-answer="0">
-    <div class="prompt">Which method computes the next state and output?</div>
-    <div class="options">
-      <button class="opt">getNextValues</button>
-      <button class="opt">startState</button>
-      <button class="opt">step</button>
-      <button class="opt">start</button>
-    </div>
-    <div class="explain">getNextValues(state, inp) returns the (nextState, output) pair — the
-    heart of the machine. step() drives it and updates the state.</div>
-  </div>
+<li class="q">
+<p class="qtext">Which method computes the next state and output?</p>
+<ul class="options">
+<li data-answer="true">getNextValues</li>
+<li data-answer="false">startState</li>
+<li data-answer="false">step</li>
+<li data-answer="false">start</li>
+</ul>
+<p class="explain">getNextValues(state, inp) returns the (nextState, output) pair — the heart
+of the machine. step() drives it and updates the state.</p>
+</li>
 
-  <div class="q" data-answer="3">
-    <div class="prompt">In the battery example, why does the controller need state?</div>
-    <div class="options">
-      <button class="opt">To compute its output values</button>
-      <button class="opt">To receive input signals</button>
-      <button class="opt">To print status messages</button>
-      <button class="opt">To know what it is doing</button>
-    </div>
-    <div class="explain">The same input (e.g. SoC = 50%) demands different action depending on
-    whether the controller is idle or charging — only remembered state distinguishes them.</div>
-  </div>
+<li class="q">
+<p class="qtext">In the battery example, why does the controller need state?</p>
+<ul class="options">
+<li data-answer="false">To calculate output values</li>
+<li data-answer="false">To receive input signals</li>
+<li data-answer="false">To print status messages</li>
+<li data-answer="true">To know its current action</li>
+</ul>
+<p class="explain">The same input (e.g. SoC = 50%) demands different action depending on
+whether the controller is idle or charging — only remembered state distinguishes them.</p>
+</li>
 
-  <div class="q" data-answer="2">
-    <div class="prompt">What does step() do after each input arrives?</div>
-    <div class="options">
-      <button class="opt">Resets the start state</button>
-      <button class="opt">Prints the output value</button>
-      <button class="opt">Updates the machine state</button>
-      <button class="opt">Saves the input value</button>
-    </div>
-    <div class="explain">step() calls getNextValues, stores the returned next state, and returns
-    the output — the machine's state advances one step.</div>
-  </div>
-
-  <div class="quiz-score"></div>
-  <button class="quiz-reset">Reset quiz</button>
-</div>
+<li class="q">
+<p class="qtext">What does step() do after each input arrives?</p>
+<ul class="options">
+<li data-answer="false">Resets the initial state</li>
+<li data-answer="false">Prints the output value</li>
+<li data-answer="true">Updates the machine state</li>
+<li data-answer="false">Saves the input value</li>
+</ul>
+<p class="explain">step() calls getNextValues, stores the returned next state, and returns the
+output — the machine's state advances one step.</p>
+</li>
+</ol>
+</section>
 
 <div class="primary-source">
 <strong>Primary source:</strong> MIT 6.01SC Ch.4 "State Machines" —
@@ -140,7 +140,8 @@ without it, the controller cannot know whether it is mid-charge or idle.</p>
 definition, the Python class, and the turnstile/light examples). Videos: the 6.01SC playlist
 <a href="https://www.youtube.com/playlist?list=PL9B24A6A9D5754E70" target="_blank" rel="noopener">MIT 6.01SC Introduction to EECS I</a>
 (Unit 1 lectures on state machines). Then attempt <code>hw1.pdf</code> problem 1 — it is a
-state-machine design task with code skeleton in <code>hw1.zip</code>.
+state-machine design task with code skeleton in <code>hw1.zip</code>. Extract it under
+<code>teach-workspace/work/6.01SC/</code> — the curriculum tree stays read-only.
 </div>
 
 <div class="callout ask">
@@ -149,7 +150,8 @@ your teacher and can run more examples, draw state diagrams, or check your hw1 s
 </div>
 
 <div class="lesson-nav">
-<span><a href="0002-python-primer.html">← 0002 Python primer</a></span>
+<span><a href="0001-python-essentials-primer.html">← 0001 Python primer</a></span>
+<span><a href="0002-python-diagnostic.html">0002 diagnostic</a></span>
 <span><a href="../reference/python-quickref.html">quick reference</a></span>
 </div>
 </body>

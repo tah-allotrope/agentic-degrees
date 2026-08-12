@@ -19,8 +19,9 @@ Weeks run Monday → Sunday in `Asia/Ho_Chi_Minh` (UTC+7).
 ## Checklist
 
 ### Week 1
+- [ ] Python diagnostic (0002) taken — 7/8+ after primer (0001)
 - [ ] Lesson: oop-for-engineering-models
-- [ ] Lesson: state-machines-the-sm-abstraction
+- [ ] Lesson: state-machines-the-sm-abstraction (0003 authored)
 - [ ] 6.01SC hw1 + swLab01 completed, solutions committed
 - [ ] Lesson: greedy-vs-optimal-knapsack
 - [ ] 6.0002 Lecture 1 questions answered
