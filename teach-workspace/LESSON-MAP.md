@@ -2,16 +2,16 @@
 
 Numbers are assigned at authoring time (`max(existing) + 1`, zero-padded 4 digits); the rows below
 are listed in intended study order. Authored so far: 0001 (primer), 0002 (diagnostic), 0003
-(state machines). Chapter refs point at the local chapter PDFs under
-`mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/`.
+(state machines), 0004 (OOP models), 0005 (greedy knapsack). Chapter refs point at the local chapter
+PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/`.
 
 | # | Week | Track | Slug | Source material | Retrieval focus |
 |---|------|-------|------|-----------------|-----------------|
 | 0001 | 0 | SE | python-essentials-primer | 6.0001 Lec1–5 PDFs + StyleGuide | functions & scope, list/dict ops, comprehensions, iteration, tuple unpacking, recursion, style rules |
 | 0002 | 0/1 | SE | python-diagnostic | 6.01SC chap02 + 6.0001 Lec1 | baseline entry check for the SE track (7/8+ to proceed) |
 | 0003 | 1 | EE | state-machines | 6.01SC chap04.pdf | SM contract, start state, getNextValues, step, composition |
-| | 1 | EE | oop-for-engineering-models | 6.01SC chap02-03.pdf | objects, classes, methods, decomposition |
-| | 1 | SE | greedy-vs-optimal-knapsack | 6.0002 Lec1 (knapsack) | greedy vs. brute force, optimality |
+| 0004 | 1 | EE | oop-for-engineering-models | 6.01SC chap02-03.pdf | objects, classes, methods, decomposition |
+| 0005 | 1 | SE | greedy-vs-optimal-knapsack | 6.0002 Lec1 (knapsack) | greedy vs. brute force, optimality |
 | | 2 | EE | signals-and-systems-difference-equations | 6.01SC chap05.pdf | signals, difference equations, operator notation |
 | | 2 | EE | lti-poles-and-convergence | 6.01SC chap05.pdf | poles, convergence rule, LTI response |
 | | 2 | SE | graph-models-and-shortest-paths | 6.0002 Lec2 (graphs) | graph models, BFS, shortest paths |

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0004 — Object-Oriented Models — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0004 · Object-Oriented Models for Engineering</h1>
+<p class="meta">EE track · 6.01SC Ch.3 §3.8 · ~25 minutes ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Objects let you attach the data of a system to the operations that act on it, so a
+battery cell, an inverter, or a grid feeder becomes a thing you can hand around and reuse instead of
+a tangle of parallel lists. This is the modeling half of the state-machine lesson: the state machine
+says <em>how</em> a controller behaves, the object model says <em>how you represent</em> the thing
+being controlled.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> A battery-energy-storage sizing tool is an
+object model: a <code>Cell</code> knows its chemistry, capacity, and internal resistance and answers
+"how much energy is left at this current"; a <code>BatteryPack</code> composes cells; a
+<code>Feeder</code> aggregates loads. When you later read 6.061 / 6.622 code or vendor datasheet
+tools, "the <code>Cell</code> object exposes <code>get_state_of_charge()</code>" is the normal way
+these systems are described.</p>
+</div>
+
+<h2>1 · The idea: data plus the procedures that use it</h2>
+<p>Plain data (<code>dim = 6</code>, <code>balance = 100</code>) and the functions that work on it
+(<code>getArea</code>, <code>deposit</code>) drift apart as a program grows. Object-oriented
+programming groups them: a <strong>class</strong> is the template, an <strong>instance</strong> is a
+concrete object built from it, and <strong>attributes</strong> (<code>self.dim</code>,
+<code>self.currentBalance</code>) hold the instance's own data. This is the "abstraction" of the
+PCAP framework — callers use the object without seeing its guts.</p>
+
+<h2>2 · The Python shape: <code>__init__</code>, <code>self</code>, methods</h2>
+<pre><code>class Square:
+    def __init__(self, initialDim):
+        self.dim = initialDim
+
+    def getArea(self):
+        return self.dim * self.dim
+
+    def setArea(self, area):
+        self.dim = area ** 0.5
+
+    def __str__(self):
+        return "Square of dim " + str(self.dim)
+
+s = Square(6)
+s.getArea()        # 36
+Square.getArea(s)  # 36 — s is just the first argument
+s.setArea(100)
+s.dim              # 10.0
+print(s)           # "Square of dim 10.0"
+</code></pre>
+<p>Notes that save debugging time:</p>
+<ul>
+<li><code>__init__</code> runs at construction and sets up the instance's state.</li>
+<li>Every method takes <code>self</code> first — the instance it operates on. Forgetting it gives the
+"<code>add</code> is not defined" error from Ch.2.</li>
+<li><code>__str__</code> makes the object print nicely; it is <em>the</em> debugging aid.</li>
+</ul>
+
+<h2>3 · Inheritance: override the parts that differ</h2>
+<p>When two account types share everything but one rule, don't copy the class — inherit and override.
+<code>PremierAccount(Account)</code> means "exactly like <code>Account</code> but with these
+additions/overrides".</p>
+<pre><code>class Account:
+    def __init__(self, initialBalance):
+        self.currentBalance = initialBalance
+    def balance(self):
+        return self.currentBalance
+    def deposit(self, amount):
+        self.currentBalance = self.currentBalance + amount
+    def creditLimit(self):
+        return min(self.currentBalance * 0.5, 10000000)
+
+class PremierAccount(Account):
+    def creditLimit(self):
+        return min(self.currentBalance * 1.5, 10000000)
+
+b = PremierAccount(1000)
+b.creditLimit()  # 1500.0
+b.deposit(500)   # inherited — works without redefinition
+b.balance()      # 1500.0
+</code></pre>
+<p>Because every instance knows its own class, <code>creditLimit()</code> dispatches to the right
+implementation without an <code>if</code> anywhere — <strong>polymorphism</strong>. This is how a
+grid model can hold a mixed list of <code>Account</code>-like objects and ask each for its behavior.</p>
+
+<h2>4 · Composition: objects inside objects</h2>
+<p>Just as <code>BinaryOp</code> nodes nest (HW1's syntax trees), engineering objects nest: a pack
+contains cells, a feeder contains loads. An object whose attributes are other objects is a
+<strong>compositional data type</strong> — the same idea as a syntax tree, and the backbone of every
+sizing and simulation model you will write.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does a class group together?</p>
+<ul class="options">
+<li data-answer="true">Data and its procedures</li>
+<li data-answer="false">Files and their names</li>
+<li data-answer="false">Inputs and their types</li>
+<li data-answer="false">Loops and their counts</li>
+</ul>
+<p class="explain">A class bundles the data (attributes) with the procedures that operate on it
+(methods) — the object-oriented answer to modularity and abstraction.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Which keyword names the instance inside a method?</p>
+<ul class="options">
+<li data-answer="true">self</li>
+<li data-answer="false">class</li>
+<li data-answer="false">this</li>
+<li data-answer="false">init</li>
+</ul>
+<p class="explain">By convention the first parameter is named self; it is the instance the method is
+called on, and instance attributes live on it.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does <code>s.getArea()</code> pass as the first argument?</p>
+<ul class="options">
+<li data-answer="true">The instance s</li>
+<li data-answer="false">The class type</li>
+<li data-answer="false">The area value</li>
+<li data-answer="false">The module name</li>
+</ul>
+<p class="explain">Method call sugar: <code>s.getArea()</code> is exactly
+<code>Square.getArea(s)</code>, so self receives the instance s.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does a subclass inherit?</p>
+<ul class="options">
+<li data-answer="true">All parent methods</li>
+<li data-answer="false">Only new methods</li>
+<li data-answer="false">The local scope</li>
+<li data-answer="false">The module state</li>
+</ul>
+<p class="explain">Inheritance copies everything from the parent and lets the subclass override or
+add specific parts — no repeated code for the shared behavior.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.3 "Programs and Data", §3.8 "Object-Oriented
+Programming Examples" (the Square and Account/PremierAccount examples) —
+<code>.../01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap03.pdf</code>. Video: 6.01SC playlist
+<a href="https://www.youtube.com/playlist?list=PL9B24A6A9D5754E70" target="_blank" rel="noopener">MIT 6.01SC Introduction to EECS I</a>,
+Unit 1 lectures on software engineering. Then do <code>swLab01</code> (the <code>V2</code> vector
+class) under <code>teach-workspace/work/6.01SC/swLab01/</code>.
+</div>
+
+<div class="callout ask">
+<p>Model something you own with classes — a battery cell and a pack — and bring any confusion to
+the agent. It is your teacher and can review your class design, explain inheritance traps, or run
+your swLab01 code.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0003-state-machines.html">← 0003 state machines</a></span>
+<span><a href="../reference/python-quickref.html">quick reference</a></span>
+<span><a href="0005-greedy-vs-optimal-knapsack.html">0005 greedy knapsack →</a></span>
+</div>
+</body>
+</html>

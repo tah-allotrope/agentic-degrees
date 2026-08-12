@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>State-Machine Patterns — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<h1>State-Machine Patterns</h1>
+<p class="meta">The card you will re-read all window · companion to
+<a href="../lessons/0003-state-machines.html">0003 state machines</a> ·
+Runnable code: <code>teach-workspace/work/6.01SC/lib/sm.py</code> · print-friendly</p>
+
+<h2>1 · The contract</h2>
+<p>Every machine implements two things and inherits <code>transduce</code>:</p>
+<pre><code>class SM:
+    def start_state(self): ...                       # initial state
+    def get_next_values(self, state, inp): ...       # -> (next_state, output)
+    def transduce(self, inputs):                     # run a whole input list
+        state = self.start_state()
+        outs = []
+        for inp in inputs:
+            state, out = self.get_next_values(state, inp)
+            outs.append(out)
+        return outs</code></pre>
+<p class="callout"><strong>Naming note.</strong> The 6.01 notes call these <code>startState</code>
+and <code>getNextValues</code> (with a <code>step</code> method); this workspace's
+<code>lib/sm.py</code> uses <code>start_state</code> / <code>get_next_values</code> /
+<code>transduce</code>. Same idea, one name set.</p>
+
+<h2>2 · Building blocks</h2>
+<pre><code>class Delay(SM):              # emit previous input; initial value first
+    def __init__(self, initial): self._initial = initial
+    def start_state(self): return self._initial
+    def get_next_values(self, state, inp): return (inp, state)
+
+class Accumulator(SM):        # running sum
+    def __init__(self, initial=0.0): self._initial = initial
+    def start_state(self): return self._initial
+    def get_next_values(self, state, inp):
+        total = state + inp
+        return (total, total)</code></pre>
+
+<h2>3 · Composition operators</h2>
+<pre><code>Cascade(m1, m2)   # m1's output feeds m2's input
+Parallel(m1, m2)  # same input to both; output is the pair
+Feedback(m)       # m's output loops back to m's own input</code></pre>
+<p>Check it: <code>Cascade(Delay(0), Accumulator(0)).transduce([1, 2, 3])</code> →
+<code>[0, 1, 3]</code> — the delay emits 0 first, so the running sum lags one step. This
+delay-and-accumulate pair is the skeleton of every filter you will meet later.</p>
+
+<h2>4 · Worked example: two-state controller</h2>
+<pre><code>class BatteryController(SM):
+    def start_state(self):
+        return "idle"
+
+    def get_next_values(self, state, inp):
+        # inp: {"soC": 0-100, "dispatch": "charge"|"discharge"|None}
+        if state == "idle" and inp["dispatch"] == "charge":
+            return ("charging", "absorb")
+        if state == "charging" and inp["soC"] &gt;= 90:
+            return ("idle", "standby")
+        if state == "idle" and inp["dispatch"] == "discharge":
+            return ("discharging", "inject")
+        if state == "discharging" and inp["soC"] &lt;= 15:
+            return ("idle", "standby")
+        return (state, "noop")</code></pre>
+<p>Rule of thumb: <em>state is the memory</em>. If two identical inputs must produce different
+outputs, the difference must live in the state.</p>
+
+<div class="lesson-nav">
+<span><a href="../lessons/0003-state-machines.html">← 0003 state machines</a></span>
+<span><a href="../lessons/0004-oop-for-engineering-models.html">0004 OOP models</a></span>
+</div>
+</body>
+</html>

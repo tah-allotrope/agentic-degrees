@@ -7,7 +7,7 @@ Weeks run Monday → Sunday in `Asia/Ho_Chi_Minh` (UTC+7).
 
 | Week | Dates | EE h | SE h | Total h | Review session (y/n) |
 |------|-------------|------|------|---------|----------------------|
-| 1 | 2026-08-17 → 2026-08-23 |  |  |  |  |
+| 1 | 2026-08-17 → 2026-08-23 | 7.5 | 5.0 | 12.5 | y |
 | 2 | 2026-08-24 → 2026-08-30 |  |  |  |  |
 | 3 | 2026-08-31 → 2026-09-06 |  |  |  |  |
 | 4 | 2026-09-07 → 2026-09-13 |  |  |  |  |
@@ -23,18 +23,20 @@ Weeks run Monday → Sunday in `Asia/Ho_Chi_Minh` (UTC+7).
 | 0001 | python-essentials-primer | complete (2026-08-12) |
 | 0002 | python-diagnostic | complete (2026-08-12) |
 | 0003 | state-machines | complete (2026-08-12) |
+| 0004 | oop-for-engineering-models | complete (2026-08-17) |
+| 0005 | greedy-vs-optimal-knapsack | complete (2026-08-17) |
 
 ## Checklist
 
 ### Week 1
 - [ ] Python diagnostic (0002) taken — 7/8+ after primer (0001)
-- [ ] Lesson: oop-for-engineering-models
-- [ ] Lesson: state-machines-the-sm-abstraction (0003 authored)
-- [ ] 6.01SC hw1 + swLab01 completed, solutions committed
-- [ ] Lesson: greedy-vs-optimal-knapsack
-- [ ] 6.0002 Lecture 1 questions answered
-- [ ] Learning record 0002 written
-- [ ] Commit `teach: week 01`
+- [x] Lesson: oop-for-engineering-models (0004 authored)
+- [x] Lesson: state-machines-the-sm-abstraction (0003 authored)
+- [x] 6.01SC hw1 + swLab01 completed, solutions committed
+- [x] Lesson: greedy-vs-optimal-knapsack (0005 authored)
+- [x] 6.0002 Lecture 1 questions answered
+- [x] Learning record 0002 written
+- [x] Commit `teach: week 01`
 
 ### Week 2
 - [ ] Lesson: signals-and-systems-difference-equations

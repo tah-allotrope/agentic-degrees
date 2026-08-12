@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0005 — Greedy vs. Optimal Knapsack — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0005 · Greedy vs. Optimal Knapsack</h1>
+<p class="meta">SE track · 6.0002 Lec.1 · ~25 minutes ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Many engineering choices are knapsacks: a battery must fit a weight and cost
+budget, a grid battery must fit a footprint and a budget, a shipping route must fit a time window.
+The knapsack problem is the cleanest place to learn the trade-off that runs through all of 6.0002 —
+<em>fast heuristic vs. exact but expensive search</em>.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> Sizing a BESS ("how many MWh fit in this
+budget to capture the most revenue?") is a knapsack with a dollars constraint and a revenue
+objective. You will need the <em>language</em> of this lesson to argue why a spreadsheet's greedy
+pick may not be the best pick — and when the exact answer is worth the exponential cost.</p>
+</div>
+
+<h2>1 · What an optimization problem is</h2>
+<p>Every optimization problem has two ingredients:</p>
+<ul>
+<li><strong>An objective function</strong> to maximize or minimize (revenue, trip time, value).</li>
+<li><strong>A set of constraints</strong> (a budget, a weight limit, a deadline).</li>
+</ul>
+<p>The knapsack version: given items with <code>value</code> and <code>cost</code> (here:
+calories), pick a subset within a cost limit that maximizes total value.</p>
+
+<h2>2 · Greedy: pick the "best" next item</h2>
+<pre><code>def greedy(items, maxCost, keyFunction):
+    itemsCopy = sorted(items, key=keyFunction, reverse=True)
+    result = []
+    totalValue, totalCost = 0.0, 0.0
+    for item in itemsCopy:
+        if totalCost + item.getCost() &lt;= maxCost:
+            result.append(item)
+            totalCost += item.getCost()
+            totalValue += item.getValue()
+    return (result, totalValue)
+</code></pre>
+<p>The whole algorithm is <em>sort by a key, then take whatever fits</em>. The choice of key changes
+the answer. With a 1000-calorie limit and the lecture's menu, the shipped code reports:</p>
+<ul>
+<li>Greedy by <strong>value</strong> → total 424.0 (burger, pizza, beer, wine, apple).</li>
+<li>Greedy by <strong>cost</strong> → total 413.0.</li>
+<li>Greedy by <strong>density</strong> (value/cost) → total 413.0.</li>
+</ul>
+<p>Same items, same limit, three different totals. Greedy-by-value wins on <em>this</em> menu, but
+that is coincidence.</p>
+
+<h2>3 · Why greedy can miss the optimum</h2>
+<p>Greedy commits: once it takes an item, it never changes its mind. A clean counterexample —
+capacity 10, one item worth 100 at cost 9, two items worth 60 at cost 5 each:</p>
+<ul>
+<li>Greedy by value takes the 100 (9 used, 1 left) → total 100.</li>
+<li>Optimum is both 60s → total 120.</li>
+</ul>
+<p>Greedy is fast (<code>O(n log n)</code> from the sort) and usually good, but <em>never
+guaranteed optimal</em>.</p>
+
+<h2>4 · Optimal: exhaustive enumeration</h2>
+<p>The only guarantee is to consider every subset: generate all <code>2^n</code> combinations, keep
+those within the limit, return the best value. That is exponential, so it only works for small
+<code>n</code> — which is exactly why PS1 (cow transport) asks you to write both and compare: greedy
+runs instantly, brute force is exact but explodes.</p>
+<div class="callout">
+<p><strong>The lesson to internalize:</strong> "greedy" and "optimal" are different words. A greedy
+answer is a <em>claim about effort</em>; an optimal answer is a <em>claim about correctness</em>.
+Say which one you produced.</p>
+</div>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does an optimization problem consist of?</p>
+<ul class="options">
+<li data-answer="true">Objective plus constraints</li>
+<li data-answer="false">Inputs plus outputs</li>
+<li data-answer="false">Loops plus variables</li>
+<li data-answer="false">Classes plus methods</li>
+</ul>
+<p class="explain">An objective function to optimize and a set of constraints the solution must
+honor — nothing more.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Greedy by value selects items in what order?</p>
+<ul class="options">
+<li data-answer="true">Highest value first</li>
+<li data-answer="false">Lowest cost first</li>
+<li data-answer="false">Random order first</li>
+<li data-answer="false">Alphabetical order first</li>
+</ul>
+<p class="explain">It sorts items descending by the key function, then walks the sorted list taking
+everything that fits.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why can greedy miss the optimum?</p>
+<ul class="options">
+<li data-answer="true">It never backtracks</li>
+<li data-answer="false">It always backtracks</li>
+<li data-answer="false">It picks randomly</li>
+<li data-answer="false">It sorts descending</li>
+</ul>
+<p class="explain">Greedy commits to each item as it goes and never revisits a decision, so it can
+fill the bag in a way that locks out a better combination.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What guarantees the optimal knapsack?</p>
+<ul class="options">
+<li data-answer="true">Exhaustive enumeration</li>
+<li data-answer="false">Greedy selection</li>
+<li data-answer="false">Sorting items</li>
+<li data-answer="false">Random sampling</li>
+</ul>
+<p class="explain">Only considering every subset guarantees the optimum; it is exact but exponential
+in the number of items.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> 6.0002 Lecture 1 deck "Introduction and Optimization Problems" —
+<code>.../02-computation-data-science-6.0002/other/MIT6_0002F16_lec1.pdf</code>; runnable code in
+<code>.../02-computation-data-science-6.0002/other/Lecture1.zip → lecture1.py</code>. Video:
+<a href="https://www.youtube.com/watch?v=C1lhuz6pZC0" target="_blank" rel="noopener">6.0002 Lecture 1 on YouTube</a>.
+Then answer the Lecture 1 questions in
+<code>teach-workspace/work/6.0002/lecture1-answers.md</code>.
+</div>
+
+<div class="callout ask">
+<p>Run <code>lecture1.py</code> and convince yourself why each strategy differs — then bring any
+confusion to the agent. It is your teacher and can walk through the brute-force enumeration, draw
+the decision tree, or check your Lecture 1 answers.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0004-oop-for-engineering-models.html">← 0004 OOP models</a></span>
+<span><a href="../reference/python-quickref.html">quick reference</a></span>
+</div>
+</body>
+</html>
