@@ -25,9 +25,17 @@
   LESSON-MAP.md.
 
 ## Current state (2026-08-12)
-- **Week-1 lesson batch COMPLETE:** 0001 python-essentials-primer, 0002 python-diagnostic,
-  0003 state-machines — authored, verifier-passing, opened in Chrome Beta (2026-08-12).
-  Next to author per LESSON-MAP.md: oop-for-engineering-models (wk 1 EE).
+- **Week-1 lesson batch COMPLETE:** 0001 primer, 0002 diagnostic, 0003 state machines (this
+  pane), 0004 OOP models + 0005 greedy knapsack (concurrent pane, commit 963f4a1) — all
+  verifier-passing. Markdown companions in lessons/*.md for pane viewing (glow/bat).
+- **Week-1 execution largely done by the concurrent pane (963f4a1):** 6.01SC hw1 +
+  swLab01 solutions in work/6.01SC/, 6.0002 lecture1-answers.md, learning record
+  0002-lazy-eval-and-tokenizer-lag, reference/state-machine-patterns.html.
+- **Two agent panes run this workspace concurrently** — authoring collisions recur (both
+  wrote 0004/0005 on 2026-08-12). Rule adopted: the concurrent pane owns lesson authoring
+  and week execution; this pane owns review/tracking/markdown rendering. If that changes,
+  re-split authoring by lesson to avoid thrash.
+- Next to author per LESSON-MAP.md: signals-and-systems-difference-equations (wk 2 EE).
 - Python baseline: **rusty** — needs the 6.0001-primer before 6.0002 (DEC-015).
 - Baby (b. May 2026) — sleep volatility; wk 6 is buffer; **defer, don't quit**.
 
