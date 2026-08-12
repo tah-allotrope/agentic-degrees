@@ -16,6 +16,14 @@ Weeks run Monday → Sunday in `Asia/Ho_Chi_Minh` (UTC+7).
 | 7 | 2026-09-28 → 2026-10-04 |  |  |  |  |
 | 8 | 2026-10-05 → 2026-10-11 |  |  |  |  |
 
+## Authored lessons (HTML files complete)
+
+| # | Lesson | Status |
+|---|--------|--------|
+| 0001 | python-essentials-primer | complete (2026-08-12) |
+| 0002 | python-diagnostic | complete (2026-08-12) |
+| 0003 | state-machines | complete (2026-08-12) |
+
 ## Checklist
 
 ### Week 1

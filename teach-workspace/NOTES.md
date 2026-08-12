@@ -25,9 +25,9 @@
   LESSON-MAP.md.
 
 ## Current state (2026-08-12)
-- Phase 0 scaffold done (merged from two concurrent sessions — see git history). Week 1 in
-  progress: Python diagnostic (0002) + primer (0001), 6.01SC Unit 1 state machines (0003).
-  6.01SC Unit 2 (signals & systems, chap05) queued next per LESSON-MAP.md.
+- **Week-1 lesson batch COMPLETE:** 0001 python-essentials-primer, 0002 python-diagnostic,
+  0003 state-machines — authored, verifier-passing, opened in Chrome Beta (2026-08-12).
+  Next to author per LESSON-MAP.md: oop-for-engineering-models (wk 1 EE).
 - Python baseline: **rusty** — needs the 6.0001-primer before 6.0002 (DEC-015).
 - Baby (b. May 2026) — sleep volatility; wk 6 is buffer; **defer, don't quit**.
 
