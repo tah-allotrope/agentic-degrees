@@ -2,7 +2,8 @@
 
 Numbers are assigned at authoring time (`max(existing) + 1`, zero-padded 4 digits); the rows below
 are listed in intended study order. Authored so far: 0001 (primer), 0002 (diagnostic), 0003
-(state machines), 0004 (OOP models), 0005 (greedy knapsack). Chapter refs point at the local chapter
+(state machines), 0004 (OOP models), 0005 (greedy knapsack), 0006 (dicts/comprehensions review).
+Chapter refs point at the local chapter
 PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/`.
 
 | # | Week | Track | Slug | Source material | Retrieval focus |
@@ -12,6 +13,7 @@ PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/
 | 0003 | 1 | EE | state-machines | 6.01SC chap04.pdf | SM contract, start state, getNextValues, step, composition |
 | 0004 | 1 | EE | oop-for-engineering-models | 6.01SC chap02-03.pdf | objects, classes, methods, decomposition |
 | 0005 | 1 | SE | greedy-vs-optimal-knapsack | 6.0002 Lec1 (knapsack) | greedy vs. brute force, optimality |
+| 0006 | 1 | SE | dicts-and-comprehensions-review | 6.01SC chap02.pdf + 6.0001 Lec6 | dict ops incl. len semantics & .get; comprehension map/filter/dict forms; diagnostic re-sit |
 | | 2 | EE | signals-and-systems-difference-equations | 6.01SC chap05.pdf | signals, difference equations, operator notation |
 | | 2 | EE | lti-poles-and-convergence | 6.01SC chap05.pdf | poles, convergence rule, LTI response |
 | | 2 | SE | graph-models-and-shortest-paths | 6.0002 Lec2 (graphs) | graph models, BFS, shortest paths |

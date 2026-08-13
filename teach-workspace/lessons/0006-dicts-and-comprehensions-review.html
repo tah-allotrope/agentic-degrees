@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0006 — Dicts &amp; Comprehensions Review — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0006 · Dicts &amp; Comprehensions Review</h1>
+<p class="meta">SE-track week-1 open item · diagnostic re-sit prep · 10-15 minutes · recall first, then check ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Week 1 has exactly one open checklist item: the Python diagnostic re-sit — a clean
+7/8+ after the primer is the entry ticket to 6.0002. The cold run scored 8/10 (record 0001) and the
+two misses were dictionaries and list comprehensions. This lesson re-teaches exactly those two
+topics with worked numeric examples, then gives you a fresh practice quiz at diagnostic difficulty
+before you re-sit <a href="0002-python-diagnostic.html">0002 the diagnostic</a>.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> A battery controller's operating state is a dict — asset name →
+power — and the two operations you missed are the two you use most: lookup-and-update
+(<code>d[k] = v</code>) and size (<code>len(d)</code>). Comprehensions are how 6.0002 builds model
+inputs from raw data in one line instead of a six-line loop. Both are daily tools for the
+<a href="../MISSION.md">BESS and grid sizing models</a>, not exam trivia.</p>
+</div>
+
+<h2>1. Dictionaries: the two operations you missed</h2>
+<p>A dict maps keys to values. <code>d[k]</code> reads, <code>d[k] = v</code> writes — and the write
+is how you <em>both</em> add a new pair and update an existing one. <code>len(d)</code> counts
+key-value pairs, not values. That is the exact miss from the cold run:</p>
+<pre><code>d = {'a': 1}
+d['b'] = 2
+len(d)               # 2 — two pairs now, not the value 2
+d['a'] = 5           # update in place: still 2 pairs
+len(d)               # 2 — assignment to an existing key never grows the dict
+</code></pre>
+<p>Three rules that cover the whole diagnostic:</p>
+<ul>
+<li><code>d[k]</code> raises <code>KeyError</code> when <code>k</code> is absent; use
+<code>d.get(k, default)</code> to get a fallback instead.</li>
+<li><code>k in d</code> tests key membership (fast — hashed, not a scan).</li>
+<li>Iterating a dict yields keys by default; use <code>d.items()</code> to unpack key and value
+together.</li>
+</ul>
+<pre><code>plant = {'pv': 5, 'grid': 10}        # kW available
+plant['bess'] = 4                    # add a pair
+plant['grid'] = 8                    # update a pair
+len(plant)                           # 3
+plant.get('wind', 0)                 # 0 — no KeyError
+for name, kw in plant.items():
+    print(name, kw)                  # pv 5 / grid 8 / bess 4
+</code></pre>
+
+<h2>2. Comprehensions: read them left-to-right as a sentence</h2>
+<p>A list comprehension is one expression that builds a whole list:
+<code>[expr for var in iterable]</code>. Read it as "for each var in iterable, produce expr".
+The second diagnostic miss was <code>[x * 2 for x in range(3)]</code> — unfold it by hand:
+<code>range(3)</code> yields 0, 1, 2; doubling gives 0, 2, 4:</p>
+<pre><code>[x * 2 for x in range(3)]          # [0, 2, 4]
+[x ** 2 for x in range(4)]          # [0, 1, 4, 9]
+[len(s) for s in ['pv', 'bess', 'grid']]   # [2, 4, 4]
+</code></pre>
+<p>Add <code>if cond</code> after the loop to filter — "for each var, if cond, produce expr":</p>
+<pre><code>[x for x in range(6) if x % 2 == 1]    # [1, 3, 5] — odds only
+[x * 10 for x in range(4) if x != 0]    # [10, 20, 30]
+</code></pre>
+<p>The same shape builds dicts with <code>{key: value for ...}</code> — the one-line way to make a
+lookup table, which is what 6.0002's problem sets reach for:</p>
+<pre><code>{k: k * k for k in range(3)}        # {0: 0, 1: 1, 2: 4}
+</code></pre>
+
+<h2>3. Re-sit protocol</h2>
+<ol>
+<li>If anything above felt thin, re-read primer 0001 §2 ("Lists, dicts, and mutation") and §3
+("Comprehensions") — <a href="0001-python-essentials-primer.html">0001 the primer</a>.</li>
+<li>Open <a href="0002-python-diagnostic.html">0002 the diagnostic</a> and answer all 8 questions
+from memory — no notes, no running code.</li>
+<li>Score 7/8 or better → the week-1 checkbox closes; the agent finalizes learning record 0001 and
+ticks the PROGRESS.md item. Score 6/8 or below → repeat the primer, then re-sit once more.</li>
+<li>Either way, record the score and date in learning record 0001 (it is still marked
+"provisional").</li>
+</ol>
+
+<h2>Practice quiz</h2>
+<p>Same difficulty, different questions. Answer before reading the explanations.</p>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">After running these two statements, what does <code>len(d)</code> return?</p>
+<pre><code>d = {'a': 1}
+d['b'] = 2
+</code></pre>
+<ul class="options">
+<li data-answer="false">1</li>
+<li data-answer="false">3</li>
+<li data-answer="true">2</li>
+<li data-answer="false">4</li>
+</ul>
+<p class="explain"><code>d['b'] = 2</code> adds one new pair; the dict holds two pairs, so
+<code>len(d)</code> is 2. <code>len</code> counts pairs, never values.</p>
+</li>
+
+<li class="q">
+<p class="qtext">With <code>d = {'x': 10}</code>, what does <code>d.get('y', 0)</code> return?</p>
+<ul class="options">
+<li data-answer="false">10</li>
+<li data-answer="true">0</li>
+<li data-answer="false">Error</li>
+<li data-answer="false">None</li>
+</ul>
+<p class="explain"><code>get</code> returns the second argument as a fallback when the key is
+absent, so it is 0 — where <code>d['y']</code> would have raised <code>KeyError</code>.</p>
+</li>
+
+<li class="q">
+<p class="qtext">After <code>d = {'k': 1}</code> then <code>d['k'] = 2</code>, what does
+<code>d['k']</code> return?</p>
+<ul class="options">
+<li data-answer="false">One</li>
+<li data-answer="false">Error</li>
+<li data-answer="false">None</li>
+<li data-answer="true">Two</li>
+</ul>
+<p class="explain">Assignment to an existing key updates it — the dict still has one pair, but its
+value is now 2. Updating never changes <code>len(d)</code>.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does this loop print?</p>
+<pre><code>d = {'a': 1, 'b': 2}
+for k, v in d.items():
+    print(k, v)
+</code></pre>
+<ul class="options">
+<li data-answer="true">a 1 b 2</li>
+<li data-answer="false">a b 1 2</li>
+<li data-answer="false">1 a 2 b</li>
+<li data-answer="false">a 1 b 1</li>
+</ul>
+<p class="explain"><code>items()</code> yields (key, value) pairs; the unpacking <code>k, v</code>
+prints each key followed by its value: a 1, then b 2.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does the expression <code>[x ** 2 for x in range(4)]</code> evaluate to?</p>
+<ul class="options">
+<li data-answer="false">[1, 4, 9, 16]</li>
+<li data-answer="false">[0, 1, 2, 3]</li>
+<li data-answer="false">[0, 4, 16, 36]</li>
+<li data-answer="true">[0, 1, 4, 9]</li>
+</ul>
+<p class="explain"><code>range(4)</code> yields 0, 1, 2, 3; squaring gives 0, 1, 4, 9.
+<code>[1, 4, 9, 16]</code> is the trap for starting at 1 instead of 0.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does the expression <code>[x for x in range(6) if x % 2 == 1]</code> evaluate to?</p>
+<ul class="options">
+<li data-answer="true">[1, 3, 5]</li>
+<li data-answer="false">[0, 2, 4]</li>
+<li data-answer="false">[1, 2, 3]</li>
+<li data-answer="false">[0, 1, 3]</li>
+</ul>
+<p class="explain">The filter keeps only odd values from 0-5, so the list is 1, 3, 5.
+<code>[0, 2, 4]</code> is the even list — the off-by-one in the condition.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does the expression <code>[len(w) for w in ['go', 'bess', 'grid']]</code> evaluate to?</p>
+<ul class="options">
+<li data-answer="false">[1, 3, 3]</li>
+<li data-answer="false">[2, 3, 4]</li>
+<li data-answer="true">[2, 4, 4]</li>
+<li data-answer="false">[4, 4, 2]</li>
+</ul>
+<p class="explain"><code>len('go')</code> is 2, <code>len('bess')</code> is 4, <code>len('grid')</code>
+is 4 — the lengths in input order: [2, 4, 4].</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does the expression <code>{k: k * k for k in range(3)}</code> evaluate to?</p>
+<ul class="options">
+<li data-answer="false">{0: 0, 1: 1, 2: 2}</li>
+<li data-answer="true">{0: 0, 1: 1, 2: 4}</li>
+<li data-answer="false">{0: 1, 1: 2, 2: 4}</li>
+<li data-answer="false">{1: 0, 2: 1, 4: 2}</li>
+</ul>
+<p class="explain">A dict comprehension maps keys 0, 1, 2 to their squares: 0, 1, 4. The
+<code>{0: 0, 1: 1, 2: 2}</code> option forgets to square.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.2 "Learning to Program in Python" —
+<code>mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap02.pdf</code>.
+Dictionaries and comprehensions are covered in 6.0001
+<a href="https://www.youtube.com/watch?v=WPSeyjX1-4s" target="_blank" rel="noopener">Lecture 6, "Recursion and Dictionaries"</a>
+(stream from the <a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA" target="_blank" rel="noopener">6.0001 playlist</a>).
+</div>
+
+<div class="callout ask">
+<p>Scored 7/8 or better here? Tell the agent — it closes the week-1 checkbox, finalizes learning
+record 0001, and updates PROGRESS.md. Missed any? Ask it to re-teach that item before you sit
+0002.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0002-python-diagnostic.html">← 0002 Python diagnostic</a></span>
+<span><a href="../reference/python-quickref.html">quick reference</a></span>
+<span><a href="0005-greedy-vs-optimal-knapsack.html">0005 greedy knapsack →</a></span>
+</div>
+</body>
+</html>

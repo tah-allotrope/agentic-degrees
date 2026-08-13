@@ -25,6 +25,7 @@ Weeks run Monday → Sunday in `Asia/Ho_Chi_Minh` (UTC+7).
 | 0003 | state-machines | complete (2026-08-12) |
 | 0004 | oop-for-engineering-models | complete (2026-08-17) |
 | 0005 | greedy-vs-optimal-knapsack | complete (2026-08-17) |
+| 0006 | dicts-and-comprehensions-review | complete (2026-08-13) — week-1 open-item review, re-sit prep |
 
 ## Checklist
 
