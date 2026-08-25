@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0005 — TEA &amp; LCOH Fundamentals — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0005 · TEA &amp; LCOH Fundamentals</h1>
+<p class="meta">gap-ee week 1, day 5 · 45-60 min · recall first, then check ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Week 1 closes with the economics vocabulary that makes REopt's output
+readable: net present value (NPV), payback, and levelized cost of heat (LCOH) — the $/MMBtu
+figure the whole engagement compares against coal. One worked example carries the lesson: two
+candidate heat sources, different capital costs, lifetimes, and outputs — which one actually
+delivers cheaper heat?</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> activeContext.md's sequencing rule is an LCOH statement:
+"sizing a heat pump against an unoptimized steam load over-sizes the equipment and produces a
+wrong LCOH." After this lesson you can say precisely why: capital dominates LCOH, so an
+over-sized machine poisons every downstream number REopt prints.</p>
+</div>
+
+<h2>1. Discounting and NPV in one paragraph</h2>
+<p>A dollar today and a dollar in year 15 are not the same dollar. Discounting divides each
+future year's cash flow by <code>(1 + r)^n</code>, where <code>r</code> is the discount rate
+(REopt scenarios use an offtaker rate of <strong>10%</strong>) and <code>n</code> the year.
+Net present value sums all discounted cash flows — capital outlay (negative), fuel,
+electricity, O&amp;M (negative), any savings or revenues (positive). NPV &gt; 0 means the
+project creates value at that discount rate. When REopt reports "NPV $0" for an option it
+declined to build, it means: building it would not improve on doing nothing.</p>
+
+<h2>2. Simple payback</h2>
+<pre><code>payback_years = capital_cost / annual_net_savings
+</code></pre>
+<p>Crude but universal on factory floors. It ignores the time value of money entirely
+(see §1), ignores anything after payback year, and flatters short-lived equipment. Use it to
+communicate, not to decide — decisions belong to NPV/LCOH.</p>
+
+<h2>3. LCOH — the engagement's headline metric</h2>
+<pre><code>LCOH = total lifecycle cost of the heat source / total lifetime heat delivered   [$/MMBtu]
+</code></pre>
+<p>Sum discounted capital + fixed O&amp;M over the lifetime; add discounted fuel/electricity +
+variable O&amp;M as delivered; divide by discounted heat delivered. It converts wildly different
+technologies (a boiler burning coal vs. a heat pump eating electricity vs. solar thermal with
+a big upfront cost) into one comparable number per MMBtu — which is exactly what lesson 0007's
+breakeven table needs.</p>
+
+<h3>Worked example — two candidate systems, one load</h3>
+<pre><code>Serve 60,000 MMBtu/yr useful heat. Discount rate 10%, 20 years.
+Annuity factor A = (1 − 1.1^−20)/0.10 ≈ 8.514   (present value of $1/yr for 20 yr)
+
+System H — industrial heat pump
+  Capital:        $2,400,000          → annualised capex = 2,400,000 / 8.514 ≈ $281,900/yr
+  Fixed O&M:      $24,000/yr
+  Electricity:    COP 3.11 → 60,000 MMBtu ÷ 293.071 kWh/MMBtu × ... see below
+    heat energy   = 60,000 MMBtu × 293.071 kWh/MMBtu = 17,584,260 kWh_th
+    electricity   = 17,584,260 / 3.11 ≈ 5,653,460 kWh_e
+    cost @ blended ~$0.06983/kWh (normal-rate case)
+                  ≈ 5,653,460 × 0.06983 ≈ $394,800/yr
+
+System B — new coal boiler (same 75% efficiency)
+  Capital:        $600,000            → annualised capex = 600,000 / 8.514 ≈ $70,500/yr
+  Fixed O&M:      $12,000/yr
+  Coal:           60,000 / 0.75 = 80,000 MMBtu fuel × $5.30 ≈ $424,000/yr
+
+LCOH_H = (281,900 + 24,000 + 394,800) / 60,000 = 700,700 / 60,000 ≈ $11.68/MMBtu
+LCOH_B = (70,500 + 12,000 + 424,000)  / 60,000 = 506,500 / 60,000 ≈ $8.44/MMBtu
+</code></pre>
+<p>Read it carefully — this is the honest version of the comparison:</p>
+<ul>
+<li>At the blended normal-hours rate, the heat pump's delivered heat costs about
+<code>394,800/60,000 ≈ $6.58/MMBtu</code> in energy alone (matching ee-heat's published
+$6.58 normal-hours figure for COP 3.11), but its capital drags total LCOH above the coal
+boiler's.</li>
+<li>The lever that flips the answer is <em>when</em> the electricity is bought — off-peak at
+$0.04533/kWh cuts the energy term ~35%, and thermal storage is the mechanism to buy off-peak
+heat and serve peak demand. That design question is exactly what the capstone (0011) asks
+REopt to optimize, hour by hour, instead of trusting a single blended rate like this example
+does.</li>
+<li>Notice how much of LCOH_H is capital ($305,900 of $700,700). Over-size the heat pump by
+serving an unoptimized load and LCOH_H inflates almost linearly — the sequencing rule from
+lesson 0004, now with numbers attached.</li>
+</ul>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does an NPV of exactly $0 mean in REopt's output?</p>
+<ul class="options">
+<li data-answer="false">The scenario failed to solve</li>
+<li data-answer="false">The project pays back in exactly half its lifetime</li>
+<li data-answer="true">Building the option neither creates nor destroys value vs. doing
+nothing — typically why REopt declines to build it</li>
+<li data-answer="false">Fuel prices were escalated to zero</li>
+</ul>
+<p class="explain">Baseline run (Phase 3) shows "Electric heater … NPV $0": at COP 1.0 the
+electric boiler cannot beat coal, so its optimal size is zero. NPV $0 = no improvement over
+BAU.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Simple payback ignores which major factor?</p>
+<ul class="options">
+<li data-answer="true">The time value of money (discounting)</li>
+<li data-answer="false">Capital cost</li>
+<li data-answer="false">Annual savings</li>
+<li data-answer="false">Equipment location</li>
+</ul>
+<p class="explain">Payback = capital ÷ annual savings, undiscounted, and blind to everything
+after the payback year. Communicate with it; decide with NPV/LCOH.</p>
+</li>
+
+<li class="q">
+<p class="qtext">LCOH is best described as…</p>
+<ul class="options">
+<li data-answer="false">The first-year fuel bill divided by nameplate capacity</li>
+<li data-answer="false">Capital cost divided by annual heat output</li>
+<li data-answer="true">Total lifecycle cost divided by total lifetime heat delivered — a $/MMBtu
+figure comparable across technologies</li>
+<li data-answer="false">The tariff rate charged by the utility per MMBtu of steam</li>
+</ul>
+<p class="explain">LCOH puts boiler, heat pump, and solar thermal on one axis: discounted
+(capital + O&M + energy) ÷ discounted heat delivered. That comparability is why the
+engagement quotes coal at $7.07/MMBtu delivered.</p>
+</li>
+
+<li class="q">
+<p class="qtext">In the worked example, most of System H's LCOH is…</p>
+<ul class="options">
+<li data-answer="false">Fixed O&amp;M</li>
+<li data-answer="false">Electricity</li>
+<li data-answer="true">Annualised capital (~$306K of ~$701K per year)</li>
+<li data-answer="false">Coal</li>
+</ul>
+<p class="explain">Capital dominates the heat pump's LCOH. Consequence: sizing against an
+unoptimized (too-big) load inflates LCOH nearly linearly — the quantitative form of the
+MEASUR-before-REopt rule.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why does the lesson still call the heat pump promising despite LCOH_H &gt;
+LCOH_B?</p>
+<ul class="options">
+<li data-answer="false">Because COP will automatically rise after installation</li>
+<li data-answer="false">Because the example forgot to include the boiler's emissions</li>
+<li data-answer="true">Because its energy term was priced at one blended rate — buying off-peak
+power (with thermal storage) cuts the energy term ~35% and changes the verdict</li>
+<li data-answer="false">Because LCOH never applies to heat pumps</li>
+</ul>
+<p class="explain">The blended-rate example mirrors the "single breakeven ~3.3" trap of lesson
+0007: hour-by-hour pricing plus storage is the real design space, and optimizing exactly that
+is the capstone's job.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Sizing a heat pump against today's unoptimized steam load primarily corrupts
+which quantity?</p>
+<ul class="options">
+<li data-answer="false">The grid emission factor</li>
+<li data-answer="false">The tariff windows</li>
+<li data-answer="true">LCOH — an over-sized machine adds capital (and part-load losses) that
+inflates lifetime cost per MMBtu</li>
+<li data-answer="false">The FX conversion</li>
+</ul>
+<p class="explain">activeContext.md's warning verbatim: over-sizing produces "a wrong LCOH."
+Shrink the load first (MEASUR), then size (REopt).</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> NREL/TP-5700-84560, *High-Temperature Heat Pump Model
+Documentation and Case Studies* (2023) —
+<a href="https://www.nrel.gov/docs/fy23osti/84560.pdf" target="_blank" rel="noopener">nrel.gov/docs/fy23osti/84560.pdf</a>
+(defines LCOH/NPV/PBP machinery for industrial heat pumps); sequencing-rule source:
+`C:\Users\tukum\Downloads\ee-heat\activeContext.md` ("Tool-ordering rule").
+</div>
+
+<div class="lesson-nav">
+<span><a href="0004-measur-hands-on-steam-and-waste-heat.html">← 0004 MEASUR hands-on</a></span>
+<span><a href="0006-reopt-hands-on-scenario-building.html">0006 REopt hands-on →</a></span>
+</div>
+</body>
+</html>

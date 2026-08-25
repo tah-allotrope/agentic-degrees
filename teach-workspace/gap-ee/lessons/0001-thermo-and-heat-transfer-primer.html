@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0001 — Thermo &amp; Heat-Transfer Primer — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0001 · Thermo &amp; Heat-Transfer Primer</h1>
+<p class="meta">gap-ee week 1, day 1 · 45-60 min · recall first, then check ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Everything in the clean-heat toolchain is thermodynamics wearing different
+clothes: MEASUR balances steam enthalpies, REopt prices heat per MMBtu,
+<code>heat_pump_model</code> moves heat up a temperature hill. This lesson gives you the three
+ideas you need before any of those tools make sense — how heat moves, why steam carries so
+much more energy than hot water, and why MEASUR insists on Metric units.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> The engagement's core finding compares a heat pump's COP
+against coal steam economics. You cannot reason about COP (lesson 0002), boiler efficiency
+(0003), or a $/MMBtu tariff spread (0007) without the unit system and the sensible/latent
+distinction from this lesson.</p>
+</div>
+
+<h2>1. Three ways heat moves</h2>
+<p>Heat flows from hot to cold, by exactly three mechanisms:</p>
+<ul>
+<li><strong>Conduction</strong> — through solid material. A boiler shell, a pipe wall, an
+insulation layer. Governed by <code>Q = k·A·ΔT/L</code>: conductivity <code>k</code>, area
+<code>A</code>, temperature difference <code>ΔT</code>, thickness <code>L</code>. This is why
+distribution-line insulation works: fibreglass has ~20× lower <code>k</code> than steel.</li>
+<li><strong>Convection</strong> — heat carried by a moving fluid. Steam condensing on a dyeing
+machine's jacket, air blowing over a dryer coil. <code>Q = h·A·ΔT</code>. Forced convection
+(a fan/pump) beats natural convection by 5–10× on <code>h</code>.</li>
+<li><strong>Radiation</strong> — electromagnetic, needs no medium, scales with
+<code>T⁴</code>. Matters for uninsulated boiler and header surfaces at 100°C+: a bare hot
+surface radiates and convects away useful fuel money simultaneously.</li>
+</ul>
+<p>In plant work you almost never solve these equations — you use tools that do. But you must
+recognise which mechanism a measure targets: insulation attacks conduction+radiation; a
+condensate-return pump is about recovering already-transferred heat; excess-air control fixes
+convection losses up the stack.</p>
+
+<h2>2. Sensible vs. latent heat — why steam systems exist</h2>
+<p><strong>Sensible heat</strong> changes a substance's temperature.
+<strong>Latent heat</strong> changes its phase at constant temperature. For water:</p>
+<ul>
+<li>Specific heat: <code>c_p ≈ 4.186 kJ/kg·°C</code> (liquid water)</li>
+<li>Latent heat of vaporisation at 100°C: <code>h_fg ≈ 2257 kJ/kg</code></li>
+</ul>
+
+<h3>Worked example — heating vs. vaporising 1000 kg of water</h3>
+<pre><code>Sensible:  1000 kg × 4.186 kJ/kg·°C × (100 − 20)°C = 334,880 kJ
+Latent:    1000 kg × 2257 kJ/kg                    = 2,257,000 kJ
+
+Ratio:     2,257,000 / 334,880 ≈ 6.7×
+</code></pre>
+<p>Vaporising the same kilogram costs <strong>~6.7× more energy</strong> than heating it from
+20°C to boiling. That single ratio explains four things at once:</p>
+<ol>
+<li>Why steam is the transport fluid for industrial heat — one kilogram of steam delivers
+2257 kJ when it condenses, at constant temperature, inside the machine that needs it.</li>
+<li>Why condensate return dominates the savings list in lesson 0003: dump hot condensate and
+you throw away both its sensible heat <em>and</em> the treated water.</li>
+<li>Why dryers and stenters are hungry — they boil water all day (latent duty).</li>
+<li>Why a dye-house loop at 60–95°C (hot water, no boiling) is a fundamentally cheaper,
+lower-temperature target than the steam header — and exactly where a heat pump can win.</li>
+</ol>
+
+<h2>3. The unit system: °C / bar(g) / kJ — and why Metric matters here</h2>
+<p>Plant data in Vietnam arrives in <strong>tonnes of steam per hour</strong>,
+<strong>bar(g)</strong>, <strong>°C</strong>, and <strong>kJ</strong>.
+<code>ee-heat/tools/measur/VN-settings-card.md</code>'s first instruction is therefore
+<strong>"Set units to Metric"</strong> — converting every reading to Imperial just to satisfy
+a US default is where transcription errors get made.</p>
+<ul>
+<li><strong>bar(g)</strong> = gauge pressure (relative to atmosphere). Steam properties tables
+key on absolute pressure, but plants speak gauge. 10 bar(g) ≈ 11 bar absolute ≈ 184°C
+saturation.</li>
+<li><strong>kJ vs MMBtu</strong> — the toolchain speaks both: MEASUR takes kJ/GJ, REopt prices
+per MMBtu. One conversion to memorise: <code>1 MMBtu = 293.071 kWh</code> (used everywhere in
+lessons 0006–0011). Also useful: <code>1 GJ = 0.9478 MMBtu</code>.</li>
+<li>The VN settings card prices coal at $5.02/GJ — the same price as the $5.30/MMBtu used in
+REopt, expressed in the other unit family. Check it:
+<code>$5.30/MMBtu ÷ 1.055 GJ/MMBtu ≈ $5.02/GJ</code>. Same number, two dialects.</li>
+</ul>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">Which heat-transfer mechanism does adding insulation to a steam distribution
+line primarily attack?</p>
+<ul class="options">
+<li data-answer="true">Conduction through the pipe/surface plus surface radiation</li>
+<li data-answer="false">Convection inside the flowing steam</li>
+<li data-answer="false">Latent heat of the steam</li>
+<li data-answer="false">Radiation from the flame inside the burner</li>
+</ul>
+<p class="explain">Insulation adds a low-conductivity layer (k ~20× lower than steel) and
+closes the hot outer surface, cutting conducted-and-radiated losses. The steam side's internal
+convection is untouched — it was never the loss path.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Using c_p = 4.186 kJ/kg·°C and h_fg = 2257 kJ/kg: raising 1000 kg of water
+from 20°C to 100°C costs 334,880 kJ. Roughly how much more energy to then vaporise all of it
+at 100°C?</p>
+<ul class="options">
+<li data-answer="false">About the same again (~330,000 kJ)</li>
+<li data-answer="false">About half as much again (~170,000 kJ)</li>
+<li data-answer="false">About 20× more (~6.7 million kJ)</li>
+<li data-answer="true">About 6.7× more (~2,257,000 kJ)</li>
+</ul>
+<p class="explain">Latent heat is 1000 kg × 2257 kJ/kg = 2,257,000 kJ, and
+2,257,000 / 334,880 ≈ 6.7. Vaporising costs several times more than sensible heating — that is
+why steam carries so much energy per kilogram.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Condensing steam inside a dyeing machine transfers its latent heat at what
+temperature behaviour?</p>
+<ul class="options">
+<li data-answer="false">Temperature falls steadily while heat is released</li>
+<li data-answer="true">Constant temperature until all vapour has condensed</li>
+<li data-answer="false">Temperature rises steadily while heat is released</li>
+<li data-answer="false">Temperature oscillates with pressure spikes</li>
+</ul>
+<p class="explain">Phase change happens at constant temperature (at fixed pressure). This is
+exactly what a dye bath wants — heat delivered at a stable, controlled temperature.</p>
+</li>
+
+<li class="q">
+<p class="qtext">MEASUR ships with US/Imperial defaults. The VN settings card says set units
+to Metric before entering anything. Why?</p>
+<ul class="options">
+<li data-answer="false">Metric results are more accurate numerically</li>
+<li data-answer="false">Imperial units are unsupported in MEASUR v1.8.3</li>
+<li data-answer="true">Vietnamese plant data arrives in tonnes/h, bar(g), °C, kJ — avoiding
+unit-by-hand conversion avoids transcription errors</li>
+<li data-answer="false">Metric mode unlocks the waste-heat module only</li>
+</ul>
+<p class="explain">The card's exact reasoning: "converting every reading to Imperial to
+satisfy a default is where transcription errors get made." It is a data-integrity rule, not a
+precision claim.</p>
+</li>
+
+<li class="q">
+<p class="qtext">The toolchain quotes coal at $5.30/MMBtu (REopt) and $5.02/GJ (MEASUR).
+Are these consistent? (1 GJ = 0.9478 MMBtu)</p>
+<ul class="options">
+<li data-answer="true">Yes — $5.30/MMBtu ÷ 1.055 GJ/MMBtu ≈ $5.02/GJ</li>
+<li data-answer="false">No — one of them is wrong by roughly 40%</li>
+<li data-answer="false">No — GJ prices must always be larger numbers than MMBtu prices</li>
+<li data-answer="false">Cannot tell without the boiler efficiency</li>
+</ul>
+<p class="explain">A MMBtu is 1.055 GJ, so dividing $5.30 by 1.055 gives $5.02 per GJ. Same
+price, two unit families — the conversion constant between them is worth memorising because
+the toolchain switches freely.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why is the 60–95°C dye-house loop a more promising heat-pump target than the
+10 bar(g) steam header?</p>
+<ul class="options">
+<li data-answer="false">Because hot water stores more latent heat per kg than steam</li>
+<li data-answer="false">Because heat pumps can only run on hot water, never steam</li>
+<li data-answer="true">Lifting heat across a small temperature lift (e.g. 45→95°C) needs far
+less work than making 10 bar(g) steam — higher achievable COP</li>
+<li data-answer="false">Because the dye-house runs at higher pressure than the header</li>
+</ul>
+<p class="explain">COP falls as the temperature lift grows. A 45→95°C lift keeps the ideal COP
+high (lesson 0002 computes 6.22); producing 10 bar(g) steam would demand a much larger lift and
+much worse COP. Clean-heat priority (ii) is deliberately the &lt;100–110°C band.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> U.S. DOE Advanced Manufacturing Office / Industrial
+Technologies Program, <em>Improving Steam System Performance: A Sourcebook for Industry,
+Second Edition</em> —
+<a href="https://www.energy.gov/sites/prod/files/2014/05/f15/steamsourcebook.pdf" target="_blank" rel="noopener">energy.gov/sites/prod/files/2014/05/f15/steamsourcebook.pdf</a>
+(free PDF; §1 covers steam-system basics, properties, and end-use structure). Unit-conversion
+constants cross-checked against NIST SP 811. Local companion values:
+<code>C:\Users\tukum\Downloads\ee-heat\tools\measur\VN-settings-card.md</code>.
+</div>
+
+<div class="lesson-nav">
+<span>gap-ee 0001 — start of track</span>
+<span><a href="0002-refrigeration-cycle-and-cop.html">0002 refrigeration cycle &amp; COP →</a></span>
+</div>
+</body>
+</html>

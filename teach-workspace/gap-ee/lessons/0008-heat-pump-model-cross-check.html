@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0008 — heat_pump_model Cross-Check — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0008 · <code>heat_pump_model</code> Cross-Check</h1>
+<p class="meta">gap-ee week 2, day 8 · 60-90 min hands-on · runs inside ee-heat (read-only
+verify) · <a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Two independent models agreeing is worth more than either alone. REopt's
+optimization says "heat pump + storage"; today you run the second witness — NLR's CoolProp-
+based <code>heat_pump_model</code>, built on refrigerant physics rather than optimization — and
+confirm it lands on actual COP 3.11 for the 45→95°C dye-house case. You also learn exactly why
+its cost output goes straight in the bin.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> This run corroborates the COP 3.11 the capstone feeds to
+<code>ASHPWaterHeater</code>. It is also a drill in tool hygiene: running a generator inside
+someone else's repo, verifying zero-diff, and never committing there.</p>
+</div>
+
+<h2>1. Run the input regenerator — then prove it changed nothing</h2>
+<p><code>make_vn_inputs.py</code> regenerates the three VN input files (gas price, power price,
+lat/long) from <code>vn_context.json</code>. Its output should already be committed in
+<code>ee-heat</code> — so after running it, <strong>git must show no diff</strong>:</p>
+<pre><code>cd C:\Users\tukum\Downloads\ee-heat\tools\heat-pump-model
+C:\Users\tukum\Downloads\ee-heat\tools\.venv\Scripts\python.exe make_vn_inputs.py
+
+# verify idempotency from OUTSIDE the repo (or cd in only to check status — never to commit):
+git -C C:\Users\tukum\Downloads\ee-heat status --short
+</code></pre>
+<p>If a tracked file shows as modified: stop, diff it, understand it before proceeding. Do not
+commit inside <code>ee-heat</code> regardless — this course reads that repo; it never writes
+history into it.</p>
+
+<h2>2. Run the dye-house case</h2>
+<pre><code>cd C:\Users\tukum\Downloads\ee-heat\tools\heat-pump-model
+..\..\.venv\Scripts\python.exe -m jupyterlab      # open test_heat_pump.ipynb
+</code></pre>
+<p>Set/confirm the case parameters: source 45°C (dye-house waste water), sink 95°C (hot-water
+loop), refrigerant R1234ze(Z) (the model's default), second-law efficiency 50%. Run the
+notebook top to bottom and read out:</p>
+<ul>
+<li><strong>Ideal COP ≈ 6.22</strong> — the model's cycle-level ideal on real refrigerant
+properties (pure Carnot would be ~7.36 at this lift; lesson 0002 explains the gap).</li>
+<li><strong>Actual COP = 6.22 × 0.50 = 3.11</strong> — matching your hand calculation from
+lesson 0002 exactly.</li>
+<li>Dropped onto the tariff (lesson 0007): $4.27/MMBtu off-peak (−40%), $6.58 normal (−7%),
+$12.20 peak (+73%). Same conclusion as REopt via completely different machinery:
+<strong>charge off-peak, ride through peak — heat pump + thermal storage.</strong></li>
+</ul>
+
+<h2>3. Why the cost side of this tool is radioactive</h2>
+<p>The same notebook also prints techno-economics. Do not use them:</p>
+<ul>
+<li>It reports a <strong>negative capital cost</strong> — physically absurd.</li>
+<li>Its operating-cost units come out garbled (<code>$·MMBtu/h/kW/yr</code>-shaped).</li>
+<li>Its headline LCOH ($2.24/MMBtu) is below what the electricity ALONE costs at COP 3.11
+($6.58/MMBtu normal-hours) — an LCOH below its own energy floor cannot be right.</li>
+</ul>
+<p>Diagnosis: the repo is stale (last commit Nov 2022), undocumented, unlicensed, and its cost
+module was built for US assumptions nobody has revalidated. The COP side rests on CoolProp —
+a maintained, peer-used property library — so it survives scrutiny. Rule, verbatim from
+<code>tools/README.md</code>: <strong>"Use this model for COP, take costs from REopt."</strong>
+That is also why it ranks #3 "reference only" in activeContext.md's table.</p>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">After running make_vn_inputs.py inside ee-heat, git status must show…</p>
+<ul class="options">
+<li data-answer="false">Modified input files, which you commit to ee-heat</li>
+<li data-answer="true">No changes to tracked files — the generator output was already
+committed; if not, stop and investigate before continuing</li>
+<li data-answer="false">Deleted files, which you restore with checkout</li>
+<li data-answer="false">Whatever it likes — ee-heat is scratch space</li>
+</ul>
+<p class="explain">The generator is deterministic from vn_context.json; its output is
+committed, so re-running is a no-op. Any diff means drift between context file and committed
+inputs — investigate first, and never commit inside ee-heat as part of this course.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What makes this model's COP outputs trustworthy while its cost outputs are
+not?</p>
+<ul class="options">
+<li data-answer="false">COP numbers are smaller and therefore less error-prone</li>
+<li data-answer="true">COP rests on CoolProp's maintained refrigerant-property calculations;
+the cost module is stale, undocumented, and produces physically impossible values</li>
+<li data-answer="false">Costs are unreliable only outside the US</li>
+<li data-answer="false">Trustworthiness depends on the refrigerant chosen</li>
+</ul>
+<p class="explain">Different modules, different provenance: physics from CoolProp (sound);
+economics from a stale hand-rolled module (negative capex, garbled units, sub-energy-floor
+LCOH). Audit components, not tools.</p>
+</li>
+
+<li class="q">
+<p class="qtext">The notebook returns ideal COP 6.22 at 50% second-law efficiency. Actual COP?</p>
+<ul class="options">
+<li data-answer="false">12.44</li>
+<li data-answer="false">6.72</li>
+<li data-answer="true">3.11</li>
+<li data-answer="false">0.31</li>
+</ul>
+<p class="explain">0.5 × 6.22 = 3.11 — the third time you've produced this number (lesson 0002
+by hand, lesson 0007 against the tariff, now from the tool itself). Corroboration complete.</p>
+</li>
+
+<li class="q">
+<p class="qtext">The tool prints LCOH $2.24/MMBtu for a machine using electricity worth
+$6.58/MMBtu of heat at COP 3.11. What follows?</p>
+<ul class="options">
+<li data-answer="true">The LCOH is wrong by construction — total cost can't sit below the
+energy-input cost alone</li>
+<li data-answer="false">The electricity price must be wrong instead</li>
+<li data-answer="false">Storage could bring delivered heat below its own energy cost</li>
+<li data-answer="false">Nothing — LCOH routinely sits below energy cost for efficient plants</li>
+</ul>
+<p class="explain">LCOH ≥ energy cost per MMBtu, always. A sub-floor LCOH is proof of a broken
+cost chain, independent of any other evidence — which is precisely what the negative-capital
+and garbled-units symptoms corroborate.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why run the notebook's case at 45→95°C specifically?</p>
+<ul class="options">
+<li data-answer="false">It is the model's shipped default case</li>
+<li data-answer="false">Because heat pumps cannot exceed 95°C under any circumstances</li>
+<li data-answer="true">It mirrors the plant's real dye-house opportunity — waste-water source
+to hot-water sink, inside clean-heat priority band (ii), &lt;100–110°C</li>
+<li data-answer="false">Because R1234ze(Z) only works below 100°C by regulation</li>
+</ul>
+<p class="explain">The engagement targets low-temp process heat: 45°C wastewater is a free heat
+source going down the drain, and the 60–95°C loop is where a heat pump competes. The case is
+chosen by plant reality, not tool convenience.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Where does this session's result enter the capstone scenario?</p>
+<ul class="options">
+<li data-answer="false">Its full techno-economic output is pasted into the REopt JSON</li>
+<li data-answer="false">Nowhere — REopt computes its own COP internally</li>
+<li data-answer="true">Only the verified COP 3.11 enters — as ASHPWaterHeater's cop parameter;
+all economics stay REopt's job</li>
+<li data-answer="false">As the installed_cost_per_mmbtu_per_hour value</li>
+</ul>
+<p class="explain">One number crosses the bridge (COP 3.11); costs come from REopt inputs. That
+division of labor is CON-002 in the plan and the empirical basis for the tool's rank-3
+placing.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> NLR <code>heat_pump_model</code> (clone at
+`C:\Users\tukum\Downloads\ee-heat\tools\heat-pump-model\`, notebook
+<code>test_heat_pump.ipynb</code>) with localization from
+<code>make_vn_inputs.py</code>; corroboration target and caveat documented in
+`C:\Users\tukum\Downloads\ee-heat\tools\README.md` §3.
+</div>
+
+<div class="lesson-nav">
+<span><a href="0007-tou-tariffs-and-breakeven-cop.html">← 0007 TOU &amp; breakeven COP</a></span>
+<span><a href="0009-energyplus-envelope-hvac-orientation.html">0009 EnergyPlus →</a></span>
+</div>
+</body>
+</html>

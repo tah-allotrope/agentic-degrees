@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0010 — IHDA/FIED Methodology — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0010 · IHDA/FIED Methodology</h1>
+<p class="meta">gap-ee week 2, days 9-10 · 30-45 min reading · read-only lesson ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">The last two tools are not software you run but references you think with:
+NLR's Industrial Heat Demand Analysis (IHDA) repo and the Foundational Industrial Energy Data
+(FIED) characterization. Their datasets are American to the core — and permanently unusable as
+numbers for Vietnam. Their <em>method</em>, however, answers a question you will face on every
+new supplier site: when nobody knows how much heat goes where, how do you estimate the split by
+temperature level?</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> The engagement's rule (tools/README.md §5): "take the method,
+never the numbers." This lesson is that rule, unpacked — plus the honest statement that no
+Vietnamese or Indonesian equivalent dataset exists yet. Building one, supplier by supplier,
+is exactly what the data-collection workbook is for.</p>
+</div>
+
+<h2>1. The problem the method solves</h2>
+<p>A garment factory says: "we use a 10 bar(g) steam header for everything." But dye baths need
+95°C hot water, dryers want 120–160°C air, ironing stations want low-pressure steam. If all
+heat is booked at header temperature, every electrification calculation is wrong: a heat pump
+that could serve the 60–95°C band gets judged against 184°C steam economics and fails on paper
+while it would have won in reality. You need the load split by <strong>temperature
+band</strong>: how many MMBtu/yr below 100°C, between 100–200°C, above.</p>
+
+<h2>2. How Enduse_Calc.py does it (read the file)</h2>
+<p>Open
+<code>C:\Users\tukum\Downloads\ee-heat\tools\reference\Industrial-Heat-Demand-Analysis\Enduse_Calc.py</code>.
+The approach, stripped of its US plumbing:</p>
+<ol>
+<li><strong>End-use taxonomy first.</strong> A fixed list of industrial end uses (process
+heating subtypes, HVAC, machine drive...) — the vocabulary every estimate must speak.</li>
+<li><strong>Prior per end use × industry.</strong> For each (end use, industry sector) pair,
+assign a typical <em>temperature range</em> — e.g. a priors table saying "textile dyeing sits
+at X–Y°C". These priors come from US GHGRP/MECS data (last updated 2018) — the part that does
+NOT transfer.</li>
+<li><strong>Allocate total fuel to bands.</strong> Multiply sector-level energy consumption by
+the end-use shares and their temperature ranges → fuel demand resolved into temperature bins,
+which is precisely what clean-heat technology screening needs: each technology has a maximum
+temperature lift, so each bin has a candidate set.</li>
+<li><strong>Sum to sanity.</strong> Bins roll up to the site's known total — conservation as a
+checksum.</li>
+</ol>
+<p>FIED (<code>foundational-industry-energy-data/</code>) contributes the second half of the
+pattern: unit-level characterization — describing each thermal unit (boiler, oven, heater) with
+capacity, fuel, utilization, age — the structure to copy verbatim into any supplier survey.</p>
+
+<h2>3. Why the numbers can NEVER be quoted for Vietnam</h2>
+<ul>
+<li><strong>Different data universes:</strong> GHGRP covers large US emitters' reported
+emissions; MECS is a US Census/EIA survey of US plants. Coverage bias, not measurement.</li>
+<li><strong>Different industry mix:</strong> US textile processing ≠ Vietnamese CMT garment
+sector; wet-processing intensity differs enormously.</li>
+<li><strong>Different vintages:</strong> 2018 or older; Vietnam's industrial base is growing and
+retooling faster than any US dataset rotates.</li>
+<li><strong>No VN/ID equivalent exists</strong> — verified during localization (the only tool
+in the stack where localization was impossible). Quoting GHGRP-derived percentages for a Binh
+Duong supplier would be fabrication with citations.</li>
+</ul>
+<p>The defensible workflow: use the taxonomy + binning structure, seed priors from supplier
+data as the workbook collects it (nameplate ratings, steam-meter readings, dye-house schedules),
+and let site reality replace priors over time. Where a prior must stand in before data lands,
+label it as placeholder explicitly — same discipline as vn_context.json's UNVERIFIED PLACEHOLDER
+blocks for Indonesia.</p>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What question does the IHDA methodology exist to answer?</p>
+<ul class="options">
+<li data-answer="false">Which boiler vendor offers the best price</li>
+<li data-answer="false">How to optimize a TOU tariff vector hour by hour</li>
+<li data-answer="true">How to split an industrial site's heat demand by temperature range/end
+use when direct measurements don't exist</li>
+<li data-answer="false">How to forecast next year's coal price</li>
+</ul>
+<p class="explain">Temperature-band resolution of heat demand is the product. It determines
+which clean-heat technologies are even candidates per band — the input every later sizing step
+needs.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why does booking ALL heat at 10 bar(g) header conditions break heat-pump
+screening?</p>
+<ul class="options">
+<li data-answer="false">Because heat pumps cannot connect to steam headers physically</li>
+<li data-answer="true">Low-temperature loads (60–95°C dye/wash) get judged against high-grade
+steam economics, hiding wins a heat pump would actually deliver</li>
+<li data-answer="false">Steam headers make metering impossible</li>
+<li data-answer="false">It doesn't — header temperature IS the correct basis</li>
+</ul>
+<p class="explain">A COP-3.11 machine serving 95°C water competes well (lesson 0007); against
+184°C steam economics it never can. Mis-binned load = systematically wrong screening.</p>
+</li>
+
+<li class="q">
+<p class="qtext">In Enduse_Calc.py, which ingredient actually transfers to Vietnam?</p>
+<ul class="options">
+<li data-answer="true">The structure: end-use taxonomy × industry priors → temperature-bin
+allocation, with totals conserved as a checksum</li>
+<li data-answer="false">The GHGRP-derived emission factors</li>
+<li data-answer="false">The 2018 end-use share tables themselves</li>
+<li data-answer="false">The MECS survey questionnaire mailing lists</li>
+</ul>
+<p class="explain">Method yes, numbers no. The priors' provenance (US GHGRP/MECS ≤2018) makes
+them invalid for VN/ID sites even though the machinery consuming them is perfectly reusable.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does FIED add to the pattern?</p>
+<ul class="options">
+<li data-answer="true">Unit-level characterization structure — describe each thermal unit
+(capacity, fuel, utilization, age)</li>
+<li data-answer="false">A Vietnamese industrial dataset collected in 2024</li>
+<li data-answer="false">A tariff optimization engine</li>
+<li data-answer="false">Weather files for Southeast Asia</li>
+</ul>
+<p class="explain">FIED = how to describe a facility's thermal units consistently. Copy that
+survey structure; ignore the US values filling it.</p>
+</li>
+
+<li class="q">
+<p class="qtext">You need a dye-house temperature prior TODAY but the supplier hasn't answered.
+Defensible move?</p>
+<ul class="options">
+<li data-answer="false">Quote the US textile share from Enduse_Calc.py silently</li>
+<li data-answer="false">Skip the site until full metering exists</li>
+<li data-answer="true">Use a stated placeholder assumption, explicitly labelled, flagged for
+replacement by supplier data — mirroring vn_context.json's UNVERIFIED PLACEHOLDER discipline</li>
+<li data-answer="false">Assume 100% of heat goes to dyeing to be safe</li>
+</ul>
+<p class="explain">Labelled placeholders keep analyses moving without laundering assumptions
+into facts. Silent US-number reuse is the exact failure mode tools/README.md §5 forbids.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why is localization impossible for IHDA/FIED (unlike every other tool)?</p>
+<ul class="options">
+<li data-answer="false">Their licenses forbid modification</li>
+<li data-answer="false">They require internet access to US servers</li>
+<li data-answer="true">They ARE US datasets by construction (EPA GHGRP, EIA MECS) — no
+Vietnamese or Indonesian equivalent exists to substitute</li>
+<li data-answer="false">Their code only runs on Linux</li>
+</ul>
+<p class="explain">MEASUR/REopt/E+/heat_pump_model had US defaults you could override with real
+values. Here the default IS the dataset; nothing domestic replaces it yet — hence method-only
+import, and the long-game value of building VN priors from actual suppliers.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> NLR `Industrial-Heat-Demand-Analysis`
+(<code>Enduse_Calc.py</code>) and `foundational-industry-energy-data` clones at
+`C:\Users\tukum\Downloads\ee-heat\tools\reference\`; usage rule from
+`C:\Users\tukum\Downloads\ee-heat\tools\README.md` §5 ("take the method, not the numbers").
+</div>
+
+<div class="lesson-nav">
+<span><a href="0009-energyplus-envelope-hvac-orientation.html">← 0009 EnergyPlus</a></span>
+<span><a href="0011-capstone-thermal-storage-sizing.html">0011 capstone →</a></span>
+</div>
+</body>
+</html>

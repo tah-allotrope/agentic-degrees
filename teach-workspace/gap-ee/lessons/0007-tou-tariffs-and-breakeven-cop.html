@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0007 — TOU Tariffs &amp; Breakeven COP — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0007 · TOU Tariffs &amp; the Breakeven-COP Table</h1>
+<p class="meta">gap-ee week 2, day 7 · 45-60 min · pencil, calculator, vn_context.json ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">This is the lesson the whole course exists for: reproducing — by hand, from raw
+VND rates and the FX rate — the engagement's core finding that <strong>there is no single
+breakeven COP</strong>. No precomputed USD numbers allowed: you start from
+<code>vn_context.json</code>'s 3,398 / 1,833 / 1,190 VND per kWh and convert everything
+yourself.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> The table you build here (1.88 / 2.90 / 5.37) is the yardstick
+the capstone is judged against: REopt's heat-pump-plus-storage answer must be consistent with
+it. If a design conclusion ever contradicts this arithmetic, distrust the model first.</p>
+</div>
+
+<h2>1. The formula</h2>
+<p>A heat pump "breaks even" against the coal boiler when its delivered-heat cost equals coal's
+delivered-heat cost. Heat delivered per kWh of electricity is COP × 293.071/1000 MMBtu (since
+1 MMBtu = 293.071 kWh). Setting the two costs equal and solving for COP:</p>
+<pre><code>COP_breakeven = (P_elec × 293.071) / (P_coal / η_boiler)
+
+  P_elec      grid electricity price, USD/kWh, for the tariff period being evaluated
+  293.071     kWh per MMBtu (unit-conversion constant)
+  P_coal      delivered coal price, USD/MMBtu as-fired ($5.30)
+  η_boiler    boiler efficiency as a fraction (0.75)
+  P_coal/η    coal DELIVERED-heat cost = $7.067/MMBtu useful heat
+</code></pre>
+<p>Intuition check before any arithmetic: the heat pump converts electricity to heat at rate
+COP; it beats $7.067/MMBtu coal exactly when its electricity is cheap enough that
+(COP × kWh bought) costs less than one MMBtu-equivalent of coal heat. Higher tariff ⇒ higher
+COP needed. That is the whole finding, waiting for numbers.</p>
+
+<h2>2. Step 1 — VND → USD yourself</h2>
+<pre><code>FX = 26,250 VND/USD   (vn_context.json → fx.vnd_per_usd)
+
+peak     : 3,398 ÷ 26,250 = $0.12945/kWh
+normal   : 1,833 ÷ 26,250 = $0.06983/kWh
+off_peak : 1,190 ÷ 26,250 = $0.04533/kWh
+</code></pre>
+<p>These are excl.-VAT rates — correct for a manufacturer that recovers input VAT. Do not
+add the 8% unless building a cash-flow view.</p>
+
+<h2>3. Step 2 — the three breakeven COPs</h2>
+<pre><code>denominator:  P_coal / η = 5.30 / 0.75 = $7.0667/MMBtu
+
+off-peak : (0.04533 × 293.071) / 7.0667 = 13.2844 / 7.0667 = 1.879  ≈ 1.88
+normal   : (0.06983 × 293.071) / 7.0667 = 20.4645 / 7.0667 = 2.895  ≈ 2.90
+peak     : (0.12945 × 293.071) / 7.0667 = 37.9380 / 7.0667 = 5.369  ≈ 5.37
+</code></pre>
+
+<table border="1">
+<tr><th>Tariff period</th><th>P_elec ($/kWh)</th><th>Hours/yr</th><th>Breakeven COP</th></tr>
+<tr><td>Off-peak (00:00–06:00 daily)</td><td>0.04533</td><td>2,190</td><td><strong>1.88</strong></td></tr>
+<tr><td>Normal</td><td>0.06983</td><td>5,010</td><td><strong>2.90</strong></td></tr>
+<tr><td>Peak (Mon–Sat 17:30–22:30)</td><td>0.12945</td><td>1,560</td><td><strong>5.37</strong></td></tr>
+</table>
+
+<h2>4. Step 3 — what the table says about a real machine</h2>
+<p>The dye-house heat pump from lesson 0002 runs at actual COP 3.11:</p>
+<ul>
+<li><strong>Off-peak:</strong> 3.11 &gt; 1.88 → wins big. Heat at
+(0.04533×293.071)/3.11 ≈ <strong>$4.27/MMBtu vs coal's $7.07</strong> — about −40%.</li>
+<li><strong>Normal:</strong> 3.11 &gt; 2.90 → wins modestly:
+(0.06983×293.071)/3.11 ≈ <strong>$6.58/MMBtu</strong>, −7%.</li>
+<li><strong>Peak:</strong> 3.11 ≪ 5.37 → loses badly:
+(0.12945×293.071)/3.11 ≈ <strong>$12.20/MMBtu</strong>, +73%.</li>
+</ul>
+<p>A single blended annual rate (~$0.072/kWh) gives one breakeven near 3.3 — which reads as
+"heat pumps are marginal." That conclusion is wrong because the load is not flat across the
+day: run the machine off-peak and through normal hours, store heat, and ride through the
+5-hour peak. <strong>The design answer is heat pump + thermal storage</strong> — the exact
+hypothesis the capstone (0011) hands to REopt.</p>
+
+<div class="callout">
+<p><strong>Sensitive input:</strong> the FX rate (26,250 VND/USD) moves every USD-denominated
+result one-for-one with a 5% move; the coal price rests on a 14-Aug-2026 Newcastle benchmark.
+If you are reading this much later than 2026-08-25, re-check
+<code>vn_context.json</code> before reusing these numbers in live work — but keep the practice
+copy frozen so it keeps matching the baseline it extends.</p>
+</div>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">In the breakeven formula, why divide P_coal by η_boiler?</p>
+<ul class="options">
+<li data-answer="false">To convert fuel volume into mass</li>
+<li data-answer="false">To discount future fuel prices to present value</li>
+<li data-answer="true">Because only η of each unit of fuel becomes useful heat — dividing
+converts fuel cost into delivered-heat cost per MMBtu</li>
+<li data-answer="false">To account for transmission losses on the grid side</li>
+</ul>
+<p class="explain">$5.30 buys one MMBtu as-fired, but only 0.75 MMBtu reaches the process.
+Delivered-heat cost = 5.30/0.75 = $7.07/MMBtu — the correct bar for the heat pump to clear.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Converting from raw VND: what does 1,190 VND/kWh become at 26,250 VND/USD?</p>
+<ul class="options">
+<li data-answer="false">$0.05210/kWh</li>
+<li data-answer="true">$0.04533/kWh</li>
+<li data-answer="false">$0.04831/kWh</li>
+<li data-answer="false">$0.03960/kWh</li>
+</ul>
+<p class="explain">1,190 ÷ 26,250 = 0.045333… → $0.04533/kWh, the off-peak rate. Doing the
+division yourself from raw VND (not reading precomputed USD values) is the point of the
+exercise — transcription-free provenance.</p>
+</li>
+
+<li class="q">
+<p class="qtext">During peak hours, what must a heat pump's COP exceed to undercut coal?</p>
+<ul class="options">
+<li data-answer="false">About 2.9</li>
+<li data-answer="false">About 1.9</li>
+<li data-answer="true">About 5.37</li>
+<li data-answer="false">Exactly 3.11 always</li>
+</ul>
+<p class="explain">(0.12945 × 293.071)/7.0667 ≈ 5.37. Practical machines sit at COP 3–4, so
+peak-running is economically hopeless without storage — hence heat pump + TES.</p>
+</li>
+
+<li class="q">
+<p class="qtext">The COP-3.11 dye-house heat pump delivers heat off-peak at roughly…</p>
+<ul class="options">
+<li data-answer="true">$4.27/MMBtu — about 40% below coal's $7.07</li>
+<li data-answer="false">$6.58/MMBtu — slightly above coal</li>
+<li data-answer="false">$12.20/MMBtu — far above coal</li>
+<li data-answer="false">$2.24/MMBtu — cheaper than anything else</li>
+</ul>
+<p class="explain">(0.04533 × 293.071)/3.11 ≈ 4.27. Off-peak is where the machine shines;
+normal hours give $6.58 (−7%), and $12.20 (+73%) is the peak figure. $2.24 is the discredited
+heat_pump_model LCOH — never quote it (lesson 0008).</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why would quoting ONE blended breakeven (~3.3) mislead the design?</p>
+<ul class="options">
+<li data-answer="false">It overstates off-peak profitability</li>
+<li data-answer="false">Blended rates are mathematically invalid under any TOU tariff</li>
+<li data-answer="true">It hides the hour-to-hour spread: COP 3.11 looks marginal overall while
+actually winning 7,200 h/yr and losing only the 1,560 peak hours</li>
+<li data-answer="false">Because boilers are priced monthly, not annually</li>
+</ul>
+<p class="explain">The blended view says "marginal"; the hourly view says "win off-peak and
+normal, avoid peak — add thermal storage." Different conclusions, different equipment. This is
+why the scenario models the tariff as an 8760 vector.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Coal price rises to $6.50/MMBtu (η still 0.75). What happens to the three
+breakeven COPs?</p>
+<ul class="options">
+<li data-answer="false">They rise proportionally (e.g. peak → ~6.59)</li>
+<li data-answer="false">They fall by exactly 0.75 each</li>
+<li data-answer="true">They fall (e.g. peak → 5.30×... specifically (0.12945×293.071)/(6.50/0.75)
+≈ 4.38): dearer coal lowers the COP bar</li>
+<li data-answer="false">Unchanged — coal price doesn't enter the formula</li>
+</ul>
+<p class="explain">Breakeven COP ∝ P_elec/(P_coal/η): dearer coal shrinks the denominator,
+lowering the bar. This sensitivity is why vn_context.json flags the coal price (wide trader
+range $3.8–7.0/MMBtu) as the number to nail down per site.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> `C:\Users\tukum\Downloads\ee-heat\tools\reopt\vn_context.json`
+(raw VND tariff, FX, coal price/EF — every value carries its source) and
+`C:\Users\tukum\Downloads\ee-heat\tools\README.md` §2 (published breakeven table being
+reproduced); method cross-check: NREL
+<a href="https://reopt.nrel.gov/reopt-jl" target="_blank" rel="noopener">REopt.jl documentation</a>.
+</div>
+
+<div class="lesson-nav">
+<span><a href="0006-reopt-hands-on-scenario-building.html">← 0006 REopt hands-on</a></span>
+<span><a href="0008-heat-pump-model-cross-check.html">0008 heat-pump-model →</a></span>
+</div>
+</body>
+</html>

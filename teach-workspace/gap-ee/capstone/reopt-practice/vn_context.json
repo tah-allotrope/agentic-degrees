@@ -1,0 +1,108 @@
+{
+  "_about": "Vietnam localization parameters for the Gap EE/clean-heat modelling. Single source of truth - edit here, then re-run make_vn_scenario.py. Every value carries its source. Checked 2026-08-18.",
+
+  "fx": {
+    "vnd_per_usd": 26250,
+    "source": "Vietcombank selling rate, mid-August 2026 (~26,250 VND/USD; interbank ~25,566)",
+    "note": "Sensitive input - a 5% FX move shifts every USD-denominated tariff result by 5%."
+  },
+
+  "electricity_tariff": {
+    "customer_class": "Manufacturing (san xuat)",
+    "voltage_band": "22 kV to <110 kV - the usual mid-scale industrial connection",
+    "legal_source": "Decision 1279/QD-BCT, effective 10 May 2025 (rates); Decision 963/QD-BCT, effective 22 April 2026 (TOU windows)",
+    "still_current": "Average retail price unchanged since 10 May 2025 (EVN Decision 599/QD-EVN set it at 2,204.07 VND/kWh excl. VAT)",
+    "excludes_vat": true,
+    "vat_rate": 0.08,
+    "vat_note": "Rates below EXCLUDE VAT. Correct for a manufacturer, which recovers input VAT. Add 8% only for cash-flow views.",
+    "rates_vnd_per_kwh": {
+      "peak": 3398,
+      "normal": 1833,
+      "off_peak": 1190
+    },
+    "time_windows": {
+      "peak": "Mon-Sat 17:30-22:30",
+      "off_peak": "00:00-06:00 daily",
+      "normal": "all other hours; Sunday has no peak window"
+    },
+    "hourly_approximation": "REopt runs hourly, so the 17:30-22:30 peak is modelled as hours 17:00-22:00 (5 h). Errors at each end partly offset.",
+    "two_part_tariff_pilot": {
+      "applies_to": "Manufacturing customers at >=22 kV using >=200,000 kWh/month - a garment plant of this size qualifies",
+      "capacity_charge_vnd_per_kw_month": 235414,
+      "status": "NOT applied in the base scenario. Under the pilot the energy rates are reduced to offset the capacity charge, and those reduced rates are not published in the sources checked. Applying the capacity charge on top of full TOU energy rates would double-count.",
+      "action": "Ask each supplier whether they are in the pilot - it is already a question in Data Collection Needs_Gap.xlsx."
+    }
+  },
+
+  "grid_emissions": {
+    "factor_tco2_per_mwh": 0.6592,
+    "year": 2023,
+    "source": "Cong van 1726/BDKH-PTCBT, Department of Climate Change (MONRE), 3 December 2024 - the latest OFFICIALLY announced Vietnamese grid emission factor",
+    "lb_co2_per_kwh": 1.4533,
+    "alternatives": {
+      "2024_estimate": 0.6811,
+      "2024_note": "VietnamPlus reports an estimated 0.6811 tCO2/MWh for 2024 (+3.2% vs 2023) - an estimate, not an announced factor. Use 0.6592 for anything Gap will report.",
+      "2022": 0.6766,
+      "2020": 0.8041
+    },
+    "renewable_energy_fraction": 0.45,
+    "renewable_energy_fraction_source": "Vietnam generation mix ~2025: hydro ~34%, solar ~8%, wind ~4% (lowcarbonpower/Ember). Includes hydro. Use 0.12 for a renewables-excluding-hydro definition.",
+    "renewable_energy_fraction_why_required": "REopt has no clean-energy-fraction data outside CONUS. If omitted it calls the Cambium API, which stalls the run for minutes before failing and setting the fraction to zero. Supplying it both localizes the result and removes the hang.",
+    "decrease_fraction": 0.0,
+    "decrease_note": "Set to zero deliberately. REopt otherwise applies a US grid-decarbonisation trajectory. Vietnam's PDP8 implies decline, but no defensible published annual rate - zero is the conservative choice for abatement claims."
+  },
+
+  "boiler_fuel": {
+    "fuel": "Imported Indonesian sub-bituminous steam coal - the common VN garment/textile boiler fuel",
+    "assumed_cv_kcal_per_kg": 5000,
+    "assumed_price_usd_per_tonne": 105,
+    "price_basis": "Import parity: Newcastle 6,000 kcal benchmark was 129.25 USD/t on 14 Aug 2026; discounted for calorific value, plus freight and inland handling",
+    "usd_per_mmbtu": 5.3,
+    "market_range_usd_per_mmbtu": [3.8, 7.0],
+    "range_note": "Vietnamese trader quotes run 1.0-1.5m VND/t ex-warehouse for low-CV coal up to 2.6m VND/t for 5,700 kcal/kg. Wide. Get the actual delivered price and CV per site - this single number drives the breakeven COP.",
+    "emissions_factor_lb_co2_per_mmbtu": 214.2,
+    "emissions_source": "EPA sub-bituminous coal, 97.17 kg CO2/MMBtu. Use 205.7 for bituminous, 161.4 for fuel oil, 117.03 for natural gas.",
+    "reopt_workaround": "REopt has no coal fuel type (natural_gas / propane / diesel_oil / landfill_bio_gas only). Declare natural_gas, then override BOTH fuel_cost_per_mmbtu and emissions_factor_lb_CO2_per_mmbtu. REopt's natural_gas default of 117.03 lb/MMBtu understates coal by 45%."
+  },
+
+  "facility_placeholder": {
+    "note": "Illustrative garment plant until supplier data lands. Every field maps to a row in Implementation/Data Collection Needs_Gap.xlsx.",
+    "latitude": 10.95,
+    "longitude": 106.82,
+    "location_note": "Binh Duong industrial belt, north of Ho Chi Minh City",
+    "annual_kwh": 12000000,
+    "process_heat_annual_mmbtu": 60000,
+    "existing_boiler_efficiency": 0.75,
+    "shift_pattern": "FlatLoad_16_5",
+    "shift_pattern_note": "16 h/day, 5 days/week - two shifts. Valid alternatives: FlatLoad (24/7), FlatLoad_24_5, FlatLoad_16_7, FlatLoad_8_7, FlatLoad_8_5."
+  },
+
+  "id_context": {
+    "_about": "Indonesia localization parameters, added 2026-08-20 (ASM-006). Every value here is an UNVERIFIED PLACEHOLDER - none of these has been checked against a primary source the way the vn_* blocks above were. Any pipeline output built from this block must carry that warning through to the client-facing workbook (Sources & Assumptions sheet) until it is replaced.",
+    "fx": {
+      "idr_per_usd": 16350,
+      "source": "UNVERIFIED PLACEHOLDER - confirm before any client-facing number"
+    },
+    "electricity_tariff": {
+      "customer_class": "PLN Industrial I-3/TM (medium voltage)",
+      "rate_idr_per_kwh_flat": 1114.74,
+      "peak_multiplier_k": 2.0,
+      "peak_window": "18:00-22:00 daily",
+      "off_peak_window": "none modelled - flat rate outside the peak window",
+      "source": "UNVERIFIED PLACEHOLDER - confirm before any client-facing number"
+    },
+    "grid_emissions": {
+      "factor_tco2_per_mwh": 0.7910,
+      "grid_note": "Jamali (Java-Madura-Bali) grid, the grid most Indonesian garment suppliers in scope sit on",
+      "renewable_energy_fraction": 0.20,
+      "decrease_fraction": 0.0,
+      "source": "UNVERIFIED PLACEHOLDER - confirm before any client-facing number"
+    },
+    "boiler_fuel": {
+      "usd_per_mmbtu": 5.3,
+      "emissions_factor_lb_co2_per_mmbtu": 214.2,
+      "note": "Same Indonesian sub-bituminous coal figures as boiler_fuel above - coal supply for VN and ID garment-sector boilers draws on the same regional market",
+      "source": "UNVERIFIED PLACEHOLDER - confirm before any client-facing number"
+    }
+  }
+}

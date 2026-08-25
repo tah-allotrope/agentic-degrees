@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0004 — MEASUR Hands-On: Steam &amp; Waste Heat — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0004 · MEASUR Hands-On: Steam &amp; Waste Heat</h1>
+<p class="meta">gap-ee week 1, days 3-4 · 90-120 min hands-on (GUI) · manual-entry checklist +
+concept quiz · <a href="../MISSION.md">mission</a></p>
+
+<p class="lede">Time to drive the rank-1 tool. MEASUR v1.8.3 is a Windows GUI app with no CLI
+and no scriptable settings — it stores configuration in a local database inside the app — so
+this lesson is a hands-on walkthrough you complete by hand. You will localize MEASUR to
+Vietnam from the VN settings card, then run the Steam System Modeler and Waste Heat Recovery
+modules against the placeholder garment-plant defaults. Tick the checklist boxes yourself as
+you go.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> This is the "shrink the load" half of the tool-ordering rule.
+Whatever load survives this lesson's measures becomes REopt's <code>ProcessHeatLoad</code> in
+lesson 0006. The VN values you enter here (three tariff rates, coal price, emission factors)
+are the same numbers REopt reads from <code>vn_context.json</code> — two tools, one source of
+truth.</p>
+</div>
+
+<h2>Before you start</h2>
+<ul>
+<li>MEASUR lives at <code>%LOCALAPPDATA%\Programs\MEASUR\MEASUR.exe</code> (v1.8.3).</li>
+<li>The single source of truth for every value below is
+<code>C:\Users\tukum\Downloads\ee-heat\tools\measur\VN-settings-card.md</code>. If this lesson
+and the card ever disagree, the card wins — and if a fresh Windows profile runs this lesson,
+the settings must be re-entered from scratch; do not assume they persist.</li>
+<li>Fuel-type note: the modeler's fuel list is built around US fuels. Pick the closest solid
+fuel for the coal-fired boiler and override price and emission factor to the card's values —
+the same workaround as REopt's. If the module will not accept that workaround cleanly, say so
+explicitly in your notes and point back at the card's "Fuel type" section rather than silently
+picking a different value.</li>
+</ul>
+
+<h2>Part A — Localization checklist (tick by hand)</h2>
+<ol>
+<li><strong>Units → Metric.</strong> Settings → Default Settings. Plant data arrives in tonnes
+steam/h, bar(g), °C, kJ (lesson 0001). ☐</li>
+<li><strong>Electricity prices (excl. VAT)</strong>: normal <code>$0.06983/kWh</code>,
+off-peak (00:00–06:00) <code>$0.04533/kWh</code>, peak (Mon–Sat 17:30–22:30)
+<code>$0.12945/kWh</code>. MEASUR takes one electricity price per assessment — use
+<strong>normal</strong> for a general sweep. ☐</li>
+<li><strong>Boiler fuel</strong>: closest solid-fuel entry, overridden to
+<code>$5.02/GJ</code> (= $5.30/MMBtu). ☐</li>
+<li><strong>Emission factors</strong>: grid electricity
+<code>0.1831 kg CO₂/MJ</code>; coal <code>92.1 kg CO₂/GJ</code>.
+Never leave the US grid factor — it understates Vietnam's by ~40% and overstates every
+electrification measure's abatement. ☐</li>
+<li><strong>Sanity check:</strong> confirm $5.02/GJ × 1.055 ≈ $5.30/MMBtu matches the card.
+☐</li>
+</ol>
+
+<h2>Part B — Steam System Modeler on garment-plant defaults</h2>
+<p>Build the placeholder plant from the card's table:</p>
+<ul>
+<li>Steam header ≤ <strong>10 bar(g)</strong></li>
+<li>Dye-house / HTHW loop <strong>60–95°C</strong>, wash water 40–60°C, dryers/stenters
+80–120°C</li>
+<li>Boiler efficiency <strong>75%</strong> as-found</li>
+<li>Operating pattern <strong>16 h/day, 5–6 days/week</strong> (two shifts)</li>
+</ul>
+<p>Then, following lesson 0003's order: set condensate return rate, blowdown rate, flash
+recovery, excess air — and read what each change does to delivered-heat cost. Run any measure
+that shifts <em>when</em> energy is used (heat recovery with storage, off-peak charging)
+<strong>twice</strong> — once at off-peak ($0.04533/kWh), once at peak ($0.12945/kWh) — because
+the 2.86× spread changes which measure wins. Record your baseline vs. optimized steam-load
+numbers; that delta is exactly the load-reduction layer the engagement wants quantified. ☐</p>
+
+<h2>Part C — Waste Heat Recovery module</h2>
+<p>Point the module at the stack-gas and blowdown streams from Part B's baseline. Compare its
+recoverable-heat estimate against the savings the Steam System Modeler attributed to Checks
+2–4. They should tell one coherent story — if they wildly disagree, re-check your entered
+settings before believing either. ☐</p>
+
+<h2>Practice quiz — what each module computes and why</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">Why must a load-shifting measure (e.g. off-peak heat-recovery storage) be run
+twice in MEASUR, at two different electricity rates?</p>
+<ul class="options">
+<li data-answer="false">Because MEASUR cannot compute annual totals in one pass</li>
+<li data-answer="true">Because Vietnam's off-peak-to-peak spread is 2.86× — the rate used
+changes whether the measure wins</li>
+<li data-answer="false">To double-check for data-entry mistakes</li>
+<li data-answer="false">Because MEASUR only accepts off-peak rates</li>
+</ul>
+<p class="explain">The card's explicit instruction: the 2.86× spread will change which measure
+wins, so run the case at both $0.04533/kWh and $0.12945/kWh. This foreshadows the breakeven-COP
+table of lesson 0007.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does the Steam System Modeler fundamentally compute?</p>
+<ul class="options">
+<li data-answer="false">The optimal heat-pump COP for each hour of the year</li>
+<li data-answer="true">An energy/mass balance of the header system — boiler duty, losses, and
+the cost impact of each steam-side measure</li>
+<li data-answer="false">A year-long 8760-hour optimization like REopt</li>
+<li data-answer="false">The refrigerant choice for a proposed heat pump</li>
+</ul>
+<p class="explain">It balances generation, distribution, and end-use enthalpy flows and prices
+losses. Optimization across technologies and tariffs is REopt's job — different tool,
+different question.</p>
+</li>
+
+<li class="q">
+<p class="qtext">You find the US grid emission factor left in place (0.40× lower than
+Vietnam's). What is the practical damage?</p>
+<ul class="options">
+<li data-answer="false">None — factors are cosmetic labels in reports</li>
+<li data-answer="false">Boiler efficiency readings become wrong</li>
+<li data-answer="true">Every electrification measure looks ~40% better on CO₂ abatement than
+it really is</li>
+<li data-answer="false">Steam pressures get mis-scaled by 40%</li>
+</ul>
+<p class="explain">Abatement = grid factor minus measure emissions, times energy switched. A
+grid factor 40% low inflates claimed abatement on every electric option — exactly why the card
+says never leave it in place.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Coal is not in MEASUR's fuel list. What is the correct move?</p>
+<ul class="options">
+<li data-answer="true">Pick the closest solid fuel, override BOTH price and emission factor to
+the card's values</li>
+<li data-answer="false">Choose natural gas and accept the default emission factor</li>
+<li data-answer="false">Leave the default fuel — MEASUR auto-detects coal from pressure</li>
+<li data-answer="false">Skip the fuel fields entirely; results are unaffected</li>
+</ul>
+<p class="explain">Same workaround as REopt's (no native coal type): substitute the nearest
+fuel class but override both economics and emissions. Overriding only the price leaves the
+emissions quietly wrong.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What feeds forward from this lesson into REopt (lesson 0006)?</p>
+<ul class="options">
+<li data-answer="false">The MEASUR installer file</li>
+<li data-answer="false">Nothing — the two tools share no data</li>
+<li data-answer="true">The post-optimization thermal load profile — the reduced
+<code>ProcessHeatLoad</code></li>
+<li data-answer="false">MEASUR's internal settings database, copied into vn_context.json</li>
+</ul>
+<p class="explain">activeContext.md: "MEASUR's post-optimization thermal load profile is
+REopt's ProcessHeatLoad input." Sizing against the unoptimized load buys ~30% too much
+equipment.</p>
+</li>
+
+<li class="q">
+<p class="qtext">A colleague opens MEASUR on a fresh Windows user account to repeat your run.
+What happens?</p>
+<ul class="options">
+<li data-answer="false">Settings sync automatically from the cloud</li>
+<li data-answer="true">All localization must be re-entered by hand from the VN settings card —
+MEASUR stores settings locally per installation/user</li>
+<li data-answer="false">MEASUR refuses to start without a license server</li>
+<li data-answer="false">Defaults are fine — no re-entry needed since units are global</li>
+</ul>
+<p class="explain">No CLI, no scriptable settings, local per-user database: the card is the
+re-entry source of truth every time. That is also why this course documents the exact values
+rather than assuming persistence.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> ORNL/DOE AMO MEASUR v1.8.3 application itself (installed at
+<code>%LOCALAPPDATA%\Programs\MEASUR\MEASUR.exe</code>), with all entered values taken from
+`C:\Users\tukum\Downloads\ee-heat\tools\measur\VN-settings-card.md`; methodology background
+from the DOE AMO
+<a href="https://www.energy.gov/sites/prod/files/2014/05/f15/steamsourcebook.pdf" target="_blank" rel="noopener">Steam System Sourcebook</a>.
+</div>
+
+<div class="lesson-nav">
+<span><a href="0003-steam-systems-fundamentals.html">← 0003 steam fundamentals</a></span>
+<span><a href="0005-tea-lcoh-fundamentals.html">0005 TEA/LCOH →</a></span>
+</div>
+</body>
+</html>

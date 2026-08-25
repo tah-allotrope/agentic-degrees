@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0011 — Capstone: Thermal Storage Sizing — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0011 · Capstone: Heat Pump + Thermal Storage Sizing</h1>
+<p class="meta">gap-ee week 2, days 11-14 · the gate · run log + result analysis ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">The capstone extends the practice-copy baseline with an
+<code>ASHPWaterHeater</code> (COP 3.11) and a <code>HotThermalStorage</code>, runs REopt, and
+compares against both the Phase-3 baseline and lesson 0007's breakeven table. The honest
+headline: <strong>the physics and dispatch findings reproduce; the least-cost win does not</strong>
+at default cost assumptions — and that distinction is exactly what defensible analysis looks
+like.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> Success here was never "heat pump wins." It was: independently
+reproduce and extend a real finding, including the schema discovery, the debugging, and the
+negative result — all inside an isolated practice copy, with ee-heat untouched.</p>
+</div>
+
+<h2>1. Schema discovery before any JSON (ASM-002)</h2>
+<p>Julia reflection on REopt v0.61.0 produced surprises no local documentation mentioned:</p>
+<ul>
+<li><code>HotThermalStorage</code> is a real struct — 28 fields via
+<code>fieldnames()</code>; at JSON level only <code>max_gal &gt; 0</code> is needed to activate
+it (confirmed against upstream's own test scenario). Defaults: 180/160°F water temps,
+$1.90/gal, <code>can_serve_process_heat=false</code>.</li>
+<li><code>ASHPWaterHeater</code> is a <em>constructor function</em>, not a struct —
+<code>fieldnames()</code> fails. Its JSON keys come from constructor kwargs: sizes in
+<strong>tons thermal</strong>, costs $2,250/ton + $40/ton-yr defaults, and crucially
+<strong>no scalar "cop"</strong> — COP interpolates a piecewise curve
+(<code>heating_cop_reference</code> vs <code>heating_reference_temps_degF</code>) against
+hourly ambient temperature.</li>
+<li>REopt wires ASHPWaterHeater to the <strong>DomesticHotWaterLoad series only</strong>
+(scenario.jl), so the dye-house band must be declared as a DHW-quality load: we split
+12,000 of the 60,000 MMBtu/yr (the plausible ≤95°C share) into
+<code>DomesticHotWaterLoad</code>, leaving ProcessHeatLoad untouched.</li>
+</ul>
+<p>All fields, types, defaults, and rationale are recorded in
+<code>capstone/reopt-practice/schema-notes.md</code> — written before any scenario JSON.</p>
+
+<h2>2. Three real blockers, three root causes</h2>
+<table border="1">
+<tr><th>Symptom</th><th>Root cause found</th><th>Fix</th></tr>
+<tr><td>"No NLR Developer API Key" (PVWatts call), NaN results</td><td>ASHPWaterHeater needs hourly
+ambient temperature; REopt synthesizes it via PVWatts web API when absent</td><td>Extracted the
+real TMYx dry-bulb year for HCMC from ee-heat's own weather file into
+<code>Site.outdoor_air_temperature_degF</code> (8760 values, 66–99°F)</td></tr>
+<tr><td>TypeError: Site kwarg wants Vector{&lt;:Real}, got Vector{Any}</td><td>JSON.jl parses arrays as
+Vector{Any}; Site does not convert internally</td><td><code>run_scenario_hp_storage.jl</code>: convert the
+three big arrays to Vector{Float64} in memory, call <code>run_reopt([m1,m2], dict)</code></td></tr>
+<tr><td>"type Nothing has no field om_cost_per_kw" in proforma</td><td><strong>Upstream REopt bug:</strong>
+proforma.jl reads <code>p.s.ashp</code> for the WaterHeater's O&amp;M branch; with no SpaceHeater key,
+that struct is nothing</td><td>Include an inert <code>ASHPSpaceHeater</code> placeholder
+(max_ton clamps to zero so it is never buildable; force_dispatch off)</td></tr>
+</table>
+<p>Each fix is documented in schema-notes.md with its evidence — the audit trail matters as much
+as the solve.</p>
+
+<h2>3. The exact JSON diff vs baseline</h2>
+<pre><code>+ DomesticHotWaterLoad { FlatLoad_16_5, annual_mmbtu 12000 (=20% of process heat), year 2017 }
++ ASHPWaterHeater      { installed_cost_per_ton 2250, om_cost_per_ton 40,
++                        heating_cop_reference [3.11],        <- flat curve = lesson 0008's COP
++                        heating_cf_reference [1.4],
++                        heating_reference_temps_degF [50],   <- HCMC is always above it
++                        force_into_system true }
++ HotThermalStorage     { max_gal 20000 }                    <- generous bound; optimizer decides
+- ElectricHeater {...}                                       <- baseline proved it is declined
++ Site.outdoor_air_temperature_degF: [8760 real TMYx F values]
+</code></pre>
+
+<h2>4. Run results (both passes OPTIMAL)</h2>
+<table border="1">
+<tr><th>Quantity</th><th>Baseline (Phase 3)</th><th>Capstone BAU</th><th>Capstone optimal</th></tr>
+<tr><td>CO2 (t/yr)</td><td>13,740</td><td>14,906</td><td><strong>14,300</strong> (−606 vs its own BAU)</td></tr>
+<tr><td>Lifecycle cost ($, 20 yr)</td><td>$10.988M</td><td>$11.495M</td><td>$11.883M (NPV −$388k)</td></tr>
+<tr><td>Boiler fuel (MMBtu/yr)</td><td>60,000</td><td>72,000</td><td>60,000 — dye-house fully displaced from coal steam</td></tr>
+<tr><td>ASHPWaterHeater size</td><td>—</td><td>—</td><td><strong>129.7 ton_th</strong>, 9,010 MMBtu/yr @ COP 3.11</td></tr>
+<tr><td>HotThermalStorage size</td><td>—</td><td>—</td><td><strong>20,000 gal ≈ 3.26 MMBtu-th</strong> (bound hit)</td></tr>
+</table>
+<p><strong>The dispatch reproduces activeContext.md's design answer:</strong> HP-to-TES charging
+happens only off-peak/normal hours (767 MMBtu) and TES discharges across the Mon–Sat evening
+peak (237 MMBtu) plus normal hours (520). Zero peak-hour charging. The optimizer behaves
+exactly as lesson 0007's breakeven table says it should.</p>
+
+<h2>5. Reading the negative NPV honestly (RISK-04-02)</h2>
+<p>Energy economics favor the heat pump on the split-out load (~$63k/yr electricity vs ~$85k/yr
+coal fuel displaced), but capital ($292k HP + $38k TES) over 20 years at a 10% discount swamps
+it: NPV −$388k. CO2 rises versus the old 13,740 baseline only because this scenario adds a new
+load whose electricity carries Vietnam's grid factor — against its own like-for-like BAU,
+emissions fall by 606 t/yr.</p>
+<p>What would flip it: cheaper capital (real vendor quotes vs the generic $2,250/ton default), a
+larger verified ≤95°C load share (more sales from one machine), or off-peak-weighted operation
+with bigger storage at lower unit cost. Those are supplier-data questions already tracked in
+vn_context.json — which is why the honest verdict is "capability confirmed, investment case
+open," not failure.</p>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">Why did REopt attempt a PVWatts API call in this scenario?</p>
+<ul class="options">
+<li data-answer="false">Because a PV key was present in the scenario</li>
+<li data-answer="true">The ASHPWaterHeater needs hourly ambient temperature; when
+Site.outdoor_air_temperature_degF is missing REopt synthesizes it via PVWatts</li>
+<li data-answer="false">Because HotThermalStorage requires weather data by definition</li>
+<li data-answer="false">Because EVN tariffs are fetched from NLR servers</li>
+</ul>
+<p class="explain">The COP curve interpolates against ambient temperature hour by hour.
+Supplying the real TMYx HCMC series removed the dependency — offline-safe and site-faithful.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why declare the dye-house load as DomesticHotWaterLoad rather than growing
+ProcessHeatLoad?</p>
+<ul class="options">
+<li data-answer="false">DHW loads are computationally cheaper to model</li>
+<li data-answer="true">Source reading shows ASHPWaterHeater is wired exclusively to the DHW load
+series — a ProcessHeatLoad would never see the heat pump</li>
+<li data-answer="false">REopt forbids two thermal loads in one scenario</li>
+<li data-answer="false">To avoid the coal-as-natural_gas workaround</li>
+</ul>
+<p class="explain">scenario.jl assigns d["ASHPWaterHeater"]["heating_load"] = dhw_load.loads_kw.
+Schema discovery before writing JSON catches exactly this — guessing would have built a heat
+pump serving nothing.</p>
+</li>
+
+<li class="q">
+<p class="qtext">How was the corroborated COP 3.11 encoded into ASHPWaterHeater?</p>
+<ul class="options">
+<li data-answer="true">As a flat reference curve — heating_cop_reference [3.11] at a reference
+temperature HCMC never drops below</li>
+<li data-answer="false">A scalar "cop": 3.11 field on the ASHPWaterHeater block</li>
+<li data-answer="false">By editing ashp_defaults.json inside the Julia package depot</li>
+<li data-answer="false">Via the ElectricHeater cop field set to 3.11</li>
+</ul>
+<p class="explain">No scalar cop input exists; interpolation against ambient returns 3.11 every
+hour because HCMC stays far above the single 50°F reference point. No package files were
+modified.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What did the optimizer do with HotThermalStorage?</p>
+<ul class="options">
+<li data-answer="false">Declined to build it — storage is never economic without PV</li>
+<li data-answer="true">Built it at the 20,000-gal bound (≈3.26 MMBtu-th), charging only
+off-peak/normal hours and discharging across the evening peak</li>
+<li data-answer="false">Built it but dispatched only on Sundays</li>
+<li data-answer="false">Used it to serve the 10 bar(g) steam process load directly</li>
+</ul>
+<p class="explain">767 MMBtu charged in cheap hours; 237 MMBtu discharged through the peak
+window plus 520 in normal hours — the exact charge-off-peak/ride-through-peak pattern
+activeContext.md predicted.</p>
+</li>
+
+<li class="q">
+<p class="qtext">CO2 optimal (14,300 t) exceeds the Phase-3 baseline (13,740 t). Is the design
+therefore a regression?</p>
+<ul class="options">
+<li data-answer="false">Yes — any emissions increase invalidates the design</li>
+<li data-answer="true">No — the capstone adds a new 12,000 MMBtu/yr load; against its own
+like-for-like BAU (14,906 t) emissions fall 606 t/yr</li>
+<li data-answer="false">Yes — REopt minimizes cost, so emissions cannot differ between cases</li>
+<li data-answer="false">No — REopt reports CO2 excluding boiler fuel by default</li>
+</ul>
+<p class="explain">Comparisons must hold the load constant. The heat pump's grid electricity
+carries Vietnam's high grid factor but displaces coal steam — net −606 t/yr versus doing
+nothing new.</p>
+</li>
+
+<li class="q">
+<p class="qtext">NPV came out −$388k at default costs. What is the defensible conclusion?</p>
+<ul class="options">
+<li data-answer="false">Heat pumps are uneconomic in Vietnam — close the workstream</li>
+<li data-answer="false">Adjust the discount rate until NPV turns positive</li>
+<li data-answer="true">Physics and dispatch confirmed (COP 3.11 end-to-end; TES rides the peak);
+the investment case stays open on supplier data — capital quotes, true ≤95°C load share, tariff
+exposure</li>
+<li data-answer="false">Delete the HotThermalStorage block and rerun until NPV is positive</li>
+</ul>
+<p class="explain">The plan's RISK-04-02 anticipated exactly this: a documented negative result
+is a valid capstone outcome. Never tune inputs post-hoc to force a narrative — record the
+sensitivities and name the data that would settle them.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> the capstone artifacts themselves —
+<code>teach-workspace/gap-ee/capstone/reopt-practice/{schema-notes.md,
+make_vn_scenario_hp_storage.py, run_scenario_hp_storage.jl,
+results_garment_factory_process_heat_hp_storage.json}</code>; finding being extended:
+`C:\Users\tukum\Downloads\ee-heat\activeContext.md`; REopt.jl v0.61.0 source
+(<a href="https://reopt.nrel.gov/reopt-jl" target="_blank" rel="noopener">reopt.nrel.gov/reopt-jl</a>)
+for schema and bug provenance.
+</div>
+
+<div class="lesson-nav">
+<span><a href="0010-ihda-fied-methodology.html">← 0010 IHDA/FIED methodology</a></span>
+<span>end of gap-ee track — return to <a href="../LESSON-MAP.md">lesson map</a></span>
+</div>
+</body>
+</html>

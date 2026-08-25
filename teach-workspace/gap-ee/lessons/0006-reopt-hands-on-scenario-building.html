@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0006 — REopt Hands-On: Scenario Building — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0006 · REopt Hands-On: Scenario Building</h1>
+<p class="meta">gap-ee week 2, days 6-7 · 90-120 min hands-on · run everything yourself ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">REopt.jl is the sizing brain of the toolchain: given an hourly tariff, a heat
+load, and candidate equipment, it optimizes what to build and how to run it over 20 years. You
+already have an isolated practice copy of the real engagement scenario at
+<code>teach-workspace/gap-ee/capstone/reopt-practice/</code>. Today you learn its JSON
+structure field by field, then run the baseline yourself and reproduce the published numbers.
+The live <code>ee-heat</code> repo is never touched.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> The baseline you are about to reproduce —
+<strong>13,740 tCO2/yr, electric boiler declined (0 MMBtu/hr, NPV $0)</strong> — is checkpoint
+one of two. The capstone (0011) extends this exact scenario with a heat pump + storage. If your
+baseline doesn't match today, nothing downstream is trustworthy.</p>
+</div>
+
+<h2>0. Setup — the practice copy</h2>
+<pre><code>cd C:\Users\tukum\Downloads\agentic-degrees\teach-workspace\gap-ee\capstone\reopt-practice
+
+julia --project=. -e "using Pkg; Pkg.instantiate()"        # once per machine
+julia --project=. -e "using Pkg"                            # sanity: env loads
+
+"C:\Users\tukum\Downloads\ee-heat\tools\.venv\Scripts\python.exe" make_vn_scenario.py
+julia --project=. run_scenario.jl garment_factory_process_heat.json
+</code></pre>
+<p>The first Julia command resolves the pinned environment from <code>Manifest.toml</code>
+(REopt v0.61.0, JuMP, HiGHS, JSON); expect several minutes of precompilation the first time.
+The Python step regenerates the scenario from <code>vn_context.json</code> — never hand-edit
+the scenario JSON. Expected output when everything matches:</p>
+<ul>
+<li><code>Electric heater size (mmbtu/hr): 0.0</code> — REopt declines resistance heat.</li>
+<li><code>NPV ($) : 0.0</code> — no option beats doing nothing.</li>
+<li><code>CO2 emissions, optimal (t/yr) : 13740.1</code> (±rounding) — matches the published
+13,740 (5,829 t coal boiler + 7,911 t grid).</li>
+<li><code>termination_status = OPTIMAL</code>, twice (BAU pass + optimal pass).</li>
+</ul>
+<p>The EASIUR/AVERT warnings about (10.95, 106.82) are expected outside the US and harmless —
+emissions come from the explicitly supplied factors, not US lookup tables.</p>
+
+<h2>1. The scenario JSON, field by field</h2>
+<p>Open <code>garment_factory_process_heat.json</code> (generated). Eight top-level keys:</p>
+<table border="1">
+<tr><th>Key</th><th>What it says</th><th>Watch out for</th></tr>
+<tr><td><code>Site</code></td><td>latitude 10.95, longitude 106.82 — Binh Duong industrial belt
+placeholder</td><td>Drives only US lookups here; harmless warnings</td></tr>
+<tr><td><code>ElectricLoad</code></td><td>12 GWh/yr on profile <code>FlatLoad_16_5</code>,
+year 2017</td><td>takes <strong><code>doe_reference_name</code></strong></td></tr>
+<tr><td><code>ElectricTariff</code></td><td><code>tou_energy_rates_per_kwh</code>: the 8760
+hourly VND→USD vector built by the generator</td><td>must be length 8760</td></tr>
+<tr><td><code>ElectricUtility</code></td><td>grid EF series 1.4533 lb/kWh,
+<code>renewable_energy_fraction_series</code> = [0.45] × 8760, decrease fraction 0</td><td>
+the RE-fraction <strong>must be an array</strong>; scalar fails at runtime despite the type
+signature</td></tr>
+<tr><td><code>ProcessHeatLoad</code></td><td>60,000 MMBtu/yr steam on
+<code>FlatLoad_16_5</code></td><td>takes <strong><code>industrial_reference_name</code></strong>
+— mixing the two reference-name keys fails with silent NaN results</td></tr>
+<tr><td><code>ExistingBoiler</code></td><td>steam, η=0.75, fuel_type
+<code>"natural_gas"</code>, $5.30/MMBtu, 214.2 lb CO₂/MMBtu</td><td>coal workaround — see §2
+below; do not "fix" it</td></tr>
+<tr><td><code>ElectricHeater</code></td><td>COP 1.0, can_serve_process_heat true, installed cost
+$110k per MMBtu/h</td><td>resistance heat placeholder; baseline proves it's declined</td></tr>
+<tr><td><code>Financial</code></td><td>20 years, 10% discount, 3% escalation on both tariffs
+and fuel</td><td>matches lesson 0005's worked example assumptions</td></tr>
+</table>
+
+<h2>2. The coal-as-natural_gas workaround (memorize this)</h2>
+<p>REopt has <strong>no native coal fuel type</strong> — choices are natural gas, propane,
+diesel, landfill gas. Coal is modelled as <code>natural_gas</code> with BOTH overrides:</p>
+<ul>
+<li><code>fuel_cost_per_mmbtu: 5.30</code> (import-parity Indonesian sub-bituminous)</li>
+<li><code>emissions_factor_lb_CO2_per_mmbtu: 214.2</code> (EPA sub-bituminous)</li>
+</ul>
+<p>Missing the second override leaves REopt's natural-gas default (117.03 lb/MMBtu) in place
+and understates coal emissions by ~45% — every abatement claim quietly wrong. This workaround
+is already correctly applied in the practice copy; leave it exactly as is.</p>
+
+<h2>3. Why the calendar is 2017</h2>
+<p>REopt's built-in load profiles are 2017 calendar profiles. <code>TARIFF_YEAR</code> stays
+2017 so the Mon–Sat peak window lands on the right weekdays. Change the year without changing
+the load-profile source and Saturday evenings silently stop peaking — the same class of error
+that makes SAM's weekday/weekend model understate Vietnam bills by 4.2% (tools/README.md
+cross-check section).</p>
+
+<h2>4. Reading the output like an analyst</h2>
+<ul>
+<li><strong>Two solves</strong> — REopt runs BAU (do-nothing) and optimal passes; compare
+lifecycle costs between them, not to zero.</li>
+<li><strong>Boiler fuel 60,000 MMBtu/yr optimal</strong> — wait, the load is 60,000 MMBtu
+useful… check: with η=0.75 the fuel should be 80,000. Read the key:
+<code>annual_fuel_consumption_mmbtu</code> reports what the boiler produced toward the load;
+REopt's ProcessHeatLoad is defined as delivered-heat demand the boiler serves directly, so the
+efficiency enters through fuel-cost arithmetic rather than a 4/3 multiplier on this line. The
+number to trust for reproduction is emissions: 5,829 t from burning at the stated EF matches
+60,000 MMBtu × 214.2 lb ÷ 2204.6 ≈ 5,829 t exactly.</li>
+<li><strong>results_garment_factory_process_heat.json</strong> — full dictionary dump next to
+the scenario. In Phase 4 the capstone compares its own results file against this one.</li>
+</ul>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">Why does the scenario declare the coal boiler as
+<code>"fuel_type": "natural_gas"</code>?</p>
+<ul class="options">
+<li data-answer="false">Because REopt converts gas boilers to coal automatically</li>
+<li data-answer="true">REopt has no native coal fuel type — natural_gas stands in, with both
+cost AND emissions overridden to coal values</li>
+<li data-answer="false">Because Vietnamese boilers burn gas in winter</li>
+<li data-answer="false">It is a typo preserved for backward compatibility</li>
+</ul>
+<p class="explain">Fuel types are restricted to gas/propane/diesel/landfill-gas. The override
+of both fields is what makes the stand-in honest — missing the EF override understates coal by
+~45%.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Which reference-name key does <code>ProcessHeatLoad</code> require?</p>
+<ul class="options">
+<li data-answer="true"><code>industrial_reference_name</code></li>
+<li data-answer="false"><code>doe_reference_name</code></li>
+<li data-answer="false"><code>process_reference_name</code></li>
+<li data-answer="false"><code>load_profile_name</code></li>
+</ul>
+<p class="explain">ElectricLoad → doe_reference_name; ProcessHeatLoad →
+industrial_reference_name. Both accept FlatLoad_* values, so the wrong-key mistake fails with
+silent NaN results rather than a clear error — trap #5 in tools/README.md.</p>
+</li>
+
+<li class="q">
+<p class="qtext"><code>renewable_energy_fraction_series</code> set to the scalar 0.45 causes…</p>
+<ul class="options">
+<li data-answer="false">Nothing — the signature accepts Real or Array</li>
+<li data-answer="true">A runtime failure: "Unable to convert renewable_energy_fraction_series"
+— supply [0.45] × 8760 instead</li>
+<li data-answer="false">Automatic resampling to hourly values</li>
+<li data-answer="false">A Cambium API call that succeeds after minutes</li>
+</ul>
+<p class="explain">Despite Union{Real,Array} in the signature, scalars fail at runtime. Omitting
+it entirely is worse — REopt stalls on a failing Cambium API call before zeroing it. Always an
+8760-length array.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What did the baseline run conclude about the COP-1.0 ElectricHeater?</p>
+<ul class="options">
+<li data-answer="true">Size 0.0 MMBtu/hr, NPV $0 — resistance heat loses to coal steam at
+every hour</li>
+<li data-answer="false">Built at 12.5 MMBtu/hr for peak shaving</li>
+<li data-answer="false">Built only during off-peak hours</li>
+<li data-answer="false">The scenario failed to solve because of it</li>
+</ul>
+<p class="explain">COP 1.0 means each kWh buys exactly one kWh of heat — more expensive than
+coal steam even off-peak ($4.27 would be COP-3.11 territory; resistance is ~$8+/MMBtu
+equivalent). REopt declining to build it is the correct answer, not a failure.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why must TARIFF_YEAR stay 2017 in make_vn_scenario.py?</p>
+<ul class="options">
+<li data-answer="false">Because EVN rates were set in 2017</li>
+<li data-answer="true">REopt's built-in load profiles are 2017 calendars — matching years keeps
+Mon–Sat peak windows on the right weekdays</li>
+<li data-answer="false">Julia cannot parse later years</li>
+<li data-answer="false">Because 2017 was a leap year</li>
+</ul>
+<p class="explain">The generator builds the tariff vector for 2017 so that weekdays align with
+the 2017 load profiles. Mismatched calendars silently shift which Saturdays peak — the exact
+class of error the PySAM cross-check quantified at −4.2%.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Your baseline prints 13,740.1 t/yr instead of exactly 13,740. This is…</p>
+<ul class="options">
+<li data-answer="false">A failed reproduction — rerun until it prints 13,740.0</li>
+<li data-answer="false">Proof the copied files drifted from ee-heat</li>
+<li data-answer="true">Expected rounding tolerance (±1.0) — the reproduction is valid</li>
+<li data-answer="false">An error carried by the EASIUR warnings</li>
+</ul>
+<p class="explain">The plan's test spec allows ±1.0 t for rounding. 13,740.1 reproduces the
+published 5,829 + 7,911 split within display precision — checkpoint passed.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> NREL REopt.jl documentation and the pinned practice-copy files
+themselves (<code>teach-workspace/gap-ee/capstone/reopt-practice/{make_vn_scenario.py,
+run_scenario.jl, vn_context.json}</code>, verbatim copies of
+`C:\Users\tukum\Downloads\ee-heat\tools\reopt\`) —
+<a href="https://reopt.nrel.gov/reopt-jl" target="_blank" rel="noopener">reopt.nrel.gov/reopt-jl</a>.
+</div>
+
+<div class="lesson-nav">
+<span><a href="0005-tea-lcoh-fundamentals.html">← 0005 TEA/LCOH</a></span>
+<span><a href="0007-tou-tariffs-and-breakeven-cop.html">0007 TOU &amp; breakeven COP →</a></span>
+</div>
+</body>
+</html>

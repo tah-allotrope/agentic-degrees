@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0009 — EnergyPlus Envelope/HVAC Orientation — gap-ee</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0009 · EnergyPlus Envelope/HVAC Orientation</h1>
+<p class="meta">gap-ee week 2, day 9 · 45-60 min hands-on · run inside ee-heat's ignored dir ·
+<a href="../MISSION.md">mission</a></p>
+
+<p class="lede">EnergyPlus is the world-standard building-energy simulator — and it is ranked
+<em>standby</em> for this engagement. Today you prove it runs correctly on Vietnamese weather
+(a real capability, since it ships with five US locations and nothing else), then articulate
+precisely why a working tool can still be the wrong tool for dye-house steam.</p>
+
+<div class="callout">
+<p><strong>Mission link.</strong> Knowing <em>why</em> rank-4/rank-5 tools stay on the shelf is
+as much toolchain competence as knowing how to drive rank-1/rank-2. Scope discipline: "Do not
+spend Stage 1 hours here" (tools/README.md §4).</p>
+</div>
+
+<h2>1. Run it — 1ZoneUncontrolled against HCMC weather</h2>
+<pre><code>cd C:\Users\tukum\Downloads\ee-heat\tools\energyplus
+
+.\EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64\energyplus.exe ^
+  -w weather\VNM_SVN_Ho.Chi.Minh-Tan.Son.Nhat.Intl.AP.489000_TMYx.2011-2025.epw ^
+  -d out ^
+  -r EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64/ExampleFiles/1ZoneUncontrolled.idf
+</code></pre>
+<p>Expect ~12 s and "EnergyPlus Completed Successfully." Then verify the weather file was
+actually absorbed, not silently defaulted:</p>
+<pre><code>grep "Site:Location" out\eplusout.eio
+→ Site:Location,Ho.Chi.Minh-Tan.Son.Nhat.Intl.AP SVN VNM SRC-TMYx WMO#=489000,
+  10.82,106.65,7.00,10.10,101204,1.2029
+</code></pre>
+<p>Name, coordinates (10.82 N, 106.65 E), timezone +7, elevation — all Tan Son Nhat. Check
+<code>out\eplusout.err</code>: 3 warnings, <strong>0 Severe / 0 Fatal</strong> (warnings are
+normal; Severe/Fatal are EnergyPlus's own failure convention). Everything under
+<code>tools/energyplus/</code> is gitignored by ee-heat, so this output never touches the
+client repo's tracked state — that is why this lesson runs here rather than in a practice copy.</p>
+
+<h2>2. What just happened, physically</h2>
+<p><code>1ZoneUncontrolled.idf</code> is a single thermal zone with no HVAC: EnergyPlus solved
+hourly heat balance — conduction through walls (lesson 0001), solar gains through windows,
+infiltration, internal gains — driven by a full TMYx meteorological year for Ho Chi Minh City.
+The .epw/.ddy/.stat trio from climate.onebuilding.org carries typical-year weather, ASHRAE
+design days (equipment sizing), and climate summaries. That machinery is world-class for one
+question class: <strong>buildings — envelope loads and HVAC systems serving them.</strong></p>
+
+<h2>3. Why standby — the scope mismatch</h2>
+<ul>
+<li>The engagement's decarbonization targets are <strong>process</strong> end uses: dye baths,
+wash water, dryers fed by a steam boiler and a hot-water loop. Those are industrial thermal
+systems, not building zones.</li>
+<li>EnergyPlus models process loads only as crude schedule-based "other equipment," with no
+steam headers, no boiler efficiency curves tied to load, no COP-vs-lift physics, no TOU tariff
+optimization. It cannot answer "what replaces coal steam at what size."</li>
+<li>Its realistic future role: if a supplier's factory floor ventilation/cooling load turns out
+to be a material EE opportunity (fans, make-up air, envelope), EnergyPlus quantifies it —
+complementing MEASUR's pump/fan modules. Until that question firms up: shelf.</li>
+</ul>
+<p>The transferable skill is the pattern, not the tool: localize weather/data first (it shipped
+US-only — like every tool in this stack), verify ingestion explicitly (the Site:Location grep),
+then ask whether the tool's model class matches the physical question at all.</p>
+
+<h2>Practice quiz</h2>
+
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does the Site:Location line in eplusout.eio actually confirm?</p>
+<ul class="options">
+<li data-answer="false">That the IDF file parsed without errors</li>
+<li data-answer="false">That EnergyPlus holds an official Vietnam license</li>
+<li data-answer="true">That the HCMC weather file was genuinely ingested — name, lat/long,
+timezone, elevation all match Tan Son Nhat</li>
+<li data-answer="false">That results will match a US-city simulation</li>
+</ul>
+<p class="explain">A wrong or missing -w argument can silently default to an internal location;
+the eio line is the positive proof the tropical year drove the simulation. Verify ingestion,
+never assume it.</p>
+</li>
+
+<li class="q">
+<p class="qtext">In out/eplusout.err, which lines signal a failed run by EnergyPlus convention?</p>
+<ul class="options">
+<li data-answer="true">**Severe** and **Fatal** lines — warnings alone are normal</li>
+<li data-answer="false">Any Warning line at all</li>
+<li data-answer="false">A nonzero file size</li>
+<li data-answer="false">Mentions of EASIUR or AVERT</li>
+</ul>
+<p class="explain">This run: 3 warnings, 0 severe, 0 fatal = healthy. The warning/severe/fatal
+ladder is EnergyPlus's own severity convention — read the err file before quoting any number
+from an E+ run.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why do the outputs of this lesson create zero risk to ee-heat's tracked state?</p>
+<ul class="options">
+<li data-answer="false">Because EnergyPlus writes outputs to the Windows temp directory</li>
+<li data-answer="true">tools/energyplus/ is entirely gitignored in ee-heat — untracked by
+construction, unlike the practice-copy rule used for REopt</li>
+<li data-answer="false">Because we committed the outputs first</li>
+<li data-answer="false">Because the IDF is read-only</li>
+</ul>
+<p class="explain">Two isolation patterns in this course: REopt practice work goes to a copy in
+agentic-degrees; EnergyPlus already sits inside an ignored tree of ee-heat. Both keep client
+history clean by different mechanisms.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why is EnergyPlus ranked standby for THIS engagement despite running perfectly?</p>
+<ul class="options">
+<li data-answer="false">It cannot simulate tropical climates accurately</li>
+<li data-answer="false">It is proprietary and expensive to license</li>
+<li data-answer="true">It models building envelopes and their HVAC — not dye-house steam
+systems; the engagement's targets are process end uses</li>
+<li data-answer="false">It has no hourly resolution</li>
+</ul>
+<p class="explain">Model-class mismatch: no steam headers, no boiler part-load economics, no
+TOU optimization. A perfect answer to a question nobody asked is still the wrong tool — hence
+rank 4/5 and "do not spend Stage 1 hours here."</p>
+</li>
+
+<li class="q">
+<p class="qtext">Under what plausible future development does EnergyPlus re-enter scope?</p>
+<ul class="options">
+<li data-answer="false">If EVN raises electricity tariffs further</li>
+<li data-answer="false">When R1234ze(Z) becomes unavailable</li>
+<li data-answer="true">If factory-floor ventilation/cooling proves to be a material EE
+opportunity — envelope/HVAC modeling then complements MEASUR's fan/pump sweep</li>
+<li data-answer="false">It never does — the tool is being removed from the toolchain</li>
+</ul>
+<p class="explain">Standby ≠ dead: the README names the exact trigger (ventilation/cooling as a
+material opportunity). Tool ranking is scoped judgment, not permanent verdicts.</p>
+</li>
+
+<li class="q">
+<p class="qtext">The localization problem EnergyPlus shared with every other tool in the stack:</p>
+<ul class="options">
+<li data-answer="true">It shipped US-only defaults — 5 US weather files — so VN/ID weather had
+to be added before any local run meant anything</li>
+<li data-answer="false">It lacked a graphical interface</li>
+<li data-answer="false">It could not run on Windows</li>
+<li data-answer="false">It refused metric units</li>
+</ul>
+<p class="explain">MEASUR: US prices/factors. REopt: US tariffs/emissions lookups.
+heat_pump_model: Colorado site. EnergyPlus: US weather. The localization layer IS the
+engagement's core engineering contribution — remember it whenever a new tool arrives.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> DOE/NREL EnergyPlus v26.1.0 itself (portable install +
+ExampleFiles) run against the climate.onebuilding.org TMYx weather file for Ho Chi Minh – Tan
+Son Nhat; usage and caveats per `C:\Users\tukum\Downloads\ee-heat\tools\README.md` §4.
+</div>
+
+<div class="lesson-nav">
+<span><a href="0008-heat-pump-model-cross-check.html">← 0008 heat-pump-model</a></span>
+<span><a href="0010-ihda-fied-methodology.html">0010 IHDA/FIED methodology →</a></span>
+</div>
+</body>
+</html>
