@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0001 · Thermo &amp; Heat-Transfer Primer — gap-ee artifact</title>
+<style>
+:root{
+  --paper:#faf8f5; --card:#ffffff; --ink:#1c1b1a; --muted:#6f6862;
+  --accent:#9e2b25; --accent-deep:#7c1f1a; --rule:#e3ddd4; --ghost:#d9d1c6;
+  --code-bg:#23211e; --code-ink:#ece7de; --code-inline:#efeae2;
+  --ok:#1e7d32; --ok-bg:#edf5ec; --bad:#b3261e; --bad-bg:#faeeec;
+  --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --mono:Consolas,'SFMono-Regular','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0 auto;max-width:46rem;padding:3rem 1.4rem 5rem;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65}
+::selection{background:#f3ded9}
+.kicker{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 1.1rem}
+.kicker b{color:var(--accent);font-weight:600}
+h1{font-size:clamp(2.1rem,5vw,2.9rem);line-height:1.08;margin:.15em 0 .4em;font-weight:700;letter-spacing:-.015em}
+.lede{font-size:1.13rem;line-height:1.6;color:#33302c;margin:0 0 .9rem}
+.metaline{font-family:var(--sans);font-size:.82rem;color:var(--muted);margin:0;padding-bottom:1.5rem;border-bottom:1px solid var(--rule)}
+.metaline a{color:var(--accent)}
+.mission{margin:1.75rem 0 0;padding:1.05rem 1.3rem;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+.mission-label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+.mission p{margin:.4em 0 0;font-size:.97rem;color:#3c3833}
+section.topic{margin-top:3.2rem}
+h2{display:grid;grid-template-columns:auto 1fr;column-gap:.9rem;align-items:baseline;font-size:1.42rem;line-height:1.25;margin:0 0 .6rem;letter-spacing:-.01em}
+h2 .num{font-family:var(--sans);font-size:2rem;font-weight:700;color:var(--ghost)}
+h3{font-size:1.04rem;font-style:italic;font-weight:600;color:#4a453f;margin:1.7em 0 .35em}
+p{margin:.75em 0}
+ul,ol{padding-left:1.35rem;margin:.75em 0}
+li{margin:.45em 0}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.86em;background:var(--code-inline);padding:.12em .38em;border-radius:5px}
+pre{background:var(--code-bg);color:var(--code-ink);padding:1.05rem 1.25rem;border-radius:10px;overflow-x:auto;font-family:var(--mono);font-size:.83rem;line-height:1.6;margin:1.1rem 0}
+pre code{background:none;color:inherit;padding:0;font-size:inherit}
+figure{margin:1.4rem 0}
+figcaption{font-family:var(--sans);font-size:.78rem;color:var(--muted);margin-top:.55rem;line-height:1.5}
+/* energy-ratio bars */
+.bars{display:grid;row-gap:.9rem}
+.bar-row{display:grid;grid-template-columns:9.5rem 1fr;align-items:center;column-gap:1rem}
+.bar-label{font-family:var(--sans);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.4}
+.bar-track{position:relative;height:2.4rem;background:#f1ece4;border-radius:6px;overflow:hidden}
+.bar-fill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:6px;transition:width .9s cubic-bezier(.22,.61,.36,1)}
+.bar-fill.sensible{background:#a89a86}
+.bar-fill.latent{background:var(--accent)}
+.bar-val{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--sans);font-size:.78rem;font-weight:600;opacity:0;transition:opacity .4s ease .75s;white-space:nowrap}
+.bar-track.loaded .bar-val{opacity:1}
+.bar-val.outside{left:calc(var(--w) + 10px);color:#4a453f}
+.bar-val.inside{right:10px;color:#fff}
+/* quiz */
+.quiz-meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--sans);font-size:.8rem;color:var(--muted);margin-bottom:1.2rem}
+.quiz-score{font-family:var(--mono)}
+.quiz ol{list-style:none;padding:0;counter-reset:q}
+.q{counter-increment:q;margin:0 0 1.9rem}
+.qtext{font-weight:700;font-size:1.03rem;margin:.15em 0 .65em}
+.qtext::before{content:counter(q) ". ";color:var(--accent)}
+.options{list-style:none;padding:0;display:grid;row-gap:.5rem}
+.options button{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--rule);border-radius:9px;padding:.62rem .95rem;font-family:var(--serif);font-size:.95rem;line-height:1.5;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.options button:hover{border-color:#c9beae}
+.options button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.options li.correct button,.options button.correct{border-color:var(--ok);background:var(--ok-bg)}
+.options li.wrong button,.options button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.options li.done button{pointer-events:none}
+.options li.done:not(.correct):not(.wrong) button{opacity:.55}
+.explain{display:none;margin-top:.7rem;font-size:.92rem;color:#4a453f}
+.q.answered .explain{display:block;animation:fadein .3s ease}
+.explain strong{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.source{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted);line-height:1.55}
+.source .label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.source a{color:var(--accent)}
+.lesson-nav{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.85rem}
+.lesson-nav a{color:var(--accent);text-decoration:none}
+.lesson-nav a:hover{text-decoration:underline}
+.lesson-nav .next{margin-left:auto;text-align:right}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:560px){
+  body{padding:2rem 1.1rem 3.5rem}
+  .bar-row{grid-template-columns:1fr;row-gap:.3rem}
+  .bar-label{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{body{max-width:none;background:#fff}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<p class="kicker"><b>gap-ee</b> · energy-efficiency-as-a-service · lesson 0001 · week 1, day 1</p>
+<h1>Thermo &amp; Heat-Transfer Primer</h1>
+<p class="lede">Everything in the clean-heat toolchain is thermodynamics wearing different clothes:
+MEASUR balances steam enthalpies, REopt prices heat per MMBtu, <code>heat_pump_model</code> moves
+heat up a temperature hill. This lesson gives you the three ideas you need before any of those
+tools make sense — how heat moves, why steam carries so much more energy than hot water, and why
+MEASUR insists on Metric units.</p>
+<p class="metaline">45–60 min · recall first, then check · <a href="../MISSION.md">mission brief</a></p>
+
+<div class="mission">
+<p class="mission-label">Mission link</p>
+<p>The engagement's core finding compares a heat pump's COP against coal steam economics. You
+cannot reason about COP (lesson 0002), boiler efficiency (0003), or a $/MMBtu tariff spread (0007)
+without the unit system and the sensible/latent distinction from this lesson.</p>
+</div>
+
+<section class="topic">
+<h2><span class="num">01</span>Three ways heat moves</h2>
+<p>Heat flows from hot to cold, by exactly three mechanisms:</p>
+<ul>
+<li><strong>Conduction</strong> — through solid material. A boiler shell, a pipe wall, an
+insulation layer. Governed by <code>Q = k·A·ΔT/L</code>: conductivity <code>k</code>, area
+<code>A</code>, temperature difference <code>ΔT</code>, thickness <code>L</code>. This is why
+distribution-line insulation works: fibreglass has ~20× lower <code>k</code> than steel.</li>
+<li><strong>Convection</strong> — heat carried by a moving fluid. Steam condensing on a dyeing
+machine's jacket, air blowing over a dryer coil. <code>Q = h·A·ΔT</code>. Forced convection
+(a fan/pump) beats natural convection by 5–10× on <code>h</code>.</li>
+<li><strong>Radiation</strong> — electromagnetic, needs no medium, scales with <code>T⁴</code>.
+Matters for uninsulated boiler and header surfaces at 100°C+: a bare hot surface radiates and
+convects away useful fuel money simultaneously.</li>
+</ul>
+<p>In plant work you almost never solve these equations — you use tools that do. But you must
+recognise which mechanism a measure targets: insulation attacks conduction+radiation; a
+condensate-return pump is about recovering already-transferred heat; excess-air control fixes
+convection losses up the stack.</p>
+</section>
+
+<section class="topic">
+<h2><span class="num">02</span>Sensible vs. latent heat — why steam systems exist</h2>
+<p><strong>Sensible heat</strong> changes a substance's temperature. <strong>Latent heat</strong>
+changes its phase at constant temperature. For water:</p>
+<ul>
+<li>Specific heat: <code>c_p ≈ 4.186 kJ/kg·°C</code> (liquid water)</li>
+<li>Latent heat of vaporisation at 100°C: <code>h_fg ≈ 2257 kJ/kg</code></li>
+</ul>
+
+<h3>Worked example — heating vs. vaporising 1000 kg of water</h3>
+<pre><code>Sensible:  1000 kg × 4.186 kJ/kg·°C × (100 − 20)°C = 334,880 kJ
+Latent:    1000 kg × 2257 kJ/kg                    = 2,257,000 kJ
+
+Ratio:     2,257,000 / 334,880 ≈ 6.7×</code></pre>
+
+<figure>
+<div class="bars">
+<div class="bar-row">
+<div class="bar-label">Sensible<br>20 → 100°C</div>
+<div class="bar-track"><div class="bar-fill sensible" data-width="13%"></div><span class="bar-val outside" style="--w:13%">334,880 kJ</span></div>
+</div>
+<div class="bar-row">
+<div class="bar-label">Latent<br>vaporise at 100°C</div>
+<div class="bar-track"><div class="bar-fill latent" data-width="87%"></div><span class="bar-val inside">2,257,000 kJ · ~6.7×</span></div>
+</div>
+</div>
+<figcaption>Same 1,000 kg of water: the phase change costs several times more energy than the
+80-degree temperature rise. Scale is proportional kJ.</figcaption>
+</figure>
+
+<p>Vaporising the same kilogram costs <strong>~6.7× more energy</strong> than heating it from
+20°C to boiling. That single ratio explains four things at once:</p>
+<ol>
+<li>Why steam is the transport fluid for industrial heat — one kilogram of steam delivers
+2257 kJ when it condenses, at constant temperature, inside the machine that needs it.</li>
+<li>Why condensate return dominates the savings list in lesson 0003: dump hot condensate and
+you throw away both its sensible heat <em>and</em> the treated water.</li>
+<li>Why dryers and stenters are hungry — they boil water all day (latent duty).</li>
+<li>Why a dye-house loop at 60–95°C (hot water, no boiling) is a fundamentally cheaper,
+lower-temperature target than the steam header — and exactly where a heat pump can win.</li>
+</ol>
+</section>
+
+<section class="topic">
+<h2><span class="num">03</span>The unit system: °C / bar(g) / kJ</h2>
+<p>Plant data in Vietnam arrives in <strong>tonnes of steam per hour</strong>,
+<strong>bar(g)</strong>, <strong>°C</strong>, and <strong>kJ</strong>.
+<code>ee-heat/tools/measur/VN-settings-card.md</code>'s first instruction is therefore
+<strong>"Set units to Metric"</strong> — converting every reading to Imperial just to satisfy
+a US default is where transcription errors get made.</p>
+<ul>
+<li><strong>bar(g)</strong> = gauge pressure (relative to atmosphere). Steam properties tables
+key on absolute pressure, but plants speak gauge. 10 bar(g) ≈ 11 bar absolute ≈ 184°C saturation.</li>
+<li><strong>kJ vs MMBtu</strong> — the toolchain speaks both: MEASUR takes kJ/GJ, REopt prices
+per MMBtu. One conversion to memorise: <code>1 MMBtu = 293.071 kWh</code> (used everywhere in
+lessons 0006–0011). Also useful: <code>1 GJ = 0.9478 MMBtu</code>.</li>
+<li>The VN settings card prices coal at $5.02/GJ — the same price as the $5.30/MMBtu used in
+REopt, expressed in the other unit family. Check it:
+<code>$5.30/MMBtu ÷ 1.055 GJ/MMBtu ≈ $5.02/GJ</code>. Same number, two dialects.</li>
+</ul>
+</section>
+
+<section class="topic">
+<h2><span class="num">Q</span>Practice quiz</h2>
+<div class="quiz-meta"><span>6 questions · answer to reveal reasoning</span><span class="quiz-score">Score 0 / 6</span></div>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">Which heat-transfer mechanism does adding insulation to a steam distribution line primarily attack?</p>
+<ul class="options">
+<li><button data-answer="true">Conduction through the pipe/surface plus surface radiation</button></li>
+<li><button data-answer="false">Convection inside the flowing steam</button></li>
+<li><button data-answer="false">Latent heat of the steam</button></li>
+<li><button data-answer="false">Radiation from the flame inside the burner</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Insulation adds a low-conductivity layer (k ~20× lower than steel) and closes the hot outer surface, cutting conducted-and-radiated losses. The steam side's internal convection is untouched — it was never the loss path.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Using c_p = 4.186 kJ/kg·°C and h_fg = 2257 kJ/kg: raising 1000 kg of water from 20°C to 100°C costs 334,880 kJ. Roughly how much more energy to then vaporise all of it at 100°C?</p>
+<ul class="options">
+<li><button data-answer="false">About the same again (~330,000 kJ)</button></li>
+<li><button data-answer="false">About half as much again (~170,000 kJ)</button></li>
+<li><button data-answer="false">About 20× more (~6.7 million kJ)</button></li>
+<li><button data-answer="true">About 6.7× more (~2,257,000 kJ)</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Latent heat is 1000 kg × 2257 kJ/kg = 2,257,000 kJ, and 2,257,000 / 334,880 ≈ 6.7. Vaporising costs several times more than sensible heating — that is why steam carries so much energy per kilogram.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Condensing steam inside a dyeing machine transfers its latent heat at what temperature behaviour?</p>
+<ul class="options">
+<li><button data-answer="false">Temperature falls steadily while heat is released</button></li>
+<li><button data-answer="true">Constant temperature until all vapour has condensed</button></li>
+<li><button data-answer="false">Temperature rises steadily while heat is released</button></li>
+<li><button data-answer="false">Temperature oscillates with pressure spikes</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Phase change happens at constant temperature (at fixed pressure). This is exactly what a dye bath wants — heat delivered at a stable, controlled temperature.</p>
+</li>
+
+<li class="q">
+<p class="qtext">MEASUR ships with US/Imperial defaults. The VN settings card says set units to Metric before entering anything. Why?</p>
+<ul class="options">
+<li><button data-answer="false">Metric results are more accurate numerically</button></li>
+<li><button data-answer="false">Imperial units are unsupported in MEASUR v1.8.3</button></li>
+<li><button data-answer="true">Vietnamese plant data arrives in tonnes/h, bar(g), °C, kJ — avoiding unit-by-hand conversion avoids transcription errors</button></li>
+<li><button data-answer="false">Metric mode unlocks the waste-heat module only</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — The card's exact reasoning: "converting every reading to Imperial to satisfy a default is where transcription errors get made." It is a data-integrity rule, not a precision claim.</p>
+</li>
+
+<li class="q">
+<p class="qtext">The toolchain quotes coal at $5.30/MMBtu (REopt) and $5.02/GJ (MEASUR). Are these consistent? (1 GJ = 0.9478 MMBtu)</p>
+<ul class="options">
+<li><button data-answer="true">Yes — $5.30/MMBtu ÷ 1.055 GJ/MMBtu ≈ $5.02/GJ</button></li>
+<li><button data-answer="false">No — one of them is wrong by roughly 40%</button></li>
+<li><button data-answer="false">No — GJ prices must always be larger numbers than MMBtu prices</button></li>
+<li><button data-answer="false">Cannot tell without the boiler efficiency</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — A MMBtu is 1.055 GJ, so dividing $5.30 by 1.055 gives $5.02 per GJ. Same price, two unit families — the conversion constant between them is worth memorising because the toolchain switches freely.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why is the 60–95°C dye-house loop a more promising heat-pump target than the 10 bar(g) steam header?</p>
+<ul class="options">
+<li><button data-answer="false">Because hot water stores more latent heat per kg than steam</button></li>
+<li><button data-answer="false">Because heat pumps can only run on hot water, never steam</button></li>
+<li><button data-answer="true">Lifting heat across a small temperature lift (e.g. 45→95°C) needs far less work than making 10 bar(g) steam — higher achievable COP</button></li>
+<li><button data-answer="false">Because the dye-house runs at higher pressure than the header</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — COP falls as the temperature lift grows. A 45→95°C lift keeps the ideal COP high (lesson 0002 computes 6.22); producing 10 bar(g) steam would demand a much larger lift and much worse COP. Clean-heat priority (ii) is deliberately the &lt;100–110°C band.</p>
+</li>
+</ol>
+</section>
+</section>
+
+<footer class="source">
+<span class="label">Primary source</span><br>
+U.S. DOE Advanced Manufacturing Office / Industrial Technologies Program, <em>Improving Steam
+System Performance: A Sourcebook for Industry, Second Edition</em> —
+<a href="https://www.energy.gov/sites/prod/files/2014/05/f15/steamsourcebook.pdf" target="_blank" rel="noopener">energy.gov — steamsourcebook.pdf</a>
+(free PDF; §1 covers steam-system basics, properties, and end-use structure). Unit-conversion
+constants cross-checked against NIST SP 811. Local companion values:
+<code>C:\Users\tukum\Downloads\ee-heat\tools\measur\VN-settings-card.md</code>.
+</footer>
+
+<nav class="lesson-nav">
+<span>gap-ee 0001 — start of track</span>
+<span class="next"><a href="0002-refrigeration-cycle-and-cop.html">0002 refrigeration cycle &amp; COP →</a></span>
+</nav>
+
+<script>
+(function(){
+"use strict";
+/* quiz */
+var total=0,correct=0;
+document.querySelectorAll("section.quiz").forEach(function(section){
+  section.querySelectorAll(".q").forEach(function(q){
+    total+=1;
+    var opts=[].slice.call(q.querySelectorAll(".options button"));
+    var done=false;
+    opts.forEach(function(btn){
+      btn.addEventListener("click",function(){
+        if(done)return;
+        done=true;
+        var right=btn.getAttribute("data-answer")==="true";
+        if(right){btn.classList.add("correct");correct+=1;}
+        else{btn.classList.add("wrong");}
+        opts.forEach(function(other){
+          other.parentElement.classList.add("done");
+          if(other!==btn&&other.getAttribute("data-answer")==="true"){other.classList.add("correct");}
+        });
+        q.classList.add("answered");
+        var score=section.parentElement.querySelector(".quiz-score")||document.querySelector(".quiz-score");
+        if(score){score.textContent="Score "+correct+" / "+total;}
+      });
+    });
+  });
+});
+/* bars */
+window.addEventListener("load",function(){
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      document.querySelectorAll(".bar-fill").forEach(function(fill){
+        fill.style.width=fill.getAttribute("data-width");
+        fill.parentElement.classList.add("loaded");
+      });
+    });
+  });
+});
+})();
+</script>
+</body>
+</html>

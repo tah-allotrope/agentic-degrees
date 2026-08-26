@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0002 · Refrigeration Cycle &amp; COP — gap-ee artifact</title>
+<style>
+:root{
+  --paper:#faf8f5; --card:#ffffff; --ink:#1c1b1a; --muted:#6f6862;
+  --accent:#9e2b25; --accent-deep:#7c1f1a; --rule:#e3ddd4; --ghost:#d9d1c6;
+  --code-bg:#23211e; --code-ink:#ece7de; --code-inline:#efeae2;
+  --ok:#1e7d32; --ok-bg:#edf5ec; --bad:#b3261e; --bad-bg:#faeeec;
+  --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --mono:Consolas,'SFMono-Regular','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0 auto;max-width:46rem;padding:3rem 1.4rem 5rem;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65}
+::selection{background:#f3ded9}
+.kicker{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 1.1rem}
+.kicker b{color:var(--accent);font-weight:600}
+h1{font-size:clamp(2.1rem,5vw,2.9rem);line-height:1.08;margin:.15em 0 .4em;font-weight:700;letter-spacing:-.015em}
+.lede{font-size:1.13rem;line-height:1.6;color:#33302c;margin:0 0 .9rem}
+.metaline{font-family:var(--sans);font-size:.82rem;color:var(--muted);margin:0;padding-bottom:1.5rem;border-bottom:1px solid var(--rule)}
+.metaline a{color:var(--accent)}
+.mission{margin:1.75rem 0 0;padding:1.05rem 1.3rem;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+.mission-label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+.mission p{margin:.4em 0 0;font-size:.97rem;color:#3c3833}
+section.topic{margin-top:3.2rem}
+h2{display:grid;grid-template-columns:auto 1fr;column-gap:.9rem;align-items:baseline;font-size:1.42rem;line-height:1.25;margin:0 0 .6rem;letter-spacing:-.01em}
+h2 .num{font-family:var(--sans);font-size:2rem;font-weight:700;color:var(--ghost)}
+h3{font-size:1.04rem;font-style:italic;font-weight:600;color:#4a453f;margin:1.7em 0 .35em}
+p{margin:.75em 0}
+ul,ol{padding-left:1.35rem;margin:.75em 0}
+li{margin:.45em 0}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.86em;background:var(--code-inline);padding:.12em .38em;border-radius:5px}
+pre{background:var(--code-bg);color:var(--code-ink);padding:1.05rem 1.25rem;border-radius:10px;overflow-x:auto;font-family:var(--mono);font-size:.83rem;line-height:1.6;margin:1.1rem 0}
+pre code{background:none;color:inherit;padding:0;font-size:inherit}
+/* carnot explorer */
+.calc{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:1.25rem 1.4rem 1.1rem;margin:1.5rem 0}
+.calc-title{font-family:var(--sans);font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 .9rem}
+.calc-row{display:grid;grid-template-columns:8.6rem 1fr 3rem;align-items:center;gap:.9rem;margin:.55rem 0}
+.calc-row label{font-family:var(--sans);font-size:.8rem;color:var(--muted)}
+.calc-row output{font-family:var(--mono);font-size:.92rem;text-align:right;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.calc-out{display:flex;gap:2.4rem;flex-wrap:wrap;border-top:1px dashed var(--rule);margin-top:1rem;padding-top:1rem}
+.calc-out .big{font-family:var(--mono);font-size:2.05rem;line-height:1;color:var(--accent-deep);display:block}
+.calc-out .big.dim{color:#4a453f}
+.calc-out .cap{font-family:var(--sans);font-size:.74rem;color:var(--muted);display:block;margin-top:.35rem;letter-spacing:.04em}
+.calc-note{font-size:.88rem;color:var(--muted);margin:.9rem 0 0;line-height:1.55}
+/* quiz */
+.quiz-meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--sans);font-size:.8rem;color:var(--muted);margin-bottom:1.2rem}
+.quiz-score{font-family:var(--mono)}
+.quiz ol{list-style:none;padding:0;counter-reset:q}
+.q{counter-increment:q;margin:0 0 1.9rem}
+.qtext{font-weight:700;font-size:1.03rem;margin:.15em 0 .65em}
+.qtext::before{content:counter(q) ". ";color:var(--accent)}
+.options{list-style:none;padding:0;display:grid;row-gap:.5rem}
+.options button{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--rule);border-radius:9px;padding:.62rem .95rem;font-family:var(--serif);font-size:.95rem;line-height:1.5;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.options button:hover{border-color:#c9beae}
+.options button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.options button.correct{border-color:var(--ok);background:var(--ok-bg)}
+.options button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.options li.done button{pointer-events:none}
+.options li.done:not(.correct):not(.wrong) button{opacity:.55}
+.explain{display:none;margin-top:.7rem;font-size:.92rem;color:#4a453f}
+.q.answered .explain{display:block;animation:fadein .3s ease}
+.explain strong{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.source{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted);line-height:1.55}
+.source .label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.source a{color:var(--accent)}
+.lesson-nav{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.85rem}
+.lesson-nav a{color:var(--accent);text-decoration:none}
+.lesson-nav a:hover{text-decoration:underline}
+.lesson-nav .next{margin-left:auto;text-align:right}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:560px){body{padding:2rem 1.1rem 3.5rem}.calc-row{grid-template-columns:7rem 1fr 2.6rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{body{max-width:none;background:#fff}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<p class="kicker"><b>gap-ee</b> · energy-efficiency-as-a-service · lesson 0002 · week 1, days 1–2</p>
+<h1>Refrigeration Cycle &amp; COP</h1>
+<p class="lede">An industrial heat pump is a refrigerator pointed the wrong way: instead of
+using work to move heat out of a cold box, it uses work to lift heat from a warm waste stream
+into a hot process loop. This lesson gives you the 4-stage cycle, the one definition the whole
+engagement turns on (COP), and the ideal-vs-actual gap that explains the finding you will verify
+hands-on in lesson 0008: <strong>ideal COP 6.22 vs. actual COP 3.11</strong> on the 45→95°C
+dye-house case.</p>
+<p class="metaline">45–60 min · recall first, then check · <a href="../MISSION.md">mission brief</a></p>
+
+<div class="mission">
+<p class="mission-label">Mission link</p>
+<p>Every number in the breakeven-COP table (0007) and every REopt result (0011) is downstream of
+this lesson's definition: <code>COP = Q_heat_delivered / W_electrical_input</code>. A heat pump
+with COP 3.11 delivers 3.11 kWh of heat per kWh of electricity — that is why it can compete with
+burning coal, but only at the right hours of the day.</p>
+</div>
+
+<section class="topic">
+<h2><span class="num">01</span>The four stages of the vapor-compression cycle</h2>
+<ol>
+<li><strong>Evaporator</strong> (low pressure) — liquid refrigerant boils, absorbing heat from
+the source. In the dye-house case the source is 45°C wastewater; the refrigerant must boil
+below 45°C to absorb from it.</li>
+<li><strong>Compressor</strong> — electrical work compresses the vapour to high pressure,
+raising its saturation temperature far above the sink temperature. This is where the
+electricity bill is incurred — and the only place work enters the cycle.</li>
+<li><strong>Condenser</strong> (high pressure) — the hot vapour condenses, delivering its
+latent heat (lesson 0001!) to the sink: the 95°C hot-water loop.</li>
+<li><strong>Expansion valve</strong> — pressure drops, part of the liquid flashes (self-cooling),
+and the cycle repeats. No work recovered in a simple cycle.</li>
+</ol>
+<p>The refrigerant is just an energy taxi: R1234ze(Z) is what <code>heat_pump_model</code>'s
+default run uses because its pressure–temperature curve fits a ~95°C sink without extreme
+pressures.</p>
+</section>
+
+<section class="topic">
+<h2><span class="num">02</span>COP defined — and why it isn't "efficiency"</h2>
+<pre><code>COP = Q_heat_delivered / W_electrical_input</code></pre>
+<p>A resistance heater has COP = 1.0 exactly — one kWh of electricity becomes one kWh of heat.
+That is the floor, not the benchmark. A heat pump with COP 3.11 moves 3.11 kWh of heat per kWh
+bought: 2.11 kWh are free, lifted from the waste stream. That is the entire economic argument
+for industrial heat pumps, and the reason REopt's placeholder <code>ElectricHeater</code>
+(cop 1.0) loses to coal at every hour while a COP 3.11 machine wins most hours (lesson 0007).</p>
+<p>Note COP is a ratio of energies, not a percentage — a COP of 3.11 does <em>not</em> mean
+"311% efficient"; it means more heat moved than work spent, paid for by the temperature lift.</p>
+</section>
+
+<section class="topic">
+<h2><span class="num">03</span>Ideal vs. actual COP — second-law efficiency</h2>
+<p>The Carnot (ideal) COP for a heat pump lifting between source temperature
+<code>T_source</code> and sink temperature <code>T_sink</code> (absolute, Kelvin):</p>
+<pre><code>COP_ideal = T_sink / (T_sink − T_source)
+
+COP_actual = η_II × COP_ideal</code></pre>
+<p>No real machine reaches the ideal — compressor losses, pressure drops, finite heat-exchanger
+area, superheat/subcooling compromises. Real machines are characterised by their
+<strong>second-law efficiency</strong>, η_II — the fraction of the ideal performance actually
+achieved.</p>
+
+<h3>Try it — drag the lift and watch the Carnot COP move</h3>
+<div class="calc">
+<p class="calc-title">Carnot lift explorer</p>
+<div class="calc-row"><label for="tsrc">Source T_source (°C)</label><input type="range" id="tsrc" min="20" max="90" step="1" value="45"><output id="tsrcv" for="tsrc">45</output></div>
+<div class="calc-row"><label for="tsnk">Sink T_sink (°C)</label><input type="range" id="tsnk" min="40" max="130" step="1" value="95"><output id="tsnkv" for="tsnk">95</output></div>
+<div class="calc-out">
+<div><span class="big" id="copid">7.36</span><span class="cap">COP_ideal (Carnot)</span></div>
+<div><span class="big dim" id="copact">3.68</span><span class="cap">× η_II = 50%</span></div>
+</div>
+<p class="calc-note">Course case (45→95°C): <code>heat_pump_model</code> reports ideal
+<strong>6.22</strong> on R1234ze(Z) — its internal cycle model (real refrigerant properties,
+non-zero approach temperatures) shaves ~15% off this pure-Carnot figure. Smaller lifts → much
+better COP: halving the lift roughly doubles the ideal COP.</p>
+</div>
+
+<h3>Worked example — the dye-house case you will reproduce in 0008</h3>
+<pre><code>Lift:      T_source = 45°C = 318.15 K    T_sink = 95°C = 368.15 K
+
+COP_ideal  = 368.15 / (368.15 − 318.15)
+           = 368.15 / 50
+           = 7.36          (textbook Carnot value)
+
+heat_pump_model reports ideal COP 6.22 for this case on R1234ze(Z) — its internal
+cycle model (real refrigerant properties, non-zero approach temperatures) already
+shaves ~15% off the pure Carnot figure.
+
+COP_actual = 0.5 × 6.22
+           = 3.11          ← the corroborated finding</code></pre>
+<p>At 50% second-law efficiency, actual COP 3.11. Sanity-check the arithmetic against
+<code>ee-heat/tools/README.md</code>: "ideal COP 6.22, actual COP 3.11 on R1234ze(Z) at 50%
+second-law efficiency." The same numbers you just computed by hand. In lesson 0008 you will make
+the tool produce them itself.</p>
+<p>Two instincts worth building: (1) smaller lifts → much better COP — halving the lift roughly
+doubles the ideal COP; (2) η_II is the engineering reality knob — vendors quote machines between
+roughly 40% and 60% second-law efficiency, and that spread can decide whether a project clears
+the breakeven bar at all.</p>
+</section>
+
+<section class="topic">
+<h2><span class="num">Q</span>Practice quiz</h2>
+<div class="quiz-meta"><span>6 questions · answer to reveal reasoning</span><span class="quiz-score">Score 0 / 6</span></div>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">In which component does the cycle absorb heat from the waste-water source?</p>
+<ul class="options">
+<li><button data-answer="false">The condenser</button></li>
+<li><button data-answer="false">The expansion valve</button></li>
+<li><button data-answer="true">The evaporator</button></li>
+<li><button data-answer="false">The compressor</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — The evaporator boils refrigerant below the source temperature so heat flows in from the 45°C wastewater. The condenser rejects/delivers at the hot side; the compressor consumes the work.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What is the definition of a heat pump's COP?</p>
+<ul class="options">
+<li><button data-answer="false">Heat delivered divided by fuel burned</button></li>
+<li><button data-answer="true">Heat delivered divided by electrical work input</button></li>
+<li><button data-answer="false">Electrical work input divided by heat delivered</button></li>
+<li><button data-answer="false">Temperature lifted divided by pressure ratio</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — COP = Q_heat_delivered / W_electrical_input. It measures how much useful heat each kWh of electricity buys — the denominator is work, never fuel or temperature.</p>
+</li>
+
+<li class="q">
+<p class="qtext">A plain resistance heater (like REopt's cop-1.0 ElectricHeater) has what COP?</p>
+<ul class="options">
+<li><button data-answer="false">0.0</button></li>
+<li><button data-answer="false">Between 2 and 4 depending on refrigerant</button></li>
+<li><button data-answer="false">Depends on the temperature lift</button></li>
+<li><button data-answer="true">Exactly 1.0</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Resistance heat converts every kWh bought into 1 kWh of heat — COP 1.0. It cannot exceed 1 because no heat is moved from anywhere. That is why it loses to coal steam at every hour of the Vietnamese tariff, while a COP 3.11 heat pump does not.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Using COP_actual = η_II × COP_ideal: with ideal COP 6.22 and second-law efficiency 50%, what actual COP results?</p>
+<ul class="options">
+<li><button data-answer="false">12.44</button></li>
+<li><button data-answer="false">6.72</button></li>
+<li><button data-answer="false">1.56</button></li>
+<li><button data-answer="true">3.11</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — 0.5 × 6.22 = 3.11 — matching ee-heat's corroborated dye-house finding exactly, which is the number the capstone scenario feeds to ASHPWaterHeater as its COP.</p>
+</li>
+
+<li class="q">
+<p class="qtext">For a fixed sink temperature, what happens to the ideal COP when the source gets colder (larger lift)?</p>
+<ul class="options">
+<li><button data-answer="false">It increases — colder sources hold more energy</button></li>
+<li><button data-answer="false">It stays the same — COP depends only on the refrigerant</button></li>
+<li><button data-answer="true">It decreases — COP_ideal = T_sink/(T_sink−T_source) shrinks as the denominator grows</button></li>
+<li><button data-answer="false">It doubles</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Bigger lift ⇒ bigger denominator ⇒ smaller COP. Halving the lift roughly doubles the ideal COP, which is precisely why the low-lift 45→95°C case is attractive and why making high-pressure steam with a heat pump is hard.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why is a COP of 3.11 <em>not</em> described as "311% efficient"?</p>
+<ul class="options">
+<li><button data-answer="false">Because COP values above 1 are physically impossible</button></li>
+<li><button data-answer="true">Because COP compares heat moved to work spent — the extra heat comes from the source, not from created energy; efficiency-as-fraction only applies to conversion</button></li>
+<li><button data-answer="false">Because percentages above 100% are reserved for boilers</button></li>
+<li><button data-answer="false">Because the refrigerant contributes extra energy</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — First law holds: 3.11 kWh out = 1 kWh work + 2.11 kWh lifted from the waste stream. Nothing is created. Calling it 311% invites exactly the wrong mental model — the second-law accounting lives in η_II, which here is 50%.</p>
+</li>
+</ol>
+</section>
+</section>
+
+<footer class="source">
+<span class="label">Primary source</span><br>
+LibreTexts Engineering Thermodynamics (Yan), §6.03 "Refrigerator and heat pump" —
+<a href="https://eng.libretexts.org/Bookshelves/Mechanical_Engineering/Introduction_to_Engineering_Thermodynamics_(Yan)/06%3A_Entropy_and_the_Second_Law_of_Thermodynamics/6.03%3A_Refrigerator_and_heat_pump" target="_blank" rel="noopener">eng.libretexts.org — §6.03</a>;
+Carnot/second-law context in BCcampus, <em>Introduction to Engineering Thermodynamics</em> §6.04 —
+<a href="https://pressbooks.bccampus.ca/thermo1/chapter/6-4-carnot-cycles/" target="_blank" rel="noopener">pressbooks.bccampus.ca/thermo1 §6.4</a>.
+Target finding being verified: <code>C:\Users\tukum\Downloads\ee-heat\tools\README.md</code> §3.
+</footer>
+
+<nav class="lesson-nav">
+<span><a href="0001-thermo-and-heat-transfer-primer.html">← 0001 thermo primer</a></span>
+<span class="next"><a href="0003-steam-systems-fundamentals.html">0003 steam systems →</a></span>
+</nav>
+
+<script>
+(function(){
+"use strict";
+/* quiz */
+var total=0,correct=0;
+document.querySelectorAll("section.quiz").forEach(function(section){
+  section.querySelectorAll(".q").forEach(function(q){
+    total+=1;
+    var opts=[].slice.call(q.querySelectorAll(".options button"));
+    var done=false;
+    opts.forEach(function(btn){
+      btn.addEventListener("click",function(){
+        if(done)return;
+        done=true;
+        var right=btn.getAttribute("data-answer")==="true";
+        if(right){btn.classList.add("correct");correct+=1;}
+        else{btn.classList.add("wrong");}
+        opts.forEach(function(other){
+          other.parentElement.classList.add("done");
+          if(other!==btn&&other.getAttribute("data-answer")==="true"){other.classList.add("correct");}
+        });
+        q.classList.add("answered");
+        var score=section.parentElement.querySelector(".quiz-score")||document.querySelector(".quiz-score");
+        if(score){score.textContent="Score "+correct+" / "+total;}
+      });
+    });
+  });
+});
+/* carnot explorer */
+var src=document.getElementById("tsrc"),snk=document.getElementById("tsnk");
+if(src&&snk){
+  var srcv=document.getElementById("tsrcv"),snkv=document.getElementById("tsnkv");
+  var cid=document.getElementById("copid"),cad=document.getElementById("copact");
+  function upd(){
+    var s=+src.value,k=+snk.value;
+    if(k-s<10){ /* keep a meaningful lift */
+      if(document.activeElement===src){k=s+10;snk.value=Math.min(k,+snk.max);}
+      else{s=k-10;src.value=Math.max(s,+src.min);}
+    }
+    s=+src.value;k=+snk.value;
+    srcv.textContent=s;snkv.textContent=k;
+    /* Carnot COP needs absolute temperature — °C is only an offset */
+    var sK=s+273.15,kK=k+273.15;
+    var cop=kK/(kK-sK);
+    cid.textContent=cop.toFixed(2);
+    cad.textContent=(cop*0.5).toFixed(2);
+  }
+  src.addEventListener("input",upd);
+  snk.addEventListener("input",upd);
+  upd();
+}
+})();
+</script>
+</body>
+</html>

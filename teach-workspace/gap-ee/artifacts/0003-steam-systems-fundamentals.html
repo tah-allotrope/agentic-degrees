@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0003 · Steam Systems Fundamentals — gap-ee artifact</title>
+<style>
+:root{
+  --paper:#faf8f5; --card:#ffffff; --ink:#1c1b1a; --muted:#6f6862;
+  --accent:#9e2b25; --accent-deep:#7c1f1a; --rule:#e3ddd4; --ghost:#d9d1c6;
+  --code-bg:#23211e; --code-ink:#ece7de; --code-inline:#efeae2;
+  --ok:#1e7d32; --ok-bg:#edf5ec; --bad:#b3261e; --bad-bg:#faeeec;
+  --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+  --mono:Consolas,'SFMono-Regular','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0 auto;max-width:46rem;padding:3rem 1.4rem 5rem;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.65}
+::selection{background:#f3ded9}
+.kicker{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 1.1rem}
+.kicker b{color:var(--accent);font-weight:600}
+h1{font-size:clamp(2.1rem,5vw,2.9rem);line-height:1.08;margin:.15em 0 .4em;font-weight:700;letter-spacing:-.015em}
+.lede{font-size:1.13rem;line-height:1.6;color:#33302c;margin:0 0 .9rem}
+.metaline{font-family:var(--sans);font-size:.82rem;color:var(--muted);margin:0;padding-bottom:1.5rem;border-bottom:1px solid var(--rule)}
+.metaline a{color:var(--accent)}
+.mission{margin:1.75rem 0 0;padding:1.05rem 1.3rem;background:var(--card);border:1px solid var(--rule);border-radius:10px}
+.mission-label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+.mission p{margin:.4em 0 0;font-size:.97rem;color:#3c3833}
+section.topic{margin-top:3.2rem}
+h2{display:grid;grid-template-columns:auto 1fr;column-gap:.9rem;align-items:baseline;font-size:1.42rem;line-height:1.25;margin:0 0 .6rem;letter-spacing:-.01em}
+h2 .num{font-family:var(--sans);font-size:2rem;font-weight:700;color:var(--ghost)}
+h3{font-size:1.04rem;font-style:italic;font-weight:600;color:#4a453f;margin:1.7em 0 .35em}
+p{margin:.75em 0}
+ul,ol{padding-left:1.35rem;margin:.75em 0}
+li{margin:.45em 0}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.86em;background:var(--code-inline);padding:.12em .38em;border-radius:5px}
+pre{background:var(--code-bg);color:var(--code-ink);padding:1.05rem 1.25rem;border-radius:10px;overflow-x:auto;font-family:var(--mono);font-size:.83rem;line-height:1.6;margin:1.1rem 0}
+pre code{background:none;color:inherit;padding:0;font-size:inherit}
+/* five-checks checklist */
+.checklist{margin:1.4rem 0 .5rem;border-top:1px solid var(--rule)}
+.check-row{display:grid;grid-template-columns:auto 1fr;column-gap:.65rem;align-items:start;border-bottom:1px solid var(--rule)}
+.check-row>input[type=checkbox]{accent-color:var(--accent);width:1.05rem;height:1.05rem;margin-top:1.15rem;cursor:pointer;flex:none}
+.checklist details{border-bottom:none;min-width:0}
+.checklist summary{display:flex;gap:.85rem;align-items:baseline;padding:.95rem .25rem;cursor:pointer;list-style:none}
+.checklist summary::-webkit-details-marker{display:none}
+.checklist summary:hover{background:#f4efe8}
+.checklist summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.check-num{font-family:var(--mono);font-size:.8rem;color:var(--accent);min-width:1.1rem}
+.check-name{font-weight:700;font-size:1.01rem}
+.check-tag{font-family:var(--sans);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-left:auto;padding-left:1rem;white-space:nowrap}
+.check-state{font-family:var(--sans);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);min-width:3.4rem;text-align:right}
+.check-body{padding:0 .25rem 1.15rem 2.1rem;color:#3c3833;font-size:.97rem}
+.check-body p{margin:.35em 0}
+.hint{font-family:var(--sans);font-size:.78rem;color:var(--muted);margin:.5rem 0 0}
+/* quiz */
+.quiz-meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--sans);font-size:.8rem;color:var(--muted);margin-bottom:1.2rem}
+.quiz-score{font-family:var(--mono)}
+.quiz ol{list-style:none;padding:0;counter-reset:q}
+.q{counter-increment:q;margin:0 0 1.9rem}
+.qtext{font-weight:700;font-size:1.03rem;margin:.15em 0 .65em}
+.qtext::before{content:counter(q) ". ";color:var(--accent)}
+.options{list-style:none;padding:0;display:grid;row-gap:.5rem}
+.options button{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--rule);border-radius:9px;padding:.62rem .95rem;font-family:var(--serif);font-size:.95rem;line-height:1.5;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.options button:hover{border-color:#c9beae}
+.options button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.options button.correct{border-color:var(--ok);background:var(--ok-bg)}
+.options button.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.options li.done button{pointer-events:none}
+.options li.done:not(.correct):not(.wrong) button{opacity:.55}
+.explain{display:none;margin-top:.7rem;font-size:.92rem;color:#4a453f}
+.q.answered .explain{display:block;animation:fadein .3s ease}
+.explain strong{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.source{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted);line-height:1.55}
+.source .label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.source a{color:var(--accent)}
+.lesson-nav{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.85rem}
+.lesson-nav a{color:var(--accent);text-decoration:none}
+.lesson-nav a:hover{text-decoration:underline}
+.lesson-nav .next{margin-left:auto;text-align:right}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:560px){body{padding:2rem 1.1rem 3.5rem}.check-tag{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{body{max-width:none;background:#fff}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<p class="kicker"><b>gap-ee</b> · energy-efficiency-as-a-service · lesson 0003 · week 1, days 2–3</p>
+<h1>Steam Systems Fundamentals</h1>
+<p class="lede">The workplan's clean-heat priority (i) is steam optimization and waste heat
+recovery — the load-reduction layer that comes <em>before</em> any heat pump. This lesson walks
+the five things to check, in the exact order <code>ee-heat</code>'s VN settings card prescribes:
+condensate return → blowdown &amp; heat recovery → flash steam → stack losses/excess air →
+distribution insulation. That ordering is not arbitrary; it runs roughly largest and cheapest
+savings first.</p>
+<p class="metaline">45–60 min · recall first, then check · <a href="../MISSION.md">mission brief</a></p>
+
+<div class="mission">
+<p class="mission-label">Mission link</p>
+<p>The tool-ordering rule — MEASUR first (shrink the load), REopt second (size the replacement) —
+is this lesson in two words. Sizing a heat pump against an unoptimized steam load buys ~30% too
+much equipment and produces a wrong LCOH. These five checks are what MEASUR's Steam System
+Modeler quantifies, one by one.</p>
+</div>
+
+<section class="topic">
+<h2><span class="num">01</span>Boiler efficiency: fuel in vs. steam out</h2>
+<pre><code>η_boiler = useful heat delivered in steam / fuel energy burned</code></pre>
+<p>The engagement's placeholder plant runs an existing coal boiler at
+<strong>75% "as found"</strong>. Every unit of loss between fuel and steam is money up the
+stack or down the drain. Two consequences you will use constantly:</p>
+<ul>
+<li>Coal at $5.30/MMBtu <em>fuel</em> is really <code>$5.30 / 0.75 = $7.07</code> per MMBtu of
+<em>useful delivered heat</em>. That $7.07/MMBtu is the number the whole breakeven-COP table
+compares against.</li>
+<li>A boiler-efficiency improvement (excess-air trim, cleaner firesides) shrinks the load the
+heat pump must serve <em>and</em> worsens the heat pump's relative economics — which is why the
+sequencing rule exists.</li>
+</ul>
+</section>
+
+<section class="topic">
+<h2><span class="num">02</span>The five checks, in order</h2>
+
+<div class="checklist">
+<div class="check-row">
+<input type="checkbox" data-check="0" aria-label="mark check 1 complete">
+<details open>
+<summary>
+<span class="check-num">1</span>
+<span class="check-name">Condensate return rate</span>
+<span class="check-tag">biggest · cheapest win</span>
+<span class="check-state" aria-live="polite"></span>
+</summary>
+<div class="check-body">
+<p>After steam gives up its latent heat it condenses into hot water — condensate — still carrying
+sensible heat (lesson 0001). Returning it to the feedwater tank instead of dumping it saves three
+ways at once: fuel (don't re-heat cold make-up), water-treatment chemicals (make-up needs
+softening/deaeration), and water itself. First on the list because it is usually the biggest,
+cheapest win in a garment plant.</p>
+</div>
+</details>
+</div>
+
+<div class="check-row">
+<input type="checkbox" data-check="1" aria-label="mark check 2 complete">
+<details>
+<summary>
+<span class="check-num">2</span>
+<span class="check-name">Blowdown rate &amp; blowdown heat recovery</span>
+<span class="check-tag">purge ≠ waste</span>
+<span class="check-state" aria-live="polite"></span>
+</summary>
+<div class="check-body">
+<p>Boiler water concentrates dissolved solids as steam leaves; excess solids are purged =
+blowdown — hot water straight to drain. Too little and the boiler foams/carryovers; too much and
+you dump expensive hot treated water continuously. Recovery: a blowdown flash tank + heat
+exchanger preheats make-up with the purge stream. MEASUR computes the optimal rate from measured
+conductivity.</p>
+</div>
+</details>
+</div>
+
+<div class="check-row">
+<input type="checkbox" data-check="2" aria-label="mark check 3 complete">
+<details>
+<summary>
+<span class="check-num">3</span>
+<span class="check-name">Flash steam recovery</span>
+<span class="check-tag">free low-pressure steam</span>
+<span class="check-state" aria-live="polite"></span>
+</summary>
+<div class="check-body">
+<p>High-pressure condensate, when dropped to lower pressure, is superheated relative to the new
+saturation point — part of it instantly re-boils as <em>flash steam</em>. Venting flash tanks to
+atmosphere vent exactly that. Recover it (into the deaerator or a low-pressure header) and you
+get free steam. Rule of thumb from lesson 0001's enthalpy bookkeeping: the fraction flashed is
+the sensible-heat surplus divided by the latent heat at the lower pressure — typically 10–20%
+per pressure-drop stage.</p>
+</div>
+</details>
+</div>
+
+<div class="check-row">
+<input type="checkbox" data-check="3" aria-label="mark check 4 complete">
+<details>
+<summary>
+<span class="check-num">4</span>
+<span class="check-name">Stack losses / excess air</span>
+<span class="check-tag">combustion-side tuning</span>
+<span class="check-state" aria-live="polite"></span>
+</summary>
+<div class="check-body">
+<p>The biggest single boiler loss is usually hot flue gas leaving the stack. Burners run with
+excess air for safety, but every point of excess O₂ carries useful heat out. Trim excess air,
+add an economizer that feeds make-up water with stack heat. This is combustion-side tuning —
+the cheapest efficiency there is.</p>
+</div>
+</details>
+</div>
+
+<div class="check-row">
+<input type="checkbox" data-check="4" aria-label="mark check 5 complete">
+<details>
+<summary>
+<span class="check-num">5</span>
+<span class="check-name">Distribution insulation</span>
+<span class="check-tag">unglamorous · pays back in months</span>
+<span class="check-state" aria-live="polite"></span>
+</summary>
+<div class="check-body">
+<p>Bare or damaged insulation on headers, valves, flanges radiates and conducts heat away
+(lesson 0001's mechanisms 1 and 3) across the whole 16 h/day operating window. A survey with a
+thermal camera plus steamed-up insulation-repair job is unglamorous and pays back in months.
+This closes the list — smallest/last not because it doesn't matter but because the earlier items
+usually dominate.</p>
+</div>
+</details>
+</div>
+<p class="hint">Tick each check as you study it — progress is remembered in this browser.</p>
+
+<h3>Worked example — why condensate return dominates</h3>
+<pre><code>Placeholder plant: 60,000 MMBtu/yr process heat, coal at $5.30/MMBtu fuel.
+
+Case A — all condensate dumped: feedwater arrives at ~27°C after treatment.
+Case B — 80% condensate return: feedwater averages ~70°C.
+
+Extra sensible duty per kg of make-up water (ΔT = 43°C):
+  4.186 kJ/kg·°C × 43°C ≈ 180 kJ/kg   ← pure extra boiler duty in Case A
+
+At η = 0.75, fuel cost of heating make-up alone rises ~$0.5–1/MMBtu-equivalent on the
+load — before counting water, chemical, and blowdown savings. Multiply by thousands of
+hours: this is why return rate is Check #1.</code></pre>
+<p>You do not need to trust the arithmetic — MEASUR's Steam System Modeler computes it exactly
+from your header pressures and loads, which is precisely what you will do in lesson 0004.</p>
+</section>
+
+<section class="topic">
+<h2><span class="num">Q</span>Practice quiz</h2>
+<div class="quiz-meta"><span>6 questions · answer to reveal reasoning</span><span class="quiz-score">Score 0 / 6</span></div>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">Returning condensate instead of dumping it saves which combination?</p>
+<ul class="options">
+<li><button data-answer="false">Fuel only — water treatment cost is unaffected</button></li>
+<li><button data-answer="true">Fuel, water-treatment chemicals, and water itself</button></li>
+<li><button data-answer="false">Electricity only — the feed pump works less</button></li>
+<li><button data-answer="false">Nothing physical — it is a safety measure</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Hot returned condensate means less re-heating (fuel), less cold make-up to soften/deaerate (chemicals), and less purchased water. Three savings in one measure — hence Check #1.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What is blowdown?</p>
+<ul class="options">
+<li><button data-answer="false">Venting non-condensable gases from the deaerator</button></li>
+<li><button data-answer="false">Shutting the boiler down weekly for inspection</button></li>
+<li><button data-answer="true">Purging concentrated boiler water to limit dissolved solids</button></li>
+<li><button data-answer="false">The pressure surge when a steam trap fails open</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Steam leaves impurities behind; the concentration must be capped by purging hot treated water. Blowdown heat recovery turns that purge from a loss into make-up preheating.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Flash steam forms when…</p>
+<ul class="options">
+<li><button data-answer="true">High-pressure condensate is dropped to a lower pressure and part of it re-boils instantly</button></li>
+<li><button data-answer="false">Air enters the steam line through a failed trap</button></li>
+<li><button data-answer="false">The burner misfires and quenches the flame</button></li>
+<li><button data-answer="false">Make-up water is colder than 10°C</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Lower-pressure saturation temperature is lower; the condensate carries sensible heat above it, so the surplus boils a fraction off as flash steam. Venting it wastes free low-pressure steam.</p>
+</li>
+
+<li class="q">
+<p class="qtext">With fuel at $5.30/MMBtu and boiler efficiency 75%, the cost of <em>useful delivered</em> heat is…</p>
+<ul class="options">
+<li><button data-answer="false">$5.30/MMBtu — efficiency affects emissions only</button></li>
+<li><button data-answer="true">$7.07/MMBtu ($5.30 ÷ 0.75)</button></li>
+<li><button data-answer="false">$3.98/MMBtu ($5.30 × 0.75)</button></li>
+<li><button data-answer="false">$6.68/MMBtu ($5.30 + 0.75)</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — Only three-quarters of the fuel's heat becomes useful steam, so each useful MMBtu costs 1/0.75 of the fuel price: $7.07/MMBtu. This is exactly the denominator value in the breakeven-COP formula used in lessons 0007 and 0011.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why does the checklist put stack/excess-air tuning fourth and insulation last, despite both being real losses?</p>
+<ul class="options">
+<li><button data-answer="false">They are illegal to modify without a permit in Vietnam</button></li>
+<li><button data-answer="false">Because MEASUR cannot model either of them</button></li>
+<li><button data-answer="true">Ordering runs largest-and-cheapest first — condensate/blowdown/flash typically dominate the savings in a garment plant</button></li>
+<li><button data-answer="false">Because they only matter once a heat pump is installed</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — The card's ordering encodes expected impact-per-effort. Stack trimming and insulation remain worthwhile — they are simply usually smaller than the top three in this sector.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Per the tool-ordering rule, what happens if you skip steam optimization and hand REopt today's raw load?</p>
+<ul class="options">
+<li><button data-answer="false">REopt refuses to solve until MEASUR has been run</button></li>
+<li><button data-answer="true">REopt sizes equipment against an inflated load — over-sized heat pump and a wrong LCOH</button></li>
+<li><button data-answer="false">Nothing — REopt performs the steam optimization internally</button></li>
+<li><button data-answer="false">The tariff vector gets re-generated incorrectly</button></li>
+</ul>
+<p class="explain"><strong>Why</strong> — REopt optimizes economics over whatever load it is given; it does not know the load could shrink. Garbage-in sizing: roughly 30% over-buy and a misleading LCOH — the exact failure mode activeContext.md warns about.</p>
+</li>
+</ol>
+</section>
+</section>
+
+<footer class="source">
+<span class="label">Primary source</span><br>
+U.S. DOE AMO, <em>Improving Steam System Performance: A Sourcebook for Industry</em>, 2nd ed. —
+<a href="https://www.energy.gov/sites/prod/files/2014/05/f15/steamsourcebook.pdf" target="_blank" rel="noopener">energy.gov — steamsourcebook.pdf</a>
+(§1 system basics; §2 lists the performance-improvement opportunities this lesson orders).
+Checklist ordering source: <code>C:\Users\tukum\Downloads\ee-heat\tools\measur\VN-settings-card.md</code>,
+"What to look for first".
+</footer>
+
+<nav class="lesson-nav">
+<span><a href="0002-refrigeration-cycle-and-cop.html">← 0002 refrigeration cycle &amp; COP</a></span>
+<span class="next"><a href="../lessons/0004-measur-hands-on-steam-and-waste-heat.html">0004 MEASUR hands-on (canonical) →</a></span>
+</nav>
+
+<script>
+(function(){
+"use strict";
+/* quiz */
+var total=0,correct=0;
+document.querySelectorAll("section.quiz").forEach(function(section){
+  section.querySelectorAll(".q").forEach(function(q){
+    total+=1;
+    var opts=[].slice.call(q.querySelectorAll(".options button"));
+    var done=false;
+    opts.forEach(function(btn){
+      btn.addEventListener("click",function(){
+        if(done)return;
+        done=true;
+        var right=btn.getAttribute("data-answer")==="true";
+        if(right){btn.classList.add("correct");correct+=1;}
+        else{btn.classList.add("wrong");}
+        opts.forEach(function(other){
+          other.parentElement.classList.add("done");
+          if(other!==btn&&other.getAttribute("data-answer")==="true"){other.classList.add("correct");}
+        });
+        q.classList.add("answered");
+        var score=section.parentElement.querySelector(".quiz-score")||document.querySelector(".quiz-score");
+        if(score){score.textContent="Score "+correct+" / "+total;}
+      });
+    });
+  });
+});
+/* checklist persistence */
+var store=null;
+try{store=window.localStorage;}catch(e){store=null;}
+document.querySelectorAll(".checklist input[type=checkbox]").forEach(function(cb){
+  var key="gap-ee-0003-check-"+cb.getAttribute("data-check");
+  var row=cb.closest(".check-row");
+  var state=row.querySelector(".check-state");
+  function paint(){
+    state.textContent=cb.checked?"✓ done":"";
+    cb.setAttribute("aria-checked",cb.checked?"true":"false");
+    row.querySelector("summary").style.opacity=cb.checked?"0.75":"";
+  }
+  if(store){cb.checked=store.getItem(key)==="1";}
+  paint();
+  /* checkbox lives outside <summary>, so clicking ticks it natively without
+     folding the panel; persist on change */
+  cb.addEventListener("change",function(){
+    paint();
+    if(store){try{store.setItem(key,cb.checked?"1":"0");}catch(err){}}
+  });
+});
+})();
+</script>
+</body>
+</html>
