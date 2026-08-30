@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0009 — Graph Models and Shortest Paths — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0009 · Graph Models and Shortest Paths</h1>
+<p class="meta">SE track · 6.0002 Lec.2–3 (graphs) · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0009-graph-models-and-shortest-paths.html">github.io</a></p>
+
+<p class="lede">Not every problem is a list. When the question is "what connects to what and at what cost,"
+the model is a graph — nodes, edges, weights — and the algorithms are the ones that walk it.
+This lesson builds the graph model you will reuse for routing, dependency analysis, and every
+"shortest/cheapest path" question in the SE track.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> A grid is a graph: substations are nodes, feeders are edges,
+impedance or loss is the weight. "Cheapest way to serve this load" and "which line overloads first"
+are shortest-path and constrained-path questions on that graph. The same model that routes a data
+packet routes a megawatt — the vocabulary is identical.</p>
+</div>
+
+<h2>1 · A graph is a set of connections</h2>
+<p>A <strong>graph</strong> <code>G = (V, E)</code> is a set of vertices <code>V</code> and edges <code>E</code>
+connecting pairs of vertices.</p>
+<ul>
+<li><strong>Directed vs undirected:</strong> directed edge <code>u → v</code> is one-way (power flow under a direction);
+undirected <code>u — v</code> is both ways (a road).</li>
+<li><strong>Weighted vs unweighted:</strong> each edge may carry a number — distance, cost, loss, time. Unweighted = weight 1.</li>
+<li><strong>Path cost:</strong> sum of edge weights along the path. The <strong>shortest path</strong> minimizes that sum.</li>
+</ul>
+<p>Example — 4-node feeder (undirected, weighted by loss):</p>
+<pre><code>A —5— B —3— D
+ \   / \
+  9 2   4
+   C —6— D     edge A–B 5, A–C 9, B–C 2, B–D 3, C–D 6</code></pre>
+
+<h2>2 · How to represent a graph in code</h2>
+<p>Two canonical representations — both use dicts, which is why week-1 dict fluency matters:</p>
+<pre><code># adjacency list (sparse-friendly, the 6.0002 default)
+graph = {
+    'A': [('B', 5), ('C', 9)],
+    'B': [('A', 5), ('C', 2), ('D', 3)],
+    'C': [('A', 9), ('B', 2), ('D', 6)],
+    'D': [('B', 3), ('C', 6)]
+}
+
+# adjacency matrix (dense-friendly)
+# matrix[u][v] = weight or 0/inf if no edge</code></pre>
+<p>An adjacency list is a <code>dict</code> of <code>list</code> of pairs — exactly the
+<code>{k: k*k for k in range(n)}</code> shape from 0006, plus a loop over neighbors.
+Prefer lists for sparse grids (most node pairs not directly connected); matrices for dense ones.</p>
+
+<h2>3 · BFS: shortest path when every edge costs 1</h2>
+<p><strong>Breadth-first search</strong> expands in waves: all distance-1 nodes, then all distance-2 nodes, …</p>
+<pre><code>from collections import deque
+
+def bfs_shortest(graph, start, goal):
+    queue = deque([(start, [start])])
+    visited = {start}
+    while queue:
+        node, path = queue.popleft()
+        if node == goal:
+            return path
+        for nbr, _ in graph[node]:
+            if nbr not in visited:
+                visited.add(nbr)
+                queue.append((nbr, path + [nbr]))
+    return None</code></pre>
+<p>BFS is <code>O(V + E)</code> and guarantees the fewest edges — but <em>only</em> when every edge has equal cost.
+With weights, the fewest edges can be the most expensive path (A→C is one edge cost 9, but A→B→C is two edges cost 7).</p>
+
+<h2>4 · Weighted shortest path: Dijkstra's idea</h2>
+<p>When edges have different weights, BFS fails. <strong>Dijkstra's algorithm</strong> keeps the best-known
+cost to each node and repeatedly <em>relaxes</em> edges — "can I reach <code>v</code> cheaper through <code>u</code>?"</p>
+<pre><code>dist = {v: inf for v in graph}; dist[start] = 0
+unvisited = set(graph)
+while unvisited:
+    u = min(unvisited, key=lambda x: dist[x])   # closest unvisited
+    unvisited.remove(u)
+    for v, w in graph[u]:
+        if dist[u] + w &lt; dist[v]:               # relaxation
+            dist[v] = dist[u] + w</code></pre>
+<p>Key properties: Dijkstra requires non-negative weights, runs <code>O((V+E) log V)</code> with a heap,
+and the <code>dist</code> dict <em>is</em> the answer — the standard pattern in PS1's transport problem and
+in every later graph problem set.</p>
+
+<h2>5 · Worked numeric walk (the feeder above)</h2>
+<p>Shortest path A → D:</p>
+<ul>
+<li>A→D direct: no edge.</li>
+<li>A→B→D: 5 + 3 = 8</li>
+<li>A→C→D: 9 + 6 = 15</li>
+<li>A→B→C→D: 5 + 2 + 6 = 13</li>
+<li>A→C→B→D: 9 + 2 + 3 = 14</li>
+</ul>
+<p>Cheapest is <strong>A→B→D cost 8</strong> — BFS would have returned A→C→D or A→B→D with equal hops (both 2 edges)
+and could pick the cost-15 path; Dijkstra finds the cost-8 path because it tracks cost, not hops.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does a weighted graph add to an unweighted graph?</p>
+<ul class="options">
+<li data-answer="true">A number on each edge</li>
+<li data-answer="false">A number on each node</li>
+<li data-answer="false">A direction on each edge</li>
+<li data-answer="false">A color on each node</li>
+</ul>
+<p class="explain">Weighted = every edge carries a cost (distance, loss, time); the path cost is the sum of its edge weights.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Which structure is the natural adjacency-list representation in Python?</p>
+<ul class="options">
+<li data-answer="true">Dict mapping node to neighbor list</li>
+<li data-answer="false">List mapping index to weight</li>
+<li data-answer="false">Set mapping edge to node</li>
+<li data-answer="false">Tuple mapping cost to path</li>
+</ul>
+<p class="explain">Adjacency list is {node: [(neighbor, weight), …]} — a dict of lists, the direct use of week-1 dict skills.</p>
+</li>
+
+<li class="q">
+<p class="qtext">BFS guarantees the shortest path only when what holds?</p>
+<ul class="options">
+<li data-answer="true">Every edge has equal cost</li>
+<li data-answer="false">Every node has equal degree</li>
+<li data-answer="false">Every path has equal length</li>
+<li data-answer="false">Every graph has equal weight</li>
+</ul>
+<p class="explain">BFS minimizes hop count. With equal weight, hops = cost; with varying weights, fewest hops can be most expensive.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What is the relaxation step in Dijkstra's algorithm?</p>
+<ul class="options">
+<li data-answer="true">Update dist[v] if via u is cheaper</li>
+<li data-answer="false">Update dist[u] if via v is longer</li>
+<li data-answer="false">Remove v from the graph entirely</li>
+<li data-answer="false">Add u to the visited path</li>
+</ul>
+<p class="explain">Relaxation: if dist[u]+w(u,v) &lt; dist[v], set dist[v] to the cheaper value — the core loop that propagates best costs.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.0002 Lec.2–3 — graph modeling, BFS, and shortest paths;
+slide decks in <code>.../software-engineering/02-computation-data-science-6.0002/other/MIT6_0002F16_lec2.pdf</code>
+and <code>lec3.pdf</code>. Reference: Guttag Ch.12 (Graphs). Then do
+<code>PS1</code> (cow transport — greedy + brute force) in <code>work/6.0002/ps1/</code> with
+<code>ps1a.py</code> (greedy) and <code>ps1b.py</code> (brute force + DP comparison).</div>
+
+<div class="callout ask">
+<p>Model a 5-node microgrid (sources, loads, tie-lines with loss weights) as a dict adjacency list, run BFS and Dijkstra by hand to the critical load, and confirm they disagree on the cheapest path. Bring the code — the agent will compare your hand result to the algorithm's.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0008-lti-poles-and-convergence.html">← 0008 LTI poles</a></span>
+<span><a href="0007-signals-and-systems-difference-equations.html">0007 signals</a></span>
+<span><a href="../MISSION.md">mission</a></span>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0007 — Signals and Systems: Difference Equations — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0007 · 6.01SC Unit 2 — Signals &amp; Systems, Difference Equations</h1>
+<p class="meta">EE track · 6.01SC Ch.5 (§5.1–5.3) · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0007-signals-and-systems-difference-equations.html">github.io</a></p>
+
+<p class="lede">A signal is a function of a discrete index; a system turns one signal into another.
+This lesson installs the notation — operator equations and difference equations — that every later
+circuit, controller, and filter model is written in. It is the bridge from "state machine" (which you
+can only <em>run</em>) to "system" (which you can <em>analyze</em>).</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> A grid inverter, a battery charge controller,
+a motor turning a head — all are described by a difference equation like
+<code>y[n] = 0.5·y[n−1] + x[n]</code>. Being able to read that one line, and translate it to a block
+diagram and back, is the exact skill you need to reason about the response of a BESS controller
+without building it.</p>
+</div>
+
+<h2>1 · Signals, systems, and sampling</h2>
+<ul>
+<li>A <strong>signal</strong> is a function of a discrete index <code>n</code>: capital <code>X</code>
+names the whole signal, lowercase <code>x[n]</code> names its sample at step <code>n</code>.</li>
+<li>A <strong>system</strong> transduces an input signal <code>X</code> into an output signal
+<code>Y</code>. Both are infinite sequences.</li>
+<li>Sampling turns a continuous signal into a discrete one: <code>x[n] = x(nT)</code>, where
+<code>T</code> is the time between samples.</li>
+</ul>
+
+<h2>2 · The primitive signal and three operations</h2>
+<p>The <strong>unit sample</strong> <code>δ[n]</code> is 1 at <code>n = 0</code> and 0 elsewhere. Every
+signal is built from it with three operations:</p>
+<ul>
+<li><strong>Scale</strong>: <code>c·X</code> means <code>c·x[n]</code>.</li>
+<li><strong>Delay</strong> (operator <code>R</code>): <code>RX</code> means <code>x[n−1]</code> — the
+whole signal shifted one step later.</li>
+<li><strong>Add</strong>: <code>X1 + X2</code> means <code>x1[n] + x2[n]</code>.</li>
+</ul>
+<p>Because each operation returns a signal, they compose: <code>3Δ + 4RΔ − 2R²Δ</code> is a signal
+with values <code>[3, 4, −2]</code> at steps <code>0, 1, 2</code>.</p>
+
+<h2>3 · Operator equations → difference equations</h2>
+<p>An <strong>operator equation</strong> relates whole signals with <code>R</code>, scale, and add:
+<code>Y = X − RX = (1 − R)X</code>. Read <code>R</code> as "the previous sample". The equivalent
+<strong>difference equation</strong> relates samples, and must hold for every <code>n</code>:</p>
+<pre><code>y[n] = x[n] − x[n−1]</code></pre>
+<p>Difference equations let you compute one sample at a time. For a unit-sample input:</p>
+<pre><code>y[0] = x[0] − x[−1] = 1 − 0 =  1
+y[1] = x[1] − x[0]  = 0 − 1 = −1
+y[2] = x[2] − x[1]  = 0 − 0 =  0   (and 0 forever after)</code></pre>
+
+<h2>4 · Block diagrams and state machines</h2>
+<p>A block diagram uses three primitives: a <strong>delay</strong> (rectangle, labelled
+<code>Delay</code>), a <strong>gain</strong> (triangle, labelled with a number), and an
+<strong>adder</strong> (circle, labelled <code>+</code>). The same system <code>Y = X − RX</code> is a
+Python state machine whose state is the previous input:</p>
+<pre><code>class Diff(SM):
+    def start_state(self):
+        return 0                       # x[-1], the "rest" value
+    def get_next_values(self, state, inp):
+        return (inp, inp - state)      # state = new previous input</code></pre>
+<p>All four representations — operator equation, difference equation, block diagram, state machine —
+describe the same system. Each makes a different operation easy.</p>
+
+<h2>5 · Feedforward systems combine like polynomials</h2>
+<p>A <strong>feedforward</strong> system has no feedback: its output never depends on its own past.
+It is always <code>Y = ΦX</code> where <code>Φ</code> is a polynomial in <code>R</code>. Combining
+them is polynomial algebra:</p>
+<ul>
+<li><strong>Cascade</strong> (output of one feeds the next) = <em>multiply</em>:
+<code>Φ2·Φ1</code>.</li>
+<li><strong>Parallel</strong> (sum the outputs) = <em>add</em>: <code>Φ1 + Φ2</code>.</li>
+<li>The distributive law holds: <code>R(1 − R) = R − R²</code>.</li>
+</ul>
+<p>Key property: a <strong>transient</strong> input (finitely many non-zero samples) into a feedforward
+system gives a transient output. Persistent behaviour — the interesting kind — needs feedback, which
+is the next lesson.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">In 6.01 notation, a capital X denotes what?</p>
+<ul class="options">
+<li data-answer="true">the entire signal sequence</li>
+<li data-answer="false">a single input sample</li>
+<li data-answer="false">the delay operator symbol</li>
+<li data-answer="false">the sampling period value</li>
+</ul>
+<p class="explain">Capital X is the whole signal; lowercase x[n] is the single sample at index n.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Which operation shifts a signal later in time?</p>
+<ul class="options">
+<li data-answer="true">delay by one sample</li>
+<li data-answer="false">scale by a constant</li>
+<li data-answer="false">add two signals together</li>
+<li data-answer="false">advance by one sample</li>
+</ul>
+<p class="explain">R X means x[n−1]: the same values, one step later. Advancing (L) is the opposite.</p>
+</li>
+
+<li class="q">
+<p class="qtext">A feedforward system is always which of these?</p>
+<ul class="options">
+<li data-answer="true">a polynomial in R</li>
+<li data-answer="false">a ratio of polynomials</li>
+<li data-answer="false">an infinite geometric series</li>
+<li data-answer="false">a single scalar constant</li>
+</ul>
+<p class="explain">Feedforward means Y = ΦX with Φ a polynomial in R. A ratio (feedback) and a
+geometric series appear only once feedback is introduced.</p>
+</li>
+
+<li class="q">
+<p class="qtext">A transient input into a feedforward system yields what?</p>
+<ul class="options">
+<li data-answer="true">a transient output signal</li>
+<li data-answer="false">a persistent output signal</li>
+<li data-answer="false">an alternating output signal</li>
+<li data-answer="false">a constant output signal</li>
+</ul>
+<p class="explain">No feedback means the output is a finite sum of scaled, delayed input copies, so a
+finite input stays finite.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.5 "Signals and Systems" (§5.1–5.3) —
+<code>.../01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap05.pdf</code>. Video: the Unit 2 lectures
+in the 6.01SC playlist
+<a href="https://www.youtube.com/playlist?list=PL9B24A6A9D5754E70" target="_blank" rel="noopener">MIT 6.01SC Introduction to EECS I</a>.
+Then read the companion card <a href="../reference/difference-equations-and-poles.html">difference
+equations and poles</a> and work <code>hw2.pdf</code> problems 1–9 (the light tracker).</div>
+
+<div class="callout ask">
+<p>Translate <code>Y = 2X − 0.5·R·Y</code> into a difference equation and a block diagram, then check
+with the agent. If you can do that fluently, the hw2 system functions will write themselves.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0006-dicts-and-comprehensions-review.html">← 0006 dicts review</a></span>
+<span><a href="0008-lti-poles-and-convergence.html">0008 LTI poles →</a></span>
+<span><a href="../reference/difference-equations-and-poles.html">difference-equation card</a></span>
+</div>
+</body>
+</html>

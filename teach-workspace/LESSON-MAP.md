@@ -2,7 +2,8 @@
 
 Numbers are assigned at authoring time (`max(existing) + 1`, zero-padded 4 digits); the rows below
 are listed in intended study order. Authored so far: 0001 (primer), 0002 (diagnostic), 0003
-(state machines), 0004 (OOP models), 0005 (greedy knapsack), 0006 (dicts/comprehensions review).
+(state machines), 0004 (OOP models), 0005 (greedy knapsack), 0006 (dicts/comprehensions review),
+0007 (signals & difference equations), 0008 (LTI poles), 0009 (graph shortest paths).
 Chapter refs point at the local chapter
 PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/`.
 
@@ -14,9 +15,9 @@ PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/
 | 0004 | 1 | EE | oop-for-engineering-models | 6.01SC chap02-03.pdf | objects, classes, methods, decomposition |
 | 0005 | 1 | SE | greedy-vs-optimal-knapsack | 6.0002 Lec1 (knapsack) | greedy vs. brute force, optimality |
 | 0006 | 1 | SE | dicts-and-comprehensions-review | 6.01SC chap02.pdf + 6.0001 Lec6 | dict ops incl. len semantics & .get; comprehension map/filter/dict forms; diagnostic re-sit |
-| | 2 | EE | signals-and-systems-difference-equations | 6.01SC chap05.pdf | signals, difference equations, operator notation |
-| | 2 | EE | lti-poles-and-convergence | 6.01SC chap05.pdf | poles, convergence rule, LTI response |
-| | 2 | SE | graph-models-and-shortest-paths | 6.0002 Lec2 (graphs) | graph models, BFS, shortest paths |
+| 0007 | 2 | EE | signals-and-systems-difference-equations | 6.01SC chap05.pdf | signals, difference equations, operator notation |
+| 0008 | 2 | EE | lti-poles-and-convergence | 6.01SC chap05.pdf | poles, convergence rule, LTI response |
+| 0009 | 2 | SE | graph-models-and-shortest-paths | 6.0002 Lec2–3 (graphs) | graph models, BFS, shortest paths |
 | | 3 | EE | characterizing-system-performance | 6.01SC chap05.pdf | rise time, overshoot, settling time |
 | | 3 | EE | designing-proportional-controllers | 6.01SC chap05.pdf | proportional control, stability condition |
 | | 3 | EE | lumped-abstraction-and-kvl-kcl | 6.002 lectures 1–2 | lumped model, KVL, KCL |

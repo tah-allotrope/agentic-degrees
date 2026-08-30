@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0008 — LTI Systems: Poles and Convergence — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0008 · LTI Systems, Poles and Convergence</h1>
+<p class="meta">EE track · 6.01SC Ch.5 (§5.4–5.5) · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0008-lti-poles-and-convergence.html">github.io</a></p>
+
+<p class="lede">Feedforward gave you a polynomial in <code>R</code> — every transient input stayed transient.
+Feedback puts a polynomial in the <em>denominator</em>, and a tiny denominator change turns a dying echo into a runaway.
+This lesson installs the one word that decides which happens: the <strong>pole</strong>.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> A battery charge controller is a feedback loop:
+desired SoC minus measured SoC drives a charge command that changes SoC.
+Whether that loop converges cleanly, rings, or oscillates away is exactly whether the
+closed-loop pole lies inside the unit circle. Reading a system function like
+<code>H = 1 / (1 − 0.9R)</code> and saying "pole 0.9, so it decays" is the same judgment
+you make when you ask if a vendor's controller will hunt.</p>
+</div>
+
+<h2>1 · From operator equation to system function</h2>
+<p>An LTI system with feedback has an operator equation that mentions <code>Y</code> on both sides.
+Example (first-order feedback):</p>
+<pre><code>Y = X + 0.9·R·Y          (output feeds back, delayed and scaled)</code></pre>
+<p>Collect <code>Y</code> terms and factor:</p>
+<pre><code>Y − 0.9·R·Y = X  →  (1 − 0.9R)·Y = X  →  Y/X = 1 / (1 − 0.9R)</code></pre>
+<p>The ratio <code>Y/X</code> is the <strong>system function</strong> <code>H(R)</code>.
+For every LTI system it is a rational function — a polynomial divided by a polynomial in <code>R</code>.
+Feedforward is the special case where the denominator is <code>1</code>.</p>
+
+<h2>2 · The three compositions as algebra on H</h2>
+<ul>
+<li><strong>Sum</strong> (parallel): <code>H = H1 + H2</code></li>
+<li><strong>Cascade</strong> (series): <code>H = H1 · H2</code></li>
+<li><strong>Feedback</strong> (Black's formula, negative feedback around <code>H1</code> with return <code>H2</code>):
+<code>H = H1 / (1 + H1·H2)</code> — the denominator that creates poles.</li>
+</ul>
+<p>Because every combination stays rational in <code>R</code>, the whole toolbox is polynomial arithmetic.
+The denominator you create with feedback is where dynamics live.</p>
+
+<h2>3 · Poles are the geometric sequence inside the response</h2>
+<p>Expand the example <code>H = 1/(1 − 0.9R)</code> as a geometric series in <code>R</code>:</p>
+<pre><code>1/(1 − 0.9R) = 1 + 0.9R + 0.9²R² + 0.9³R³ + …</code></pre>
+<p>Acting on a unit sample <code>Δ</code> (which is 1 at <code>n=0</code> and 0 elsewhere), the output
+samples are <code>y[n] = 0.9ⁿ</code> — a geometric sequence. The base <code>0.9</code> is the
+<strong>pole</strong>. Every LTI response is a sum of such geometric modes, one per pole.
+Second-order example:</p>
+<pre><code>H = 1 / ((1 − 0.9R)(1 − 0.7R))</code></pre>
+<p>has poles <code>0.9</code> and <code>0.7</code>; its unit-sample response is
+<code>y[n] = A·0.9ⁿ + B·0.7ⁿ</code> for constants <code>A, B</code> set by partial fractions.</p>
+
+<h2>4 · Convergence, dominance, and the unit circle</h2>
+<ul>
+<li><strong>Convergence (|p| &lt; 1):</strong> <code>pⁿ → 0</code>. Mode decays; a transient input yields a convergent output.</li>
+<li><strong>Divergence (|p| &gt; 1):</strong> <code>pⁿ</code> grows without bound. Even a bounded transient input produces an unbounded output.</li>
+<li><strong>Sign matters:</strong> positive pole → monotonic; negative pole → alternating sign; complex pole pair → sinusoid whose amplitude is <code>|p|ⁿ</code>.</li>
+<li><strong>Dominant pole:</strong> the pole with largest magnitude sets the long-term rate — after a few steps the other modes are negligible and <code>y[n]</code> tracks <code>p_domⁿ</code>.</li>
+</ul>
+<p>Worked check — compare <code>p = 0.9</code> vs <code>p = 1.1</code>:</p>
+<pre><code>n : 0    1    2     3      5      10
+0.9ⁿ: 1  0.90 0.81  0.73   0.59   0.35   → decays
+1.1ⁿ: 1  1.10 1.21  1.33   1.61   2.59   → grows 60% in 5 steps</code></pre>
+<p>For the two-pole system with <code>0.9</code> and <code>0.7</code>, by <code>n = 10</code>
+<code>0.9¹⁰/0.7¹⁰ ≈ 12×</code> — the <code>0.9</code> mode dominates.</p>
+
+<h2>5 · Reading a system function at a glance</h2>
+<p>Given <code>H = (1 + R) / (1 − 0.5R − 0.3R²)</code>, factor the denominator to find poles
+(solve <code>1 − 0.5r − 0.3r² = 0</code> in <code>r</code> → poles are reciprocals of roots).
+If any <code>|pole| ≥ 1</code>, flag instability before simulating.
+That one-line factoring is the analysis that execution alone can never give you — the same
+analysis that lets you bound a controller's settling time without running it.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does feedback change about the system function H?</p>
+<ul class="options">
+<li data-answer="true">It puts a polynomial in the denominator</li>
+<li data-answer="false">It puts a polynomial in the numerator</li>
+<li data-answer="false">It removes the delay operator R</li>
+<li data-answer="false">It makes H a single constant</li>
+</ul>
+<p class="explain">Feedback creates Y on both sides → (1 − aR)Y = X → H = 1/(1−aR), a denominator polynomial. Feedforward has no denominator.</p>
+</li>
+
+<li class="q">
+<p class="qtext">For H = 1/(1 − 0.9R), what sequence is the unit-sample response?</p>
+<ul class="options">
+<li data-answer="false">Constant ones for all n</li>
+<li data-answer="true">Geometric with ratio 0.9</li>
+<li data-answer="false">Alternating plus and minus one</li>
+<li data-answer="false">Zero after the first sample</li>
+</ul>
+<p class="explain">1/(1−0.9R)=1+0.9R+0.9²R²+… so y[n]=0.9ⁿ — geometric, base = pole.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Which pole magnitude guarantees a decaying mode?</p>
+<ul class="options">
+<li data-answer="false">Magnitude greater than one</li>
+<li data-answer="true">Magnitude less than one</li>
+<li data-answer="false">Magnitude equal to exactly one</li>
+<li data-answer="false">Magnitude equal to zero</li>
+</ul>
+<p class="explain">|p|&lt;1 → pⁿ→0 (converges). |p|&gt;1 diverges; |p|=1 is marginal.</p>
+</li>
+
+<li class="q">
+<p class="qtext">In a two-pole system with poles 0.9 and 0.7, which dominates long-term?</p>
+<ul class="options">
+<li data-answer="true">Pole 0.9 dominates the tail</li>
+<li data-answer="false">Pole 0.7 dominates the tail</li>
+<li data-answer="false">Both contribute equally forever</li>
+<li data-answer="false">Neither contributes after n=1</li>
+</ul>
+<p class="explain">Largest magnitude wins: 0.9ⁿ/0.7ⁿ grows, so after a few steps the 0.9 mode is the visible tail.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.5 "Signals and Systems" (§5.4–5.5) —
+<code>.../01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap05.pdf</code>, especially
+§5.4.5 Combining system functions, §5.5 System analysis with poles.
+Video: Unit 2 lectures in
+<a href="https://www.youtube.com/playlist?list=PL9B24A6A9D5754E70" target="_blank" rel="noopener">MIT 6.01SC Introduction to EECS I</a>.
+Then solve <code>hw2.pdf</code> 6–9 (feedback + convergence) in <code>work/6.01SC/hw2/</code>.</div>
+
+<div class="callout ask">
+<p>Write <code>Y = X + 0.5·R·Y − 0.06·R²·Y</code> as H, factor, name the poles, and predict: does the unit-sample response converge, and does it ring? Check with the agent — if you can do that without simulating, hw2 will be fast.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0007-signals-and-systems-difference-equations.html">← 0007 difference equations</a></span>
+<span><a href="0009-graph-models-and-shortest-paths.html">0009 graphs →</a></span>
+<span><a href="../reference/difference-equations-and-poles.html">difference-equation card</a></span>
+</div>
+</body>
+</html>
