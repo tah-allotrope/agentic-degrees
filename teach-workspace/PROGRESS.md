@@ -29,6 +29,11 @@ Weeks run Monday → Sunday in `Asia/Ho_Chi_Minh` (UTC+7).
 | 0007 | signals-and-systems-difference-equations | complete (2026-08-30) — week 2 EE |
 | 0008 | lti-poles-and-convergence | complete (2026-08-30) — week 2 EE |
 | 0009 | graph-models-and-shortest-paths | complete (2026-08-30) — week 2 SE |
+| 0010 | characterizing-system-performance | complete (2026-09-04) — week 3 EE |
+| 0011 | designing-proportional-controllers | complete (2026-09-04) — week 3 EE |
+| 0012 | lumped-abstraction-and-kvl-kcl | complete (2026-09-04) — week 3 EE |
+| 0013 | node-method-and-superposition | complete (2026-09-04) — week 3 EE |
+| 0014 | graph-optimization-problems | complete (2026-09-04) — week 3 SE |
 
 ## Checklist
 

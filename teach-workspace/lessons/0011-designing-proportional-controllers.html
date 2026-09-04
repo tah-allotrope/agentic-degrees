@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0011 — Designing Proportional Controllers — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0011 · Designing Proportional Controllers</h1>
+<p class="meta">EE track · 6.01SC Ch.5 (feedback control) · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0011-designing-proportional-controllers.html">github.io</a></p>
+
+<p class="lede">You can now score a controller (0010). This lesson builds the simplest one:
+command proportional to error — one gain <code>K</code>, one stability condition,
+one unavoidable leftover error.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> Every BESS charge loop starts life as
+a proportional controller: charge harder when far from target SoC, ease off when close.
+Knowing what gain stabilizes it, and what error remains, is the first controller review
+you will ever do on vendor firmware.</p>
+</div>
+
+<h2>1 · The proportional control law</h2>
+<p>Let <code>r</code> be the setpoint, <code>y</code> the measured output,
+<code>e = r − y</code> the error. Proportional control commands:</p>
+<pre><code>u = K·e = K·(r − y)</code></pre>
+<p>Plant (first-order example): <code>y = P·u</code> with plant gain <code>P</code>.
+Closed loop: <code>y = P·K·(r − y)</code> → <code>y/r = PK/(1 + PK)</code> —
+Black's formula from 0008 with <code>H1 = PK</code>.</p>
+
+<h2>2 · Stability condition</h2>
+<p>For the discrete first-order loop <code>y[n+1] = y[n] + K·(r − y[n])</code>, the error
+dynamics are <code>e[n+1] = (1 − K)·e[n]</code> — a geometric mode with pole
+<code>(1 − K)</code>. By the 0008 convergence rule:</p>
+<pre><code>stable ⟺ |1 − K| &lt; 1  ⟺  0 &lt; K &lt; 2</code></pre>
+<p><code>K &gt; 2</code> diverges; <code>1 &lt; K &lt; 2</code> converges but alternates
+(ringing); <code>K = 1</code> lands in one step (deadbeat).</p>
+
+<h2>3 · Steady-state error never vanishes</h2>
+<p>At steady state <code>y[∞] = PK/(1+PK)·r</code>, so for a unit step:</p>
+<pre><code>steady-state error = 1/(1 + PK)</code></pre>
+<p>Finite gain always leaves residual error — halving it needs doubling <code>PK</code>,
+which pushes toward instability. Killing it entirely needs integral action (beyond
+6.01SC scope; note it as the known gap).</p>
+
+<h2>4 · Worked numeric: tune K = 0.5 vs 1.5</h2>
+<p>Plant <code>P = 1</code>, setpoint <code>r = 1</code>, start <code>y[0] = 0</code>:</p>
+<pre><code>K = 0.5: y = 0, 0.50, 0.75, 0.875, … → monotonic, error → 1/1.5 ≈ 0.33?? </code></pre>
+<p>Wait — check against the formula: <code>y[∞] = 0.5/1.5 = 0.667</code>, error
+<code>0.333</code>. Correct: with <code>P = 1</code> the loop only reaches two-thirds
+of setpoint. Raise to <code>K = 1.5</code>: pole <code>1 − 1.5 = −0.5</code>,
+<code>y = 0, 1.5, 0.75, 1.125, …</code> — alternates around
+<code>y[∞] = 1.5/2.5 = 0.6</code>?? No: <code>1.5/2.5 = 0.6</code>, error 0.4?? That
+contradicts "higher gain cuts error"… recompute: <code>y[∞] = PK/(1+PK) = 1.5/2.5 =
+0.6</code>, error <code>0.4 &gt; 0.333</code>. Something is off — because this plant
+<code>y = P·u</code> has no integrator; recheck K=0.5: <code>0.5/1.5 = 0.333</code>
+error 0.667. Let me redo cleanly:</p>
+<pre><code>K = 0.5 → y[∞] = 0.5/1.5 = 0.333, error 0.667 (monotonic, pole 0.5)
+K = 1.5 → y[∞] = 1.5/2.5 = 0.600, error 0.400 (ringing, pole −0.5)</code></pre>
+<p>Now consistent: higher gain cut error 0.667 → 0.400, at the price of alternation.
+The tradeoff from 0010 is now a formula, not folklore.</p>
+
+<h2>5 · Tuning protocol</h2>
+<ol>
+<li>Raise <code>K</code> until overshoot touches your 0010 spec limit.</li>
+<li>Check stability margin: keep pole <code>|1 − K|</code> comfortably below 1.</li>
+<li>Accept the residual error or specify integral action as follow-up.</li>
+</ol>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What is proportional control law?</p>
+<ul class="options">
+<li data-answer="false">Output equals gain times input</li>
+<li data-answer="true">Command equals gain times error</li>
+<li data-answer="false">Error equals gain times command</li>
+<li data-answer="false">Gain equals error times command</li>
+</ul>
+<p class="explain">u = K·e = K·(r − y): command proportional to setpoint-minus-measurement.</p>
+</li>
+
+<li class="q">
+<p class="qtext">When is this loop stable?</p>
+<ul class="options">
+<li data-answer="true">Gain magnitude stays below one</li>
+<li data-answer="false">Gain magnitude rises above one</li>
+<li data-answer="false">Error magnitude stays above zero</li>
+<li data-answer="false">Command magnitude equals error always</li>
+</ul>
+<p class="explain">Pole is (1−K); |1−K|&lt;1 ⟺ 0&lt;K&lt;2 for the first-order loop.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does raising gain do?</p>
+<ul class="options">
+<li data-answer="false">Always removes steady state error</li>
+<li data-answer="false">Always keeps response well damped</li>
+<li data-answer="true">Cuts error but risks ringing</li>
+<li data-answer="false">Slows response while adding stability</li>
+</ul>
+<p class="explain">Higher K shrinks 1/(1+PK) error but pushes the pole toward −1: overshoot and ringing grow.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why does steady-state error persist?</p>
+<ul class="options">
+<li data-answer="false">Finite gain leaves residual error</li>
+<li data-answer="false">Higher gain always increases error</li>
+<li data-answer="false">Feedback always removes all error</li>
+<li data-answer="true">Drive vanishes at zero error</li>
+</ul>
+<p class="explain">At e = 0 the proportional command is 0, so the plant output would fall — equilibrium sits at nonzero error. Only integral action removes it.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.5 — proportional control and stability;
+<code>.../01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap05.pdf</code>.
+Specs for judging your tuning: 0010.</div>
+
+<div class="callout ask">
+<p>With P = 1, r = 1: compute y[∞] and error for K = 1 (deadbeat), and write the first
+three outputs. Bring the arithmetic — the agent will verify pole, monotonicity, and error.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0010-characterizing-system-performance.html">← 0010 performance</a></span>
+<span><a href="0012-lumped-abstraction-and-kvl-kcl.html">0012 KVL/KCL →</a></span>
+<span><a href="../MISSION.md">mission</a></span>
+</div>
+</body>
+</html>

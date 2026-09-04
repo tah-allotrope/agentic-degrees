@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0014 — Graph Optimization Problems — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0014 · Graph Optimization Problems</h1>
+<p class="meta">SE track · 6.0002 Lec.3 (graphs) · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0014-graph-optimization-problems.html">github.io</a></p>
+
+<p class="lede">Shortest path assumed any route is allowed. Real problems add constraints — a budget,
+a capacity, a must-visit list — and the unconstrained optimum stops being feasible.
+This is where greedy breaks and brute force earns its keep.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> "Cheapest feeder upgrade under a
+capex cap that keeps every load served" is a constrained graph problem: minimize loss
+subject to budget. The knapsack tradeoff from 0005 returns wearing a graph costume —
+greedy vs optimal, now on networks.</p>
+</div>
+
+<h2>1 · Constraints change the answer</h2>
+<p>Example: each edge has a <strong>cost</strong> (loss) and a <strong>build price</strong>;
+total price must stay under budget B. The cheapest-loss path may blow the budget, so the
+feasible optimum is a different path — Dijkstra alone cannot see the budget.</p>
+<pre><code>A–B: loss 3, price 8 | A–C: loss 5, price 2 | B–D: loss 3, price 8
+C–D: loss 5, price 2 | B–C: loss 1, price 1 ;  budget B = 6</code></pre>
+
+<h2>2 · Greedy fails: a concrete trap</h2>
+<p>Greedy by loss picks A–B (loss 3, price 8) — already over budget B = 6, dead end.
+Feasible paths: A–C–D (loss 10, price 4 ✓), A–C–B–D (loss 5+1+3 = 9, price 2+1+8 = 11 ✗),
+A–B–C–D (price 8+1+2 = 11 ✗). Greedy's first step killed every feasible completion;
+the optimum is A–C–D at loss 10.</p>
+
+<h2>3 · Brute force: enumerate and filter</h2>
+<p>List all simple paths, drop infeasible ones, keep the min-loss survivor:</p>
+<pre><code>def best_feasible(graph, start, goal, budget):
+    best, best_loss = None, float('inf')
+    for path in all_simple_paths(graph, start, goal):
+        if price(path) &lt;= budget and loss(path) &lt; best_loss:
+            best, best_loss = path, loss(path)
+    return best, best_loss</code></pre>
+<p>Guarantees optimality at exponential cost — the baseline every smarter method must
+beat (same moral as 0005's brute-force knapsack).</p>
+
+<h2>4 · Dynamic programming: memoize the subproblem</h2>
+<p>When the constraint is a small integer budget, memoize on
+<code>(node, money_spent)</code>: best loss from node to goal with that spend. Each
+state solves once — overlapping subproblems collapse the search the way DP beat
+re-computation in the knapsack follow-up. State count = V × B: pseudo-polynomial,
+practical for small B.</p>
+
+<h2>5 · Worked answer for the example</h2>
+<p>Enumerate A → D simple paths (prices): A–B–D (16 ✗), A–C–D (4 ✓ loss 10),
+A–B–C–D (11 ✗), A–C–B–D (11 ✗). Only A–C–D feasible → optimum loss 10.
+Unconstrained Dijkstra would answer A–B–D loss 6 — infeasible under the cap, and
+wrong for the real question.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What constrains this graph problem?</p>
+<ul class="options">
+<li data-answer="false">Edges have uniform unit cost</li>
+<li data-answer="true">Limits on cost or visits</li>
+<li data-answer="false">Graphs contain too many nodes</li>
+<li data-answer="false">Paths must revisit every node</li>
+</ul>
+<p class="explain">A budget/capacity/must-visit constraint makes the unconstrained optimum infeasible.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why can greedy fail here?</p>
+<ul class="options">
+<li data-answer="false">It explores every possible path</li>
+<li data-answer="false">It guarantees the optimal answer</li>
+<li data-answer="false">It never picks any edge</li>
+<li data-answer="true">Local picks violate global budget</li>
+</ul>
+<p class="explain">A locally cheapest first step can overspend the budget and kill all feasible completions.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does brute force guarantee?</p>
+<ul class="options">
+<li data-answer="true">Optimal answer at exponential cost</li>
+<li data-answer="false">Fast answer with small error</li>
+<li data-answer="false">Linear time on large graphs</li>
+<li data-answer="false">Constant memory during full enumeration</li>
+</ul>
+<p class="explain">Enumerate all paths, filter by constraint, keep the min — optimal, exponentially slow.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does dynamic programming exploit?</p>
+<ul class="options">
+<li data-answer="false">Random sampling of path space</li>
+<li data-answer="false">Greedy choice at each node</li>
+<li data-answer="true">Overlapping subproblems with memoization stored</li>
+<li data-answer="false">Uniform weights across all edges</li>
+</ul>
+<p class="explain">Memoize (node, spend) → best loss; each state solved once instead of re-enumerated.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.0002 Lec.3 — constrained graph optimization;
+slide deck in <code>.../software-engineering/02-computation-data-science-6.0002/other/MIT6_0002F16_lec3.pdf</code>.
+Then do <code>PS2</code> in <code>work/6.0002/ps2/</code>. Unconstrained base: 0009.</div>
+
+<div class="callout ask">
+<p>Change the budget to B = 12 in the example and recompute the optimum by hand
+(enumerate all four paths, filter, compare). Bring the winner — the agent checks whether
+greedy now works and why the answer flipped.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0013-node-method-and-superposition.html">← 0013 node method</a></span>
+<span><a href="../MISSION.md">mission</a></span>
+</div>
+</body>
+</html>

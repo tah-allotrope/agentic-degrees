@@ -3,7 +3,9 @@
 Numbers are assigned at authoring time (`max(existing) + 1`, zero-padded 4 digits); the rows below
 are listed in intended study order. Authored so far: 0001 (primer), 0002 (diagnostic), 0003
 (state machines), 0004 (OOP models), 0005 (greedy knapsack), 0006 (dicts/comprehensions review),
-0007 (signals & difference equations), 0008 (LTI poles), 0009 (graph shortest paths).
+0007 (signals & difference equations), 0008 (LTI poles), 0009 (graph shortest paths),
+0010 (characterizing performance), 0011 (proportional controllers), 0012 (lumped KVL/KCL),
+0013 (node method & superposition), 0014 (graph optimization).
 Chapter refs point at the local chapter
 PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/other/`.
 
@@ -18,11 +20,11 @@ PDFs under `mit-ocw-curriculum/electrical-engineering/01-intro-to-eecs-1-6.01SC/
 | 0007 | 2 | EE | signals-and-systems-difference-equations | 6.01SC chap05.pdf | signals, difference equations, operator notation |
 | 0008 | 2 | EE | lti-poles-and-convergence | 6.01SC chap05.pdf | poles, convergence rule, LTI response |
 | 0009 | 2 | SE | graph-models-and-shortest-paths | 6.0002 Lec2–3 (graphs) | graph models, BFS, shortest paths |
-| | 3 | EE | characterizing-system-performance | 6.01SC chap05.pdf | rise time, overshoot, settling time |
-| | 3 | EE | designing-proportional-controllers | 6.01SC chap05.pdf | proportional control, stability condition |
-| | 3 | EE | lumped-abstraction-and-kvl-kcl | 6.002 lectures 1–2 | lumped model, KVL, KCL |
-| | 3 | EE | node-method-and-superposition | 6.002 lectures 3–4 | node method, superposition |
-| | 3 | SE | graph-optimization-problems | 6.0002 Lec3 (graphs) | constrained graph optimization |
+| 0010 | 3 | EE | characterizing-system-performance | 6.01SC chap05.pdf | rise time, overshoot, settling time |
+| 0011 | 3 | EE | designing-proportional-controllers | 6.01SC chap05.pdf | proportional control, stability condition |
+| 0012 | 3 | EE | lumped-abstraction-and-kvl-kcl | 6.002 lectures 1–2 | lumped model, KVL, KCL |
+| 0013 | 3 | EE | node-method-and-superposition | 6.002 lectures 3–4 | node method, superposition |
+| 0014 | 3 | SE | graph-optimization-problems | 6.0002 Lec3 (graphs) | constrained graph optimization |
 | | 4 | EE | discrete-probability-and-bayesian-state-estimation | 6.01SC chap07.pdf | probability, Bayes, state estimation |
 | | 4 | EE | search-uniform-cost-and-heuristics | 6.01SC chap08.pdf + cmax.pdf | uniform-cost search, admissible heuristics |
 | | 4 | EE | thevenin-norton-equivalents | 6.002 lectures 5–6 | Thévenin/Norton equivalents |

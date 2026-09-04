@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0013 — Node Method and Superposition — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0013 · Node Method and Superposition</h1>
+<p class="meta">EE track · 6.002 Lec.3–4 · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0013-node-method-and-superposition.html">github.io</a></p>
+
+<p class="lede">KVL/KCL are laws; this lesson is the procedure. The node method turns any resistive
+network into equations you can solve mechanically — and superposition lets you split
+multi-source circuits into one-source pieces.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> "Analyse an arbitrary resistive
+network by the node method under time pressure" is literally your first mission success
+criterion. A distribution feeder with two supplies is a multi-source network — the node
+method solves it whole, superposition solves it one supply at a time.</p>
+</div>
+
+<h2>1 · Node voltages: the unknowns</h2>
+<p>Pick a reference (ground, 0 V). Every other node gets one unknown voltage
+<code>e1, e2, …</code>. Branch current between nodes follows Ohm's law:</p>
+<pre><code>current from node 1 to node 2 through R: (e1 − e2)/R</code></pre>
+
+<h2>2 · The node method in three steps</h2>
+<ol>
+<li>Write KCL at each non-reference node: sum of currents leaving = 0.</li>
+<li>Substitute <code>(ei − ej)/R</code> for each branch current.</li>
+<li>Solve the linear system for the node voltages.</li>
+</ol>
+<p>N nodes (excl. ground) → N equations, N unknowns. Mechanical every time.</p>
+
+<h2>3 · Superposition: one source at a time</h2>
+<p>In a <strong>linear</strong> circuit, the response to several sources = sum of responses
+to each source alone. Turn the others off:</p>
+<ul>
+<li>Voltage source off → <strong>short circuit</strong> (0 V).</li>
+<li>Current source off → <strong>open circuit</strong> (0 A).</li>
+</ul>
+<p>Solve each single-source circuit (often trivial dividers), then add. Never use with
+nonlinear elements — doubling the input no longer doubles the output there.</p>
+
+<h2>4 · Worked numeric: two nodes, one source</h2>
+<p>10 V source feeds node 1 through R1 = 5 Ω; node 1 to ground through R2 = 5 Ω.
+One unknown <code>e1</code>. KCL at node 1 (currents leaving):</p>
+<pre><code>(e1 − 10)/5 + e1/5 = 0
+→ 2e1 − 10 = 0  →  e1 = 5 V
+branch currents: (5−10)/5 = −1 A (1 A enters), 5/5 = 1 A (leaves) ✓</code></pre>
+<p>Superposition flavor: with a second 10 V source added at node 1 through another 5 Ω,
+solve each source's contribution (each gives 2.5 V at the node by symmetry of equal
+resistors… verify: conductance 0.2+0.2+0.2 = 0.6 S; e1 = (10·0.2+10·0.2)/0.6 = 6.67 V;
+each source contributes 3.33 V) and sum: 3.33 + 3.33 = 6.67 V ✓.</p>
+
+<h2>5 · Which tool when</h2>
+<ul>
+<li>Single small circuit → node method directly.</li>
+<li>Multiple sources, asking "what does <em>this</em> supply contribute" → superposition.</li>
+<li>Both assume linearity — check before splitting.</li>
+</ul>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What is the node method?</p>
+<ul class="options">
+<li data-answer="true">KCL at nodes yields voltages</li>
+<li data-answer="false">KVL around loops yields currents</li>
+<li data-answer="false">Resistor power balance gives heat</li>
+<li data-answer="false">Sources alone fix every voltage</li>
+</ul>
+<p class="explain">Write KCL at each node, substitute (ei−ej)/R, solve for node voltages.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What is superposition?</p>
+<ul class="options">
+<li data-answer="false">Sum of all resistor values</li>
+<li data-answer="false">Product of each source contribution</li>
+<li data-answer="true">Sum of each single-source response</li>
+<li data-answer="false">Maximum among all source responses</li>
+</ul>
+<p class="explain">Total response = sum over sources of the response with only that source on.</p>
+</li>
+
+<li class="q">
+<p class="qtext">When does superposition apply?</p>
+<ul class="options">
+<li data-answer="false">Only with dependent nonlinear sources</li>
+<li data-answer="true">Only in fully linear circuits</li>
+<li data-answer="false">Only with single power source</li>
+<li data-answer="false">Only when resistors are equal</li>
+</ul>
+<p class="explain">Superposition needs linearity: scaling + adding inputs scales + adds outputs.</p>
+</li>
+
+<li class="q">
+<p class="qtext">How are sources turned off?</p>
+<ul class="options">
+<li data-answer="false">Shorts carry zero voltage drop</li>
+<li data-answer="false">Opens carry zero branch current</li>
+<li data-answer="false">Sources keep driving while off</li>
+<li data-answer="true">Zero source means no excitation</li>
+</ul>
+<p class="explain">Voltage off = short (0 V across), current off = open (0 A through) — no excitation from that source.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.002 Lec.3–4 — node method, superposition;
+stream from the 6.002 spring-2007 YouTube playlist (URLs in RESOURCES.md).
+Laws underneath: 0012.</div>
+
+<div class="callout ask">
+<p>Solve by the node method: 10 V source, R1 = 10 Ω to node, R2 = 10 Ω to ground —
+find e1. Then add a second identical source branch and solve by superposition. Bring
+both answers — the agent checks KCL and the sum.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0012-lumped-abstraction-and-kvl-kcl.html">← 0012 KVL/KCL</a></span>
+<span><a href="0014-graph-optimization-problems.html">0014 graph opt →</a></span>
+<span><a href="../MISSION.md">mission</a></span>
+</div>
+</body>
+</html>

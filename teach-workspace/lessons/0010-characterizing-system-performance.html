@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0010 — Characterizing System Performance — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0010 · Characterizing System Performance</h1>
+<p class="meta">EE track · 6.01SC Ch.5 (step response) · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0010-characterizing-system-performance.html">github.io</a></p>
+
+<p class="lede">Pole locations told you <em>whether</em> a loop converges. This lesson tells you
+<em>how well</em> it converges — three numbers read off the step response that let you
+compare two controllers without re-running the simulation.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> A BESS charge controller that reaches
+its setpoint in 2 seconds but overshoots into an overvoltage trip is worse than one that
+takes 5 seconds cleanly. Rise time, overshoot, and settling time are the acceptance
+criteria you would write into a vendor spec — and the numbers you check first when a
+loop "works but hunts".</p>
+</div>
+
+<h2>1 · The step response and its landmarks</h2>
+<p>Apply a unit step input (0 → 1 at <code>n = 0</code>) and record the output
+<code>y[n]</code>. Three landmarks on that curve:</p>
+<ul>
+<li><strong>Rise time</strong> — how fast it first climbs toward the target.</li>
+<li><strong>Overshoot</strong> — how far it shoots past the target.</li>
+<li><strong>Settling time</strong> — when it finally stays near the target.</li>
+</ul>
+<p>Conventions: rise = 10% → 90% of final value; overshoot = peak excess as % of final;
+settling = last entry into a ±5% (sometimes ±2%) band around final.</p>
+
+<h2>2 · Rise time: speed of first approach</h2>
+<p>Rise time measures the initial climb only — it says nothing about what happens after.
+A fast rise with heavy ringing can settle <em>later</em> than a slow clean rise.</p>
+<pre><code>y[n] = 1 − 0.8ⁿ        (first-order approach to 1)
+y[0]=0, y[1]=0.20, y[2]=0.36, y[4]=0.59, y[7]=0.79, y[10]=0.89
+10% crossed at n=1, 90% near n=11 → rise ≈ 10 steps</code></pre>
+
+<h2>3 · Overshoot: the price of speed</h2>
+<p>Overshoot appears when complex pole pairs (or aggressive gains) push the response past
+target before the feedback can reverse it:</p>
+<pre><code>final value 1.00, peak 1.25 → overshoot = (1.25 − 1.00)/1.00 = 25%</code></pre>
+<p>Rule of thumb: raising loop gain shortens rise time but grows overshoot — the central
+trade you tune in 0011.</p>
+
+<h2>4 · Settling time and steady-state error</h2>
+<ul>
+<li><strong>Settling time:</strong> smallest <code>N</code> such that
+<code>|y[n] − y[∞]| ≤ 0.05·y[∞]</code> for all <code>n ≥ N</code>.</li>
+<li><strong>Steady-state error:</strong> <code>1 − y[∞]</code> for a unit step —
+what proportional control alone can never fully kill (see 0011).</li>
+</ul>
+<p>For a dominant pole <code>p</code>, settling ≈ time for <code>|p|ⁿ</code> to fall
+below 5%: <code>n ≈ ln(0.05)/ln|p|</code>. With <code>p = 0.8</code>:
+<code>ln(0.05)/ln(0.8) ≈ 13.4</code> → settles ~n = 14.</p>
+
+<h2>5 · Worked check: two tunings compared</h2>
+<p>Same plant, two gains, unit step:</p>
+<ul>
+<li>Tuning A: rise 3 steps, overshoot 30%, settles n = 22.</li>
+<li>Tuning B: rise 8 steps, overshoot 2%, settles n = 12.</li>
+</ul>
+<p>B wins on settling despite slower rise — the ringing in A costs 10 extra steps.
+Report all three numbers together; any single one misleads.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does rise time quantify?</p>
+<ul class="options">
+<li data-answer="true">Time for response to climb</li>
+<li data-answer="false">Time for overshoot to vanish</li>
+<li data-answer="false">Time for input to start</li>
+<li data-answer="false">Time for gain to settle</li>
+</ul>
+<p class="explain">Rise time is the 10%→90% climb interval — speed of first approach, nothing about ringing after.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does percent overshoot express?</p>
+<ul class="options">
+<li data-answer="false">Peak delay before response starts</li>
+<li data-answer="false">Steady error after long time</li>
+<li data-answer="true">Peak excess beyond final value</li>
+<li data-answer="false">Settling band around final value</li>
+</ul>
+<p class="explain">Overshoot = (peak − final)/final as % — how far the response shoots past target.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What defines settling time?</p>
+<ul class="options">
+<li data-answer="false">First instant response leaves zero</li>
+<li data-answer="true">Last entry into error band</li>
+<li data-answer="false">Peak moment of maximum overshoot</li>
+<li data-answer="false">Initial slope of step response</li>
+</ul>
+<p class="explain">Settling = last time the response enters and stays in the ±5% band around final value.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why specify all three metrics together?</p>
+<ul class="options">
+<li data-answer="false">Speed alone guarantees zero overshoot</li>
+<li data-answer="false">Overshoot alone fixes steady error</li>
+<li data-answer="false">Settling alone sets rise speed</li>
+<li data-answer="true">Speed ringing and precision conflict</li>
+</ul>
+<p class="explain">Faster rise costs overshoot; overshoot costs settling. Only the trio describes the tradeoff.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.01SC Ch.5 — step-response characterization (rise time,
+overshoot, settling time, steady-state error);
+<code>.../01-intro-to-eecs-1-6.01SC/other/MIT6_01SCS11_chap05.pdf</code>.
+Next: design the controller that moves these numbers (0011).</div>
+
+<div class="callout ask">
+<p>Take the worked y[n] = 1 − 0.8ⁿ above, compute y[3] and y[14] by hand, and state rise
+vs settling in your own words. Bring the numbers — the agent will check them against the
+dominant-pole formula.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0009-graph-models-and-shortest-paths.html">← 0009 graphs</a></span>
+<span><a href="0011-designing-proportional-controllers.html">0011 controllers →</a></span>
+<span><a href="../MISSION.md">mission</a></span>
+</div>
+</body>
+</html>

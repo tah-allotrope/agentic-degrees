@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0012 — Lumped Abstraction and KVL/KCL — teach-workspace</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/quiz.js" defer></script>
+</head>
+<body>
+<h1>0012 · Lumped Abstraction and KVL/KCL</h1>
+<p class="meta">EE track · 6.002 Lec.1–2 · ~30 minutes ·
+<a href="../MISSION.md">mission</a> ·
+<a href="https://tah-allotrope.github.io/agentic-degrees/teach-workspace/lessons/0012-lumped-abstraction-and-kvl-kcl.html">github.io</a></p>
+
+<p class="lede">Circuits work because we agree to ignore physics. The lumped abstraction shrinks
+each element to a point — and buys two conservation laws that solve every resistive
+network in this course.</p>
+
+<div class="callout">
+<p><strong>Why this matters for your mission.</strong> Reading a BESS one-line diagram
+<em>is</em> KVL/KCL fluency: voltages around any loop sum to zero, currents at any busbar
+sum to zero. Sizing a feeder breaker starts with the KCL sum of branch currents at that
+bus. This lesson is the vocabulary; 0013 turns it into an algorithm.</p>
+</div>
+
+<h2>1 · The lumped abstraction: what we assume away</h2>
+<p>Each element becomes a point with terminals; wires are ideal (no resistance, no delay).
+Valid when signal wavelength ≫ circuit size — true for power electronics switching at
+kHz over meter-scale hardware. When it breaks (RF, long transmission lines), use
+distributed models instead.</p>
+
+<h2>2 · KVL: voltages around a loop</h2>
+<p><strong>Kirchhoff's voltage law:</strong> around any closed loop, voltage drops sum
+to zero. Sign convention: + when traversing from + to − terminal.</p>
+<pre><code>Loop: +V1 −V2 −V3 = 0   →   V1 = V2 + V3
+(series: source equals sum of drops)</code></pre>
+
+<h2>3 · KCL: currents at a node</h2>
+<p><strong>Kirchhoff's current law:</strong> at any node, currents sum to zero (in =
+out). Charge cannot accumulate at a point.</p>
+<pre><code>Node: I1 = I2 + I3      (one in, two out)</code></pre>
+
+<h2>4 · Worked numeric: two-resistor divider</h2>
+<p>12 V source across R1 = 4 Ω + R2 = 8 Ω in series. KVL: <code>12 = V1 + V2</code>.
+Same current <code>I</code> through both (KCL at the middle node: in = out, one wire
+each way). Ohm's law per resistor: <code>V1 = 4I, V2 = 8I</code>.</p>
+<pre><code>12 = 4I + 8I = 12I  →  I = 1 A
+V1 = 4 V, V2 = 8 V.  Check: 4 + 8 = 12 ✓</code></pre>
+<p>Power check: source delivers <code>12·1 = 12 W</code>; resistors take
+<code>4 + 8 = 12 W</code> ✓ — conservation holds.</p>
+
+<h2>5 · What KVL/KCL don't give you</h2>
+<p>The laws constrain <em>topology</em> only. Branch relations (Ohm's law,
+<code>V = IR</code>) constrain <em>elements</em>. You need both — 0013 combines them
+into the node method.</p>
+
+<h2>Quiz</h2>
+<section class="quiz">
+<ol>
+<li class="q">
+<p class="qtext">What does lumped abstraction assume?</p>
+<ul class="options">
+<li data-answer="false">Fields vary inside each element</li>
+<li data-answer="false">Signals propagate at light speed</li>
+<li data-answer="true">Each element is a point</li>
+<li data-answer="false">Wires store significant magnetic energy</li>
+</ul>
+<p class="explain">Lumped = elements are points, wires ideal; valid when wavelength ≫ circuit size.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does KVL state?</p>
+<ul class="options">
+<li data-answer="true">Loop voltage drops sum zero</li>
+<li data-answer="false">Node current flows sum zero</li>
+<li data-answer="false">Power dissipated equals power stored</li>
+<li data-answer="false">Branch currents match branch voltages</li>
+</ul>
+<p class="explain">Around any closed loop, signed voltage drops sum to zero.</p>
+</li>
+
+<li class="q">
+<p class="qtext">What does KCL state?</p>
+<ul class="options">
+<li data-answer="false">Resistor voltage follows branch current</li>
+<li data-answer="false">Capacitor blocks all direct current</li>
+<li data-answer="false">Inductor resists sudden voltage change</li>
+<li data-answer="true">Node currents sum to zero</li>
+</ul>
+<p class="explain">At any node, currents in = currents out — charge cannot pile up at a point.</p>
+</li>
+
+<li class="q">
+<p class="qtext">Why do both laws plus elements suffice?</p>
+<ul class="options">
+<li data-answer="false">They replace component value equations</li>
+<li data-answer="true">Together they determine all unknowns</li>
+<li data-answer="false">They make all resistors linear</li>
+<li data-answer="false">They eliminate every independent source</li>
+</ul>
+<p class="explain">KVL+KCL constrain the topology, element laws constrain each branch — together N equations for N unknowns.</p>
+</li>
+</ol>
+</section>
+
+<div class="primary-source">
+<strong>Primary source:</strong> MIT 6.002 Lec.1–2 — lumped abstraction, KVL, KCL;
+stream from the 6.002 spring-2007 YouTube playlist (URLs in RESOURCES.md).
+Algorithm that uses them: 0013.</div>
+
+<div class="callout ask">
+<p>Redo the divider with R1 = 2 Ω, R2 = 10 Ω, source 12 V: find I, V1, V2, and verify
+power balance. Bring the four numbers — the agent checks KVL, KCL, and watts.</p>
+</div>
+
+<div class="lesson-nav">
+<span><a href="0011-designing-proportional-controllers.html">← 0011 controllers</a></span>
+<span><a href="0013-node-method-and-superposition.html">0013 node method →</a></span>
+<span><a href="../MISSION.md">mission</a></span>
+</div>
+</body>
+</html>
